@@ -14,9 +14,9 @@ public final class PlaceholderAutoCameraClass {
 
     private static SampleMecanumDrive drive_;
 
-    private TFConeScanner coneScanner;
+    private static TFConeScanner coneScanner;
 
-    public  void init(SampleMecanumDrive drive) {
+    public static void init(SampleMecanumDrive drive) {
         drive_ = drive;
 
         coneScanner.init();
