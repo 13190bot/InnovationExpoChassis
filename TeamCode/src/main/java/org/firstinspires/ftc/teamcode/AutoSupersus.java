@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 //bot always has to be placed facing opposite team terminal on side
-public class AutoSuper extends LinearOpMode {
+public class AutoSupersus extends LinearOpMode {
 
     protected int startX, startY =0;
 
@@ -53,21 +53,15 @@ public class AutoSuper extends LinearOpMode {
             PlaceholderAutoCameraClass.setParkPos();
 
             drive.followTrajectory(Traj1);
-            if (isStopRequested()) return;
 
-            drive.followTrajectory(LoopTraj);
-            if (isStopRequested()) return;
+            int i;
+            for (i = 0; i < 5; i++) {
 
-            drive.followTrajectory(LoopTraj);
-            if (isStopRequested()) return;
+                if (isStopRequested()) return;
 
-            drive.followTrajectory(LoopTraj);
-            if (isStopRequested()) return;
+                drive.followTrajectory(LoopTraj);
 
-            drive.followTrajectory(LoopTraj);
-            if (isStopRequested()) return;
-
-            drive.followTrajectory(LoopTraj);
+            }
 
             if (isStopRequested()) return;
 

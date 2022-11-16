@@ -143,6 +143,7 @@ public class DevMelloGodOpMode extends LinearOpMode {
         motorFrontRight = hardwareMap.dcMotor.get("rf");
         motorBackRight = hardwareMap.dcMotor.get("rb");
 
+
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -163,6 +164,7 @@ public class DevMelloGodOpMode extends LinearOpMode {
         clamp = hardwareMap.servo.get("clamp");
         slideMotor.setTargetPosition(0);
         slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
@@ -195,26 +197,27 @@ public class DevMelloGodOpMode extends LinearOpMode {
             if (gamepad1.a) {
                 setClampState();
             }
-            //if driver clicks up on the dpad, move the slides up
+//            if driver clicks up on the dpad, move the slides up
             if (gamepad1.x) {
-                slideMotor.setPower(0.3);
-                slideMove(Slides.DIRECTION.UP);
+                slideMotor.setPower(0.7);
             }
             //if driver clicks down on the dpad, move the slides down
             if (gamepad1.y) {
-                slideMotor.setPower(-0.3);
-                slideMove(Slides.DIRECTION.DOWN);
+                slideMotor.setPower(-0.7);
+            }
+            if (!(gamepad1.x || gamepad1.y)) {
+                slideMotor.setPower(0);
             }
 
-            if (gamepad1.dpad_up) {
-                runLift(LiftTarget.TALL);
-            } else if (gamepad1.dpad_down) {
-                runLift(LiftTarget.JUNCTION);
-            } else if (gamepad1.dpad_left) {
-                runLift( currentLiftTarget.next() );
-            } else if (gamepad1.dpad_right) {
-                runLift( currentLiftTarget.prev() );
-            }
+//            if (gamepad1.dpad_up) {
+//                runLift(LiftTarget.TALL);
+//            } else if (gamepad1.dpad_down) {
+//                runLift(LiftTarget.JUNCTION);
+//            } else if (gamepad1.dpad_left) {
+//                runLift(LiftTarget.MEDIUM);
+//            } else if (gamepad1.dpad_right) {
+//                runLift(LiftTarget.SHORT);
+//            }
 
 //            if (!(gamepad1.dpad_up )
 
