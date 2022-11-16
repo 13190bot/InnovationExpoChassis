@@ -1,9 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
-public class PositionOpMode extends OpMode{
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.*;
+
+public class PositionOpMode extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
-    ServoImpl claw;
+    Servo claw;
 
     //TODO use GetHeight to get values
     //in ticks
@@ -35,7 +44,7 @@ public class PositionOpMode extends OpMode{
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        claw = (ServoImpl) hardwareMap.servo.get("clamp");
+        claw = (Servo) hardwareMap.servo.get("clamp");
 
         telemetry.addData("init", "done");
 
@@ -55,6 +64,22 @@ public class PositionOpMode extends OpMode{
             target = MID;
         }
 
+        //mock up target position mechanic
+        if (lift.getCurrentPosition() > target){
+            lift.setPower(-.7);
+        }
+
+        else if (lift.getCurrentPosition() < target) {
+            lift.setPower(.7);
+        }
+
+        if(gamepad1.left_trigger > 0.5){
+            lift.setPower(-0.7);
+        } else if(gamepad1.right_trigger > 0.5){
+            lift.setPower(0.7);
+        } else if (gamepad1.left_trigger < 0.5 || gamepad1.right_trigger < 0.5){
+            lift.setPower(0);
+        }
 
         //run claw
         if(gamepad1.left_bumper){
@@ -87,16 +112,6 @@ public class PositionOpMode extends OpMode{
         motorBackLeft.setPower(backLeftPower);
         motorFrontRight.setPower(frontRightPower);
         motorBackRight.setPower(backRightPower);
-
-
-        //mock up target position mechanic
-        if (lift::getCurrentPosition > target){
-            lift.setPower(-.7);
-        }
-
-        else if (lift::getCurrentPosition < target) {
-            lift.setPower(.7);
-        }
 
 
     }
