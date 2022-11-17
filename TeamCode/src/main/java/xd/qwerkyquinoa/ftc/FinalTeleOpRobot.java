@@ -78,20 +78,20 @@ public class FinalTeleOpRobot extends OpMode {
 //        }
 
 
-        if(gamepad1.left_bumper){
+        if(gamepad2.left_bumper){
             lift.setPower(-0.8);
-        } else if(gamepad1.right_bumper){
+        } else if(gamepad2.right_bumper){
             lift.setPower(0.8);
-        } else if (!gamepad1.left_bumper && !gamepad1.right_bumper){
+        } else if (!gamepad2.left_bumper && !gamepad2.right_bumper){
             lift.setPower(0);
         }
 
         //run claw
-        if(gamepad1.dpad_up){
+        if(gamepad2.dpad_up){
 
             claw.setPosition(1);
 
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
 
             claw.setPosition(0);
 
@@ -103,16 +103,23 @@ public class FinalTeleOpRobot extends OpMode {
         double X = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
+        
+        int speed_change  = 1;
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
-
-
+        if(gamepad1.left_trigger > 0.2){
+            speed_change = 2;
+        } 
+        if (gamepad1.left_trigger < 0){
+            speed_change = 1;
+        }
+        
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
         //TODO please test
-        double denominator = Math.max(Math.abs(Y) + Math.abs(X) , 1);
+        double denominator = speed_change*(Math.max(Math.abs(Y) + Math.abs(X) , 1));
 
         double frontLeftPower = (Y + X ) / denominator, backLeftPower= (Y - X ) / denominator, frontRightPower = (Y - X ) / denominator, backRightPower = (Y + X ) / denominator;
 
