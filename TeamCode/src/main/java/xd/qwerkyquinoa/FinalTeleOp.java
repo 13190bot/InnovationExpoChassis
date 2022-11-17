@@ -1,5 +1,6 @@
 package xd.qwerkyquinoa;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -47,6 +48,16 @@ public class FinalTeleOp extends OpMode {
 
         claw = (Servo) hardwareMap.servo.get("clamp");
 
+        // Retrieve the IMU from the hardware map
+
+        BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        // Technically this is the default, however specifying it is clearer
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        // Without this, data retrieving from the IMU throws an exception
+        imu.initialize(parameters);
+
+
         telemetry.addData("init", "done");
 
     }
@@ -79,7 +90,7 @@ public class FinalTeleOp extends OpMode {
             lift.setPower(-0.8);
         } else if(gamepad1.right_bumper){
             lift.setPower(0.8);
-        } else if (gamepad1.a){
+        } else if (!gamepad1.left_bumper && !gamepad1.right_bumper){
             lift.setPower(0);
         }
 
@@ -101,28 +112,37 @@ public class FinalTeleOp extends OpMode {
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
+        // Read inverse IMU heading, as the IMU heading is CW positive
+
+        double botHeading = -imu.getAngularOrientation().firstAngle;
+
+
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (y + x + rx) / denominator, backLeftPower= (y - x + rx) / denominator, frontRightPower = (y - x - rx) / denominator, backRightPower = (y + x - rx) / denominator;
+        double rotX = x * Math.cos(botHeading) - y * Math.sin(botHeading);
+        double rotY = x * Math.sin(botHeading) + y * Math.cos(botHeading);
+        double frontLeftPower = (rotY + rotX + rx) / denominator, backLeftPower= (rotY - rotX + rx) / denominator, frontRightPower = (rotY - rotX - rx) / denominator, backRightPower = (rotY + rotX - rx) / denominator;
+
         if(rx>0.1) {
-            frontLeftPower = (y + x + rx) / denominator;
-            backLeftPower = (y - x + rx) / denominator;
-            frontRightPower = (y - x - rx) / denominator;
-            backRightPower = (y + x - rx) / denominator;
+            frontLeftPower = (rotY + rotX + rx) / denominator;
+            backLeftPower = (rotY - rotX + rx) / denominator;
+            frontRightPower = (rotY - rotX - rx) / denominator;
+            backRightPower = (rotY + rotX - rx) / denominator;
         }
         if(lx>0.1) {
-            frontLeftPower = (y + x - lx) / denominator;
-            backLeftPower = (y - x - lx) / denominator;
-            frontRightPower = (y - x + lx) / denominator;
-            backRightPower = (y + x + lx) / denominator;
+            frontLeftPower = (rotY + rotX - lx) / denominator;
+            backLeftPower = (rotY - rotX - lx) / denominator;
+            frontRightPower = (rotY - rotX + lx) / denominator;
+            backRightPower = (rotY + rotX + lx) / denominator;
         }
         motorFrontLeft.setPower(frontLeftPower);
         motorBackLeft.setPower(backLeftPower);
         motorFrontRight.setPower(frontRightPower);
         motorBackRight.setPower(backRightPower);
+
 
 
     }
