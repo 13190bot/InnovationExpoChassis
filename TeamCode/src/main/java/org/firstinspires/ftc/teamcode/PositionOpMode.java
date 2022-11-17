@@ -1,16 +1,26 @@
 package org.firstinspires.ftc.teamcode;
 
-public class PositionOpMode extends OpMode{
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.*;
+
+@TeleOp (name = "GuptaOpMode")
+public class PositionOpMode extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
-    ServoImpl claw;
+    Servo claw;
 
     //TODO use GetHeight to get values
     //in ticks
     final int JUNC = 0;
-    final int SHORT = 0;
-    final int MID = 0;
-    final int TALL = 0;
+    final int SHORT = 2300;
+    final int MID = 3821;
+    final int TALL = 4926;
 
     int target = 0;
 
@@ -35,7 +45,7 @@ public class PositionOpMode extends OpMode{
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        claw = (ServoImpl) hardwareMap.servo.get("clamp");
+        claw = (Servo) hardwareMap.servo.get("clamp");
 
         telemetry.addData("init", "done");
 
@@ -45,23 +55,39 @@ public class PositionOpMode extends OpMode{
     public void loop () {
 
         //set target
-        if(gamepad1.dpad_up) {
-            target = TALL;
-        } else if (gamepad1.dpad_down) {
-            target = JUNC;
-        } else if (gamepad1.dpad_left) {
-            target = SHORT;
-        } else if (gamepad1.dpad_right) {
-            target = MID;
+//        if(gamepad1.dpad_up) {
+//            target = TALL;
+//        } else if (gamepad1.dpad_down) {
+//            target = JUNC;
+//        } else if (gamepad1.dpad_left) {
+//            target = SHORT;
+//        } else if (gamepad1.dpad_right) {
+//            target = MID;
+//        }
+//
+//        //mock up target position mechanic
+//        if (lift.getCurrentPosition() > target){
+//            lift.setPower(-.7);
+//        }
+//
+//        else if (lift.getCurrentPosition() < target) {
+//            lift.setPower(.7);
+//        }
+
+        if(gamepad1.left_bumper){
+            lift.setPower(-0.7);
+        } else if(gamepad1.right_bumper){
+            lift.setPower(0.7);
+        } else if (gamepad1.a){
+            lift.setPower(0);
         }
 
-
         //run claw
-        if(gamepad1.left_bumper){
+        if(gamepad1.dpad_up){
 
             claw.setPosition(1);
 
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad1.dpad_down) {
 
             claw.setPosition(0);
 
@@ -87,16 +113,6 @@ public class PositionOpMode extends OpMode{
         motorBackLeft.setPower(backLeftPower);
         motorFrontRight.setPower(frontRightPower);
         motorBackRight.setPower(backRightPower);
-
-
-        //mock up target position mechanic
-        if (lift::getCurrentPosition > target){
-            lift.setPower(-.7);
-        }
-
-        else if (lift::getCurrentPosition < target) {
-            lift.setPower(.7);
-        }
 
 
     }

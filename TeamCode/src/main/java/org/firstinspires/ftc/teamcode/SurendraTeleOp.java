@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,10 +10,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 @TeleOp(name = "SurendraBestTeleOpNoCapGuaranteed", group = "MecanumBot")
-public class SurendraTeleOp extends OpMode{
+public class SurendraTeleOp extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
-    ServoImpl claw;
+    Servo claw;
 
     //TODO use GetHeight to get values
     //in ticks
@@ -44,7 +45,7 @@ public class SurendraTeleOp extends OpMode{
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        claw = (ServoImpl) hardwareMap.servo.get("clamp");
+        claw = (Servo) hardwareMap.servo.get("clamp");
 
         telemetry.addData("init", "done");
 
@@ -89,11 +90,11 @@ public class SurendraTeleOp extends OpMode{
 
 
         //mock up target position mechanic
-        if (lift::getCurrentPosition > target){
+        if (lift.getCurrentPosition() > target){
             lift.setPower(-.9);
         }
 
-        else if (lift::getCurrentPosition < target) {
+        else if (lift.getCurrentPosition() < target) {
             lift.setPower(.9);
         }
 
