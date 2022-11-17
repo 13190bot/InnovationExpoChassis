@@ -1,16 +1,16 @@
 package xd.qwerkyquinoa.ftc;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
-import xd.qwerkyquinoa.ftc.SleeveDetection;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import static android.os.SystemClock.sleep;
 
 /*
-
 /*
  * Copyright (c) 2021 OpenFTC Team
  *
@@ -37,9 +37,10 @@ import xd.qwerkyquinoa.ftc.SleeveDetection;
 /* * This sample demonstrates how to run analysis during INIT
  * and then snapshot that value for later use when the START
  * command is issued.*/
-@TeleOp
-public class TestManualAuto extends LinearOpMode
+@Autonomous(name = "Final Autonomous")
+public class FinalAuto extends LinearOpMode
 {
+    DcMotor lf, lb, rf, rb;
     OpenCvWebcam webcam;
     SleeveDetection pipeline;
     SleeveDetection.ParkingPosition snapshotAnalysis = SleeveDetection.ParkingPosition.LEFT;// default
@@ -71,6 +72,18 @@ public class TestManualAuto extends LinearOpMode
          */
         while (!isStarted() && !isStopRequested())
         {
+            lf = hardwareMap.dcMotor.get("lf");
+            lb = hardwareMap.dcMotor.get("lb");
+            rf = hardwareMap.dcMotor.get("rf");
+            rb = hardwareMap.dcMotor.get("rb");
+
+            DcMotor motors [] = {lf, lb, rf, rb};
+
+            for(DcMotor motor : motors) {
+                motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            }
             telemetry.addData("Realtime analysis", pipeline.getPosition());
             telemetry.update();
 
@@ -84,24 +97,32 @@ public class TestManualAuto extends LinearOpMode
          * to change as the camera view changes once the robot starts moving!
          */
         snapshotAnalysis = pipeline.getPosition();
-
         /*
          * Show that snapshot on the telemetry
          */
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
+        telemetry.addData("Time to Start Schmoovin!");
         telemetry.update();
 
         switch (snapshotAnalysis)
         {
             case LEFT:
             {
-                /* Your autonomous code */
+                rf.setPower(.5);
+                rb.setPower(-.5);
+                lf.setPower(-.5);
+                lb.setPower(.5);
+                sleep(3000);
                 break;
             }
 
             case RIGHT:
             {
-                /* Your autonomous code */
+                rf.setPower(-.5);
+                rb.setPower(.5);
+                lf.setPower(.5);
+                lb.setPower(-.5);
+                sleep(3000);
                 break;
             }
 
@@ -111,6 +132,12 @@ public class TestManualAuto extends LinearOpMode
                 break;
             }
         }
+        lf.setPower(.5);
+        lb.setPower(.5);
+        rf.setPower(.5);
+        rb.setPower(.5);
+
+        sleep(2000);
 
         /* You wouldn't have this in your autonomous, this is just to prevent the sample from ending */
         while (opModeIsActive())
@@ -120,7 +147,4 @@ public class TestManualAuto extends LinearOpMode
         }
     }
 }
-
-
-
 
