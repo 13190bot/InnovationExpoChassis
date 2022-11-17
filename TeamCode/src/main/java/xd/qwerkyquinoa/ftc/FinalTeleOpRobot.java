@@ -111,18 +111,20 @@ public class FinalTeleOpRobot extends OpMode {
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
-        //TODO check all this pleasee
-        double denominator = Math.max(Math.abs(Y) + Math.abs(X) + Math.abs(rx), 1);
+        //TODO please test
+        double denominator = Math.max(Math.abs(Y) + Math.abs(X) , 1);
 
         double frontLeftPower = (Y + X ) / denominator, backLeftPower= (Y - X ) / denominator, frontRightPower = (Y - X ) / denominator, backRightPower = (Y + X ) / denominator;
 
         if(rx>0.1) {
+            denominator = Math.max(Math.abs(Y) + Math.abs(X) + Math.abs(rx), 1);
             frontLeftPower = (Y + X + rx) / denominator;
             backLeftPower = (Y - X + rx) / denominator;
             frontRightPower = (Y - X - rx) / denominator;
             backRightPower = (Y + X - rx) / denominator;
         }
         if(lx>0.1) {
+            denominator = Math.max(Math.abs(Y) + Math.abs(X) + Math.abs(lx), 1);
             frontLeftPower = (Y + X - lx) / denominator;
             backLeftPower = (Y - X - lx) / denominator;
             frontRightPower = (Y - X + lx) / denominator;
