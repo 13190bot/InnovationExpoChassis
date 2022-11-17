@@ -39,8 +39,7 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 /* * This sample demonstrates how to run analysis during INIT
  * and then snapshot that value for later use when the START
- * command is issued. The pipeline is re-used from SkystoneDeterminationExample
- */
+ * command is issued.*/
 @TeleOp
 public class TestManualAuto extends LinearOpMode
 {
@@ -51,15 +50,9 @@ public class TestManualAuto extends LinearOpMode
     @Override
     public void runOpMode()
     {
-        /**
-         * NOTE: Many comments have been omitted from this sample for the
-         * sake of conciseness. If you're just starting out with EasyOpenCv,
-         * you should take a look at {@link InternalCamera1Example} or its
-         * webcam counterpart, {@link WebcamExample} first.
-         */
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "cam"), cameraMonitorViewId);
         pipeline = new SleeveDetection();
         webcam.setPipeline(pipeline);
 

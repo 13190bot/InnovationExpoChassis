@@ -76,9 +76,9 @@ public class FinalTeleOp extends OpMode {
 
 
         if(gamepad1.left_bumper){
-            lift.setPower(-0.7);
+            lift.setPower(-0.8);
         } else if(gamepad1.right_bumper){
-            lift.setPower(0.7);
+            lift.setPower(0.8);
         } else if (gamepad1.a){
             lift.setPower(0);
         }
@@ -97,19 +97,28 @@ public class FinalTeleOp extends OpMode {
 
         //run drive
         double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-        double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
-        double rx = gamepad1.right_stick_x;
+        double x = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+        double rx = gamepad1.right_trigger;
+        double lx = gamepad1.left_trigger;
 
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
         // at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
-        double frontLeftPower = (y + x + rx) / denominator;
-        double backLeftPower = (y - x + rx) / denominator;
-        double frontRightPower = (y - x - rx) / denominator;
-        double backRightPower = (y + x - rx) / denominator;
-
+        double frontLeftPower = (y + x + rx) / denominator, backLeftPower= (y - x + rx) / denominator, frontRightPower = (y - x - rx) / denominator, backRightPower = (y + x - rx) / denominator;
+        if(rx>0.1) {
+            frontLeftPower = (y + x + rx) / denominator;
+            backLeftPower = (y - x + rx) / denominator;
+            frontRightPower = (y - x - rx) / denominator;
+            backRightPower = (y + x - rx) / denominator;
+        }
+        if(lx>0.1) {
+            frontLeftPower = (y + x - lx) / denominator;
+            backLeftPower = (y - x - lx) / denominator;
+            frontRightPower = (y - x + lx) / denominator;
+            backRightPower = (y + x + lx) / denominator;
+        }
         motorFrontLeft.setPower(frontLeftPower);
         motorBackLeft.setPower(backLeftPower);
         motorFrontRight.setPower(frontRightPower);
