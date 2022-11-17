@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package xd.qwerkyquinoa;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -15,7 +15,7 @@ public class VisionTest extends LinearOpMode {
     OpenCvCamera camera;
 
     // Name of the Webcam to be set in the config
-    String webcamName = "Webcam 1"
+    String webcamName = "Webcam 1";
 
     @Override
     public void runOpMode() throws InterruptedException {

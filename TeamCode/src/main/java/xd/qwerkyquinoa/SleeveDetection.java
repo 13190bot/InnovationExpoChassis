@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package xd.qwerkyquinoa;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -21,7 +21,7 @@ public class SleeveDetection extends OpenCvPipeline {
         CENTER,
         RIGHT
     }
-
+//TODO Tune Camera Width and Sizes
     // TOPLEFT anchor point for the bounding box
     private static Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(145, 168);
 
