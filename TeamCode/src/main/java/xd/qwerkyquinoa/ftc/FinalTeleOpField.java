@@ -5,13 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.*;
-
-@TeleOp (name = "Final TeleOp")
-public class FinalTeleOp extends OpMode {
+@TeleOp (name = "Final TeleOp Field Centric")
+public class FinalTeleOpField extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
     Servo claw;
