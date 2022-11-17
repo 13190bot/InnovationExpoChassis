@@ -1,4 +1,4 @@
-package xd.qwerkyquinoa;
+package xd.qwerkyquinoa.ftc;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;

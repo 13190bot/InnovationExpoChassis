@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-package xd.qwerkyquinoa;
+package xd.qwerkyquinoa.ftc;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
