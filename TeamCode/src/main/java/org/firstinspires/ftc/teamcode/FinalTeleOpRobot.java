@@ -1,6 +1,5 @@
-package xd.qwerkyquinoa.ftc;
+package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,12 +12,15 @@ public class FinalTeleOpRobot extends OpMode {
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
     Servo claw;
 
+    float driveSpeedMod = 1;
+
     //TODO use GetHeight to get values (after comp)
     //in ticks
     final int JUNC = 0;
     final int SHORT = 2300;
     final int MID = 3821;
     final int TALL = 4926;
+    int speed_change  = 1;
 
     int target = 0;
 
@@ -46,8 +48,6 @@ public class FinalTeleOpRobot extends OpMode {
         claw = (Servo) hardwareMap.servo.get("clamp");
 
         // Retrieve the IMU from the hardware map
-
-
 
 
         telemetry.addData("init", "done");
@@ -78,6 +78,12 @@ public class FinalTeleOpRobot extends OpMode {
 //        }
 
 
+        if (gamepad1.left_bumper) {
+            driveSpeedMod = .5F;
+        } else {
+            driveSpeedMod = 1;
+        }
+
         if(gamepad2.left_bumper){
             lift.setPower(-0.8);
         } else if(gamepad2.right_bumper){
@@ -89,29 +95,29 @@ public class FinalTeleOpRobot extends OpMode {
         //run claw
         if(gamepad2.dpad_up){
 
-            claw.setPosition(1);
+            claw.setPosition(0.75);
 
         } else if (gamepad2.dpad_down) {
 
-            claw.setPosition(0);
+            claw.setPosition(0.5);
 
         }
 
 
         //run drive
         double Y = -gamepad1.left_stick_y; // Remember, this is reversed!
-        double X = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+        double X = gamepad1.right_stick_x * 2.2; // Counteract imperfect strafing
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
         
-        int speed_change  = 1;
+
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
-        if(gamepad1.left_trigger > 0.2){
+        if(gamepad1.left_trigger > 0.6){
             speed_change = 2;
         } 
-        if (gamepad1.left_trigger < 0){
+        else {
             speed_change = 1;
         }
         
@@ -137,23 +143,15 @@ public class FinalTeleOpRobot extends OpMode {
             frontRightPower = (Y - X + lx) / denominator;
             backRightPower = (Y + X + lx) / denominator;
         }
-        motorFrontLeft.setPower(frontLeftPower);
-        motorBackLeft.setPower(backLeftPower);
-        motorFrontRight.setPower(frontRightPower);
-        motorBackRight.setPower(backRightPower);
+        motorFrontLeft.setPower(frontLeftPower * driveSpeedMod);
+        motorBackLeft.setPower(backLeftPower * driveSpeedMod);
+        motorFrontRight.setPower(frontRightPower * driveSpeedMod);
+        motorBackRight.setPower(backRightPower * driveSpeedMod);
 
 
 
     }
 
-//    public void stop () {
-//        telemetry.addData("OpMode", "stopping");
-//
-//        lift.setTargetPosition(0);
-//        sleep(3000);
-//
-//        telemetry.addData("OpMode", "done");
-//
-//    }
+
 
 }

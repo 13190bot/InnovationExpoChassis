@@ -101,8 +101,9 @@ public class FinalAuto extends LinearOpMode
          * Show that snapshot on the telemetry
          */
         telemetry.addData("Snapshot post-START analysis", snapshotAnalysis);
-        telemetry.addData("Time to Start Schmoovin!");
         telemetry.update();
+
+        waitForStart();
 
         switch (snapshotAnalysis)
         {
