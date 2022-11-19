@@ -7,10 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import static android.os.SystemClock.sleep;
 
-@TeleOp
+@TeleOp (name = "MotorTest")
 public class MotorTest extends OpMode {
 
     DcMotor lf, lb, rf, rb;
+    DcMotor[] motors = {lf, lb, rf, rb};
 
     @Override
     public void init() {
@@ -19,6 +20,11 @@ public class MotorTest extends OpMode {
         lb = hardwareMap.dcMotor.get("lb");
         rf = hardwareMap.dcMotor.get("rf");
         rb = hardwareMap.dcMotor.get("rb");
+        lf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rf.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
 //        lf.setDirection(DcMotorSimple.Direction.REVERSE);
 //        lb.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -34,10 +40,20 @@ public class MotorTest extends OpMode {
 
         sleep(1500);
 
-        telemetry.addData("lf pos", lf::getCurrentPosition);
-        telemetry.addData("lb pos", lb::getCurrentPosition);
-        telemetry.addData("rf pos", rf::getCurrentPosition);
-        telemetry.addData("rb pos", rb::getCurrentPosition);
+
 
     }
+
+    @Override
+    public void stop() {
+        lf.setPower(0);
+        lb.setPower(0);
+        rf.setPower(0);
+        rb.setPower(0);
+        telemetry.addData("lf pos", lf.getCurrentPosition());
+        telemetry.addData("lb pos", lb.getCurrentPosition());
+        telemetry.addData("rf pos", rf.getCurrentPosition());
+        telemetry.addData("rb pos", rb.getCurrentPosition());
+    }
 }
+
