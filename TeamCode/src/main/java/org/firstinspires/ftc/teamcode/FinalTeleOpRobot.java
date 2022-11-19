@@ -9,10 +9,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp (name = "Final TeleOp Robot Centric")
 public class FinalTeleOpRobot extends OpMode {
 
+    boolean clawState = false;
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, lift;
     Servo claw;
 
-    float driveSpeedMod = 1;
+    double driveSpeedMod = 1;
 
     //TODO use GetHeight to get values (after comp)
     //in ticks
@@ -79,27 +80,35 @@ public class FinalTeleOpRobot extends OpMode {
 
 
         if (gamepad1.left_bumper) {
-            driveSpeedMod = .5F;
-        } else {
-            driveSpeedMod = 1;
+            if(driveSpeedMod == 1) {
+                driveSpeedMod = .5;
+            }
+
+            else {
+                driveSpeedMod = 1;
+            }
         }
 
-        if(gamepad2.left_bumper){
+        if(gamepad2.dpad_down ){
             lift.setPower(-0.8);
-        } else if(gamepad2.right_bumper){
+        } else if(gamepad2.dpad_up){
             lift.setPower(0.8);
-        } else if (!gamepad2.left_bumper && !gamepad2.right_bumper){
+        } else{
             lift.setPower(0);
         }
 
         //run claw
-        if(gamepad2.dpad_up){
+        if(gamepad2.right_bumper){
 
-            claw.setPosition(0.75);
+            if(clawState){
+                claw.setPosition(0.5);
+            }
 
-        } else if (gamepad2.dpad_down) {
+            else {
+                claw.setPosition(0.75);
+            }
 
-            claw.setPosition(0.5);
+            clawState = !clawState;
 
         }
 
@@ -114,12 +123,12 @@ public class FinalTeleOpRobot extends OpMode {
 
         // Read inverse IMU heading, as the IMU heading is CW positive
 
-        if(gamepad1.left_trigger > 0.6){
-            speed_change = 2;
-        } 
-        else {
-            speed_change = 1;
-        }
+//        if(gamepad1.left_trigger > 0.6){
+//            speed_change = 2;
+//        }
+//        else {
+//            speed_change = 1;
+//        }
         
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
