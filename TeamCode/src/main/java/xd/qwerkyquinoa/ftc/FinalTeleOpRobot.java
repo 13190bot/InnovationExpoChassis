@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package xd.qwerkyquinoa.ftc;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
