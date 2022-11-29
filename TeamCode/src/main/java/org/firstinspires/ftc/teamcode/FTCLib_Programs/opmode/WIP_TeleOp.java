@@ -19,11 +19,34 @@ public class WIP_TeleOp extends BaseOpMode {
     private DefaultFieldCentricDrive fieldCentricDrive;
     private DefaultRobotCentricDrive robotCentricDrive;
 
-    private Button changeCenter, moveGround, moveLow, moveMedium, moveHigh;
+    private Button changeCenter, moveGround, moveLow, moveMedium, moveHigh, moveCancel;
+
+
 
     @Override
     public void initialize() {
         super.initialize();
+
+        /*
+        Player1
+            Left Stick -> Drive
+            Left Stick Click -> Change Mode
+
+        Player2
+            START -> moveCancel (Cancel all current movement)
+            A -> moveGround (Ground junction)
+            X -> moveLow (Low junction)
+            B -> moveMedium (Medium junction)
+            Y -> moveHigh (High junction)
+              Y
+            X   B
+              A
+
+         */
+
+
+
+
 
         driverOp1 = new GamepadEx(gamepad1);
         driverOp2 = new GamepadEx(gamepad2);
@@ -36,7 +59,21 @@ public class WIP_TeleOp extends BaseOpMode {
         changeCenter = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_STICK_BUTTON)).
                 toggleWhenPressed(fieldCentricDrive, robotCentricDrive);
 
-//        moveGround = (new GamepadButton(driverOp1, GamepadKeys.Button.A)).whenPressed()
+
+
+
+        /*
+        moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed();
+        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).whenPressed();
+        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.X)).whenPressed();
+        moveMedium = (new GamepadButton(driverOp2, GamepadKeys.Button.B)).whenPressed();
+        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed();
+         */
+
+
+
+
+
 
 
 
