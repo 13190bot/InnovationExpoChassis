@@ -28,11 +28,30 @@ class openCV_auto extends OpMode {
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "cam"), cameraMonitorViewId);
 
         webcam.setPipeline(pipeline);
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()) {
+
+            public void onOpened() {
+                webcam.startStreaming(320, 240);
+            }
+
+
+        }
+
+
+
+
+
+
+    }
+        @Override
+        public void loop() {
+
+        }
+        public void OnError(int errorCode) {
+
+        telemetry.addData("Error", "There was an error in accessing the camera");
     }
 
-    @Override
-    public void loop() {
 
-    }
 
 }
