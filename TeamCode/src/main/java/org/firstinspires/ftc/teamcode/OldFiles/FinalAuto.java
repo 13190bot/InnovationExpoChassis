@@ -60,7 +60,7 @@ public class FinalAuto extends LinearOpMode
             @Override
             public void onOpened()
             {
-                webcam.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
+                webcam.startStreaming(320,240, OpenCvCameraRotation.UPRIGHT); // 320x240 for lower res and higher performance
             }
 
             @Override
@@ -131,6 +131,7 @@ public class FinalAuto extends LinearOpMode
             case CENTER:
             {
                 /* Your autonomous code*/
+
                 break;
             }
         }
