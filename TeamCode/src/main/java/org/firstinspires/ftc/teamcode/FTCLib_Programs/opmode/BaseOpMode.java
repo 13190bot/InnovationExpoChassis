@@ -23,6 +23,9 @@ public class BaseOpMode extends CommandOpMode {
     protected DriveSubsystem drive;
     protected ArmSubsystem arm;
 
+    protected RevIMU imu;
+
+
 
     @Override
     public void initialize() {
@@ -43,7 +46,8 @@ public class BaseOpMode extends CommandOpMode {
         bL = new MotorEx(hardwareMap, "leftBack");
         bR = new MotorEx(hardwareMap, "rightBack");
 
-
+        imu = new RevIMU(hardwareMap);
+        imu.init();
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
         slideRight = hardwareMap.dcMotor.get("slideR");

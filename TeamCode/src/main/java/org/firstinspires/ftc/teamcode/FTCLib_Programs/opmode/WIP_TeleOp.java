@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.FTCLib_Programs.command.drive.DefaultFieldCentricDrive;
 import org.firstinspires.ftc.teamcode.FTCLib_Programs.command.drive.DefaultRobotCentricDrive;
 
-@TeleOp(name = "Basic Drive")
+@TeleOp(name = "BasicDrive")
 public class WIP_TeleOp extends BaseOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 

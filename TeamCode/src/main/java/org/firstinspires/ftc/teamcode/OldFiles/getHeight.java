@@ -1,4 +1,4 @@
-package xd.qwerkyquinoa.ftc;
+package org.firstinspires.ftc.teamcode.OldFiles;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "GetHeight")
-public class GetHeight extends OpMode{
+@TeleOp(name = "getHeight")
+public class getHeight extends OpMode{
 
     DcMotor lift;
 

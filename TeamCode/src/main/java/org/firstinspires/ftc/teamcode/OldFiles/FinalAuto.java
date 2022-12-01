@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OldFiles;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -37,11 +38,11 @@ import static android.os.SystemClock.sleep;
 /* * This sample demonstrates how to run analysis during INIT
  * and then snapshot that value for later use when the START
  * command is issued.*/
-@Autonomous(name = "Final Autonomous")
+@TeleOp(name = "Final Autonomous")
 public class FinalAuto extends LinearOpMode
 {
 
-    DcMotor lf, lb, rf, rb;
+//    DcMotor lf, lb, rf, rb;
     OpenCvWebcam webcam;
     SleeveDetection pipeline;
     SleeveDetection.ParkingPosition snapshotAnalysis = SleeveDetection.ParkingPosition.LEFT;// default
@@ -51,7 +52,7 @@ public class FinalAuto extends LinearOpMode
     {
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "cam"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         pipeline = new SleeveDetection();
         webcam.setPipeline(pipeline);
 
@@ -73,20 +74,19 @@ public class FinalAuto extends LinearOpMode
          */
         while (!isStarted() && !isStopRequested())
         {
-            lf = hardwareMap.dcMotor.get("lf");
-            lb = hardwareMap.dcMotor.get("lb");
-            rf = hardwareMap.dcMotor.get("rf");
-            rb = hardwareMap.dcMotor.get("rb");
-
-            DcMotor[] motors = {lf, lb, rf, rb};
-
-            for(DcMotor motor : motors) {
-                motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            }
-            telemetry.addData("Realtime analysis", pipeline.getPosition());
-            telemetry.update();
+//            lf = hardwareMap.dcMotor.get("lf");
+//            lb = hardwareMap.dcMotor.get("lb");
+//            rf = hardwareMap.dcMotor.get("rf");
+//            rb = hardwareMap.dcMotor.get("rb");
+//
+//            DcMotor[] motors = {lf, lb, rf, rb};
+//
+//            for(DcMotor motor : motors) {
+//                motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//            }
+//            telemetry.addData("Realtime analysis", pipeline.getPosition());
 
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
@@ -110,20 +110,25 @@ public class FinalAuto extends LinearOpMode
         {
             case LEFT:
             {
-                rf.setPower(.5);
-                rb.setPower(-.5);
-                lf.setPower(-.5);
-                lb.setPower(.5);
+//                rf.setPower(.5);
+//                rb.setPower(-.5);
+//                lf.setPower(-.5);
+//                lb.setPower(.5);
+                telemetry.addData("Park Left", "LEFT");
+                telemetry.update();
                 sleep(3000);
                 break;
             }
 
             case RIGHT:
             {
-                rf.setPower(-.5);
-                rb.setPower(.5);
-                lf.setPower(.5);
-                lb.setPower(-.5);
+//                rf.setPower(-.5);
+//                rb.setPower(.5);
+//                lf.setPower(.5);
+//                lb.setPower(-.5);
+//                sleep(3000);
+                telemetry.addData("Park Right", "RIGHT");
+                telemetry.update();
                 sleep(3000);
                 break;
             }
@@ -131,14 +136,17 @@ public class FinalAuto extends LinearOpMode
             case CENTER:
             {
                 /* Your autonomous code*/
+                telemetry.addData("Park Center", "CENTER");
+                telemetry.update();
+                sleep(3000);
 
                 break;
             }
         }
-        lf.setPower(.5);
-        lb.setPower(.5);
-        rf.setPower(.5);
-        rb.setPower(.5);
+//        lf.setPower(.5);
+//        lb.setPower(.5);
+//        rf.setPower(.5);
+//        rb.setPower(.5);
 
         sleep(2000);
 
