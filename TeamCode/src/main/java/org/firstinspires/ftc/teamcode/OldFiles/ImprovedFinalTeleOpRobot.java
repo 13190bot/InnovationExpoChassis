@@ -91,6 +91,11 @@ public class ImprovedFinalTeleOpRobot extends OpMode {
 
         else if ((liftState == 2) && (lift.getCurrentPosition() < target)) {
             lift.setPower(.7);
+
+        }
+
+        else{
+            lift.setPower(0);
         }
 
 

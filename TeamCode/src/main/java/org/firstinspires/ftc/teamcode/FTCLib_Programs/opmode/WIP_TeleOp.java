@@ -56,8 +56,8 @@ public class WIP_TeleOp extends BaseOpMode {
         robotCentricDrive = new DefaultRobotCentricDrive(drive, () -> driverOp1.getLeftX(),
                 () -> driverOp1.getRightX(), () -> driverOp1.getLeftY());
 
-        changeCenter = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_STICK_BUTTON)).
-                toggleWhenPressed(fieldCentricDrive, robotCentricDrive);
+        changeCenter = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_STICK_BUTTON))
+                .toggleWhenPressed(fieldCentricDrive, robotCentricDrive);
 
 
 

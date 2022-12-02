@@ -109,6 +109,13 @@ public class ArmSubsystem extends SubsystemBase{
 
     }
 
+    public int[] getLiftsPos () {
+        return new int[] {
+                liftL.getCurrentPosition(),
+                liftR.getCurrentPosition()
+        };
+    }
+
 
 
 
