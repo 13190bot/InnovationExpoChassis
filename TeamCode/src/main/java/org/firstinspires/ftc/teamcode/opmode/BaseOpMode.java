@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FTCLib_Programs.opmode;
+package org.firstinspires.ftc.teamcode.opmode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -6,12 +6,10 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.subsystem.ArmSubsystem;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.subsystem.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

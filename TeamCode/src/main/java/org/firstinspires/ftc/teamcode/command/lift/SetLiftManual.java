@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.FTCLib_Programs.command.lift;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.command.SimpleArmCommand;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.subsystem.ArmSubsystem;
+package org.firstinspires.ftc.teamcode.command.lift;
+import org.firstinspires.ftc.teamcode.command.SimpleArmCommand;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 
 public class SetLiftManual extends SimpleArmCommand {

@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.FTCLib_Programs.command.arm;
+package org.firstinspires.ftc.teamcode.command.arm;
 
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.command.SimpleArmCommand;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.subsystem.ArmSubsystem;
+import org.firstinspires.ftc.teamcode.command.SimpleArmCommand;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 public class ScoreConeAt extends SimpleArmCommand {
     int targetPos;

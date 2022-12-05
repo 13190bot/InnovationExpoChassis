@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FTCLib_Programs.opmode;
+package org.firstinspires.ftc.teamcode.opmode;
 
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;

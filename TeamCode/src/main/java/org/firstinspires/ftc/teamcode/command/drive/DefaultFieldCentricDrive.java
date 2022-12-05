@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.FTCLib_Programs.command.drive;
+package org.firstinspires.ftc.teamcode.command.drive;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.FTCLib_Programs.subsystem.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.util.function.DoubleSupplier;
 
