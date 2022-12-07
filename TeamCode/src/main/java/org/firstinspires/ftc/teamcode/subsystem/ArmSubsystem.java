@@ -13,12 +13,21 @@ public class ArmSubsystem extends SubsystemBase{
     private final DcMotor liftL, liftR;
 
     //TODO tune values appropriately
-    public static int LOW = 0;
-    public static int MEDIUM = 0;
-    public static int HIGH = 0;
-    public static int GROUND = 0;
+    private static int LOW = 0;
+    private static int MEDIUM = 0;
+    private static int HIGH = 0;
+    private static int GROUND = 0;
 
     double speed = 0.5;
+
+    public enum Junction {
+        NONE,
+        GROUND,
+        LOW,
+        MEDIUM,
+        HIGH
+    }
+
 
     public ArmSubsystem(ServoEx claw, ServoEx arm1, ServoEx arm2, DcMotor liftL, DcMotor liftR) {
         this.claw = claw;
@@ -116,7 +125,25 @@ public class ArmSubsystem extends SubsystemBase{
         };
     }
 
+    public void setJunction(ArmSubsystem arm, Junction junction) {
+        switch(junction) {
+            case NONE:
+                // todo
 
+                break;
+            case GROUND:
+                arm.setLiftPosition(GROUND);
+                break;
+            case LOW:
+                arm.setLiftPosition(LOW);
+                break;
+            case MEDIUM:
+                arm.setLiftPosition(MEDIUM);
+                break;
+            case HIGH:
+                arm.setLiftPosition(HIGH);
+        }
+    }
 
 
 }

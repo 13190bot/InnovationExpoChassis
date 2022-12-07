@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.command.drive.DefaultFieldCentricDrive;
 import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
 
+import org.firstinspires.ftc.teamcode.command.lift.SetJunction;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
+
 @TeleOp(name = "BasicDrive")
 public class WIP_TeleOp extends BaseOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
@@ -61,13 +64,24 @@ public class WIP_TeleOp extends BaseOpMode {
 
 
 
-        /*
-        moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed();
-        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).whenPressed();
-        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.X)).whenPressed();
-        moveMedium = (new GamepadButton(driverOp2, GamepadKeys.Button.B)).whenPressed();
-        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed();
-         */
+        // /*
+        // W code
+        moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed(
+                new SetJunction(arm, ArmSubsystem.Junction.NONE)
+        );
+        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).whenPressed(
+                new SetJunction(arm, ArmSubsystem.Junction.GROUND)
+        );
+        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.X)).whenPressed(
+                new SetJunction(arm, ArmSubsystem.Junction.LOW)
+        );
+        moveMedium = (new GamepadButton(driverOp2, GamepadKeys.Button.B)).whenPressed(
+                new SetJunction(arm, ArmSubsystem.Junction.MEDIUM)
+        );
+        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed(
+                new SetJunction(arm, ArmSubsystem.Junction.HIGH)
+        );
+        // */
 
 
 
