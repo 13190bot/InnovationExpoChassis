@@ -128,8 +128,7 @@ public class ArmSubsystem extends SubsystemBase{
     public void setJunction(ArmSubsystem arm, Junction junction) {
         switch(junction) {
             case NONE:
-                // todo
-
+                arm.setLiftPosition(getLiftsPos()[0]);
                 break;
             case GROUND:
                 arm.setLiftPosition(GROUND);
