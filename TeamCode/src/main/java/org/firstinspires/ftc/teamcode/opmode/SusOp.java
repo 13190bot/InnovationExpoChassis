@@ -14,14 +14,13 @@ import org.firstinspires.ftc.teamcode.command.claw.*;
 
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
-@TeleOp(name = "ThisIsSoSus")
+@TeleOp(name = "Main TeleOp")
 public class SusOp extends BaseOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
     private GamepadEx driverOp2;
 
-    private DefaultFieldCentricDrive fieldCentricDrive;
     private DefaultRobotCentricDrive robotCentricDrive;
 
     private SlowMode slowMode;
@@ -46,10 +45,12 @@ public class SusOp extends BaseOpMode {
 
         /*
         Player1
-            Left Stick -> Drive
-            //TODO try and change this so driving forward and back is left joystick while left and right is right joystick
+            Left Stick X -> Strafe
+            Right Stick Y -> Forward and Back
+            Right Stick X -> turning
+            //TODO try and change this so turning is triggers
 
-            Left bumper -> slow mode
+            Left bumper -> toggles between slow mode and normal mode
 
         Player2
             START -> moveCancel (Cancel all current movement)
@@ -74,20 +75,23 @@ public class SusOp extends BaseOpMode {
         driverOp2 = new GamepadEx(gamepad2);
 
         robotCentricDrive = new DefaultRobotCentricDrive(drive, () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightX(), () -> driverOp1.getLeftY());
+                () -> driverOp1.getRightY(), () -> driverOp1.getRightX());
 
         slowMode = new SlowMode(drive, () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightX(), () -> driverOp1.getLeftY());
+                () -> driverOp1.getRightY(), () -> driverOp1.getRightX());
 
         //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_BUMPER))
                 .toggleWhenPressed(robotCentricDrive,slowMode);
 
         //arm, slides, and claw manipulation
+
+        //flips between open and close;
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
 
+        //flips between arm out and arm in
         goHome = new GoHome(arm);
         goScore = new GoScore(arm);
         armManip = (new GamepadButton(driverOp2, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
