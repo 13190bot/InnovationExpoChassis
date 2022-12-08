@@ -18,6 +18,7 @@ public class ArmSubsystem extends SubsystemBase{
     private static int HIGH = 0;
     private static int GROUND = 0;
 
+    //change this to change lift speed
     double speed = 0.5;
 
     public enum Junction {

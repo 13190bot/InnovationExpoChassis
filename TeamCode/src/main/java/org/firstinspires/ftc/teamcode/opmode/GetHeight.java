@@ -7,34 +7,46 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "GetHeight")
 public class GetHeight extends OpMode{
 
-    DcMotor lift;
+    DcMotor slideLeft, slideRight;
+
+    double speed = 0.7;
 
     public void init () {
 
-        lift = hardwareMap.dcMotor.get("slideMotor");
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slideLeft = hardwareMap.dcMotor.get("slideL");
+        slideRight = hardwareMap.dcMotor.get("slideR");
+
+
+        slideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        slideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
     public void start () {
 
-        lift.setPower(0);
+        slideRight.setPower(0);
+        slideLeft.setPower(0);
 
     }
 
     public void loop () {
 
         if(gamepad1.left_bumper){
-            lift.setPower(0.7);
+            slideRight.setPower(-speed);
+            slideLeft.setPower(-speed);
         }
 
         if(gamepad1.right_bumper){
-            lift.setPower(-0.7);
+            slideRight.setPower(speed);
+            slideLeft.setPower(speed);
         }
 
         if(gamepad1.a){
-            lift.setPower(0);
+            slideRight.setPower(0);
+            slideLeft.setPower(0);
         }
 
 //        telemetry.addData("lift pos", lift::getCurrentPosition);
