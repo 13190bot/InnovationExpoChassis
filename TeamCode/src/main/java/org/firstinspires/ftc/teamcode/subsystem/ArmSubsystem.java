@@ -12,7 +12,7 @@ public class ArmSubsystem extends SubsystemBase{
 
     private final DcMotor liftL, liftR;
 
-    //TODO tune values appropriately
+    //TODO tune values appropriately (otherwise no work)
     private static int LOW = 0;
     private static int MEDIUM = 0;
     private static int HIGH = 0;
@@ -82,19 +82,21 @@ public class ArmSubsystem extends SubsystemBase{
     /**
         true = goes up, false = go down
     */
-    public void setLiftManual(boolean isGoingUp){
+
+    public void setLiftUp(){
         liftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         liftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        if(isGoingUp){
-            liftL.setPower(speed);
-            liftR.setPower(speed);
-        }
-        else{
-            liftL.setPower(-speed);
-            liftR.setPower(-speed);
-        }
-
+        liftL.setPower(speed);
+        liftR.setPower(speed);
     }
+    public void setLiftDown(){
+        liftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftL.setPower(-speed);
+        liftR.setPower(-speed);
+    }
+
+
 
     public void setLiftAuto(){
         liftR.setTargetPosition(liftR.getCurrentPosition());
@@ -106,16 +108,13 @@ public class ArmSubsystem extends SubsystemBase{
     public void grabConePrep() {
         setLiftPosition(0);
         armHome();
-        //TODO ask dylan if he wants to to automatically grab and close for him
-        clawOpen();
     }
+
+
 
     public void scoreCone(int junc) {
         setLiftPosition(junc);
         armScore();
-        //TODO read top one
-        clawOpen();
-
     }
 
     public int[] getLiftsPos () {

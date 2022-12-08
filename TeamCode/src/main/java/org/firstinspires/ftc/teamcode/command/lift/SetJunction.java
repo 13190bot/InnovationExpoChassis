@@ -15,6 +15,7 @@ public class SetJunction extends CommandBase {
 
     @Override
     public void initialize() {
+        arm.setLiftAuto();
         arm.setJunction(arm, junction);
     }
 

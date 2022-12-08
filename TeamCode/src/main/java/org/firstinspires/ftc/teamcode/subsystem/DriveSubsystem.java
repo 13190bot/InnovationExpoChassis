@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 public class DriveSubsystem extends SubsystemBase {
     private final MecanumDrive drive;
 
+    public double slowFactor = 3;
     public DriveSubsystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR){
         drive = new MecanumDrive(fL, fR, bL, bR);
     }
@@ -18,5 +19,8 @@ public class DriveSubsystem extends SubsystemBase {
     public void driveFieldCentric(double strafeSpeed, double forwardSpeed,
                                   double turnSpeed, double gyroAngle){
         drive.driveFieldCentric(strafeSpeed, forwardSpeed, turnSpeed, gyroAngle);
+    }
+    public void driveRobotCentricSlowMode(double strafeSpeed, double forwardSpeed, double turnSpeed){
+        drive.driveRobotCentric(strafeSpeed / slowFactor, forwardSpeed / slowFactor, turnSpeed / slowFactor);
     }
 }
