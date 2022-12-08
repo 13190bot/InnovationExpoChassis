@@ -39,17 +39,22 @@ public class GetHeight extends OpMode{
             slideLeft.setPower(-speed);
         }
 
-        if(gamepad1.right_bumper){
+        else if(gamepad1.right_bumper){
             slideRight.setPower(speed);
             slideLeft.setPower(speed);
         }
 
-        if(gamepad1.a){
+        else{
             slideRight.setPower(0);
             slideLeft.setPower(0);
         }
 
-//        telemetry.addData("lift pos", lift::getCurrentPosition);
+        if(gamepad1.a){
+            telemetry.addData("SlideR pos", slideRight.getCurrentPosition());
+            telemetry.addData("SlideL pos", slideLeft.getCurrentPosition());
+            telemetry.update();
+        }
+       
 
     }
 
