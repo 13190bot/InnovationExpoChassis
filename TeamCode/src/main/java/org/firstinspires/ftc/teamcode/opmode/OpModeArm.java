@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.command.lift.SetLiftDown;
 import org.firstinspires.ftc.teamcode.command.lift.SetLiftUp;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
-@TeleOp(name = "Main TeleOp")
+@TeleOp(name = "Arm TeleOp")
 public class OpModeArm extends BaseTotalOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
