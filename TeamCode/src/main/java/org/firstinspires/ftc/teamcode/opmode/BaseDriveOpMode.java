@@ -8,18 +8,17 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BaseOpMode extends CommandOpMode {
+public class BaseDriveOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DcMotor slideLeft, slideRight;
     protected ServoEx claw,arm1,arm2;
     protected DriveSubsystem drive;
-    protected ArmSubsystem arm;
+
 
     protected RevIMU imu;
 
@@ -30,8 +29,6 @@ public class BaseOpMode extends CommandOpMode {
         initHardware();
         setUpHardwareDevices();
         drive = new DriveSubsystem(fL, fR, bL, bR);
-        arm = new ArmSubsystem(claw, arm1, arm2, slideLeft, slideRight);
-
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
@@ -46,14 +43,6 @@ public class BaseOpMode extends CommandOpMode {
 
         imu = new RevIMU(hardwareMap);
         imu.init();
-
-        slideLeft = hardwareMap.dcMotor.get("slideL");
-        slideRight = hardwareMap.dcMotor.get("slideR");
-
-        //TODO find min and max
-        claw = new SimpleServo(hardwareMap, "claw", 0, 120);
-        arm1 = new SimpleServo(hardwareMap, "arm1", 0, 120);
-        arm2 = new SimpleServo(hardwareMap, "arm2", 0, 120);
 
     }
     protected void setUpHardwareDevices() {
@@ -70,11 +59,6 @@ public class BaseOpMode extends CommandOpMode {
         telemetry.addData("leftBack Power", round(bL.motor.getPower()));
         telemetry.addData("rightFront Power", round(fR.motor.getPower()));
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
-
-        telemetry.addData("claw Position", claw.getPosition());
-
-        telemetry.addData("armServo1 Position", arm1.getPosition());
-        telemetry.addData("armServo2 Position", arm2.getPosition());
 
         telemetry.update();
     }
