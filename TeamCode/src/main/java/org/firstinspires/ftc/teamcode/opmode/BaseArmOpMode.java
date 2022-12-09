@@ -15,12 +15,12 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BaseTotalOpMode extends CommandOpMode {
-    protected MotorEx fL, fR, bL, bR;
+public class BaseArmOpMode extends CommandOpMode {
+
     protected DcMotor slideLeft, slideRight;
     protected ServoEx claw,arm1,arm2;
-    protected DriveSubsystem drive;
     protected ArmSubsystem arm;
+
 
 
 
@@ -29,7 +29,6 @@ public class BaseTotalOpMode extends CommandOpMode {
     public void initialize() {
         initHardware();
         setUpHardwareDevices();
-        drive = new DriveSubsystem(fL, fR, bL, bR);
         arm = new ArmSubsystem(claw, arm1, arm2, slideLeft, slideRight);
 
 
@@ -39,10 +38,6 @@ public class BaseTotalOpMode extends CommandOpMode {
     }
 
     protected void initHardware() {
-        fL = new MotorEx(hardwareMap, "leftFront");
-        fR = new MotorEx(hardwareMap, "rightFront");
-        bL = new MotorEx(hardwareMap, "leftBack");
-        bR = new MotorEx(hardwareMap, "rightBack");
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
         slideRight = hardwareMap.dcMotor.get("slideR");
@@ -54,35 +49,19 @@ public class BaseTotalOpMode extends CommandOpMode {
 
     }
     protected void setUpHardwareDevices() {
-        //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
+        //TODO make sure correct motor is reversed
         slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
     }
 
     @Override
     public void run() {
         super.run();
-        telemetry.addData("leftFront Power", round(fL.motor.getPower()));
-        telemetry.addData("leftBack Power", round(bL.motor.getPower()));
-        telemetry.addData("rightFront Power", round(fR.motor.getPower()));
-        telemetry.addData("rightBack Power", round(bR.motor.getPower()));
-
         telemetry.addData("claw Position", claw.getPosition());
 
         telemetry.addData("armServo1 Position", arm1.getPosition());
         telemetry.addData("armServo2 Position", arm2.getPosition());
 
         telemetry.update();
-    }
-
-    private static double round(double value, @SuppressWarnings("SameParameterValue") int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        return new BigDecimal(Double.toString(value)).setScale(places, RoundingMode.HALF_UP).doubleValue();
-    }
-
-    private static double round(double value) {
-        return round(value, 4);
     }
 
 

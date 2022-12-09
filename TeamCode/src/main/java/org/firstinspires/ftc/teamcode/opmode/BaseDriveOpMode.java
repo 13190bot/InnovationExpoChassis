@@ -4,10 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.hardware.RevIMU;
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
@@ -15,19 +12,14 @@ import java.math.RoundingMode;
 
 public class BaseDriveOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
-    protected DcMotor slideLeft, slideRight;
-    protected ServoEx claw,arm1,arm2;
     protected DriveSubsystem drive;
 
-
-    protected RevIMU imu;
 
 
 
     @Override
     public void initialize() {
         initHardware();
-        setUpHardwareDevices();
         drive = new DriveSubsystem(fL, fR, bL, bR);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -41,17 +33,7 @@ public class BaseDriveOpMode extends CommandOpMode {
         bL = new MotorEx(hardwareMap, "leftBack");
         bR = new MotorEx(hardwareMap, "rightBack");
 
-        imu = new RevIMU(hardwareMap);
-        imu.init();
-
     }
-    protected void setUpHardwareDevices() {
-        //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
-        fL.setInverted(true);
-        bL.setInverted(true);
-
-    }
-
     @Override
     public void run() {
         super.run();
