@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class ArmSubsystem extends SubsystemBase{
 
-    private final ServoEx arm1, arm2, claw;
+    private final ServoEx claw;
 
     private final DcMotor liftL, liftR;
 
@@ -30,10 +30,8 @@ public class ArmSubsystem extends SubsystemBase{
     }
 
 
-    public ArmSubsystem(ServoEx claw, ServoEx arm1, ServoEx arm2, DcMotor liftL, DcMotor liftR) {
+    public ArmSubsystem(ServoEx claw, DcMotor liftL, DcMotor liftR) {
         this.claw = claw;
-        this.arm1 = arm1;
-        this.arm2 = arm2;
         this.liftL = liftL;
         this.liftR = liftR;
 
@@ -53,23 +51,6 @@ public class ArmSubsystem extends SubsystemBase{
     public void clawOpen() {claw.setPosition(1);}
 
     public void clawClose() {claw.setPosition(0);}
-
-    //TODO tune values after servo placed
-    public void armHome() {
-        arm1.setPosition(0);
-        arm2.setPosition(0);
-    }
-
-    //TODO tune values after servo placed
-    public void armScore() {
-        arm1.setPosition(1);
-        arm2.setPosition(1);
-    }
-
-    public void armPos(double pos){
-        arm1.setPosition(pos);
-        arm2.setPosition(pos);
-    }
 
     public void setLiftPosition(int targetPosition) {
         liftL.setTargetPosition(targetPosition);
@@ -97,18 +78,6 @@ public class ArmSubsystem extends SubsystemBase{
         liftL.setTargetPosition(liftL.getCurrentPosition());
         liftL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
-
-    public void grabConePrep() {
-        setLiftPosition(0);
-        armHome();
-    }
-
-
-
-    public void scoreCone(int junc) {
-        setLiftPosition(junc);
-        armScore();
     }
 
     public int[] getLiftsPos () {

@@ -5,8 +5,6 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.command.arm.GoHome;
-import org.firstinspires.ftc.teamcode.command.arm.GoScore;
 import org.firstinspires.ftc.teamcode.command.claw.DropCone;
 import org.firstinspires.ftc.teamcode.command.claw.GrabCone;
 import org.firstinspires.ftc.teamcode.command.lift.SetJunction;
@@ -20,10 +18,6 @@ public class OpModeArm extends BaseTotalOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
-
-    private GoHome goHome;
-
-    private GoScore goScore;
 
     private DropCone dropCone;
 
@@ -68,11 +62,6 @@ public class OpModeArm extends BaseTotalOpMode {
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
-
-        //flips between arm out and arm in
-        goHome = new GoHome(arm);
-        goScore = new GoScore(arm);
-        armManip = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
 
         //manual lift code;
         isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));

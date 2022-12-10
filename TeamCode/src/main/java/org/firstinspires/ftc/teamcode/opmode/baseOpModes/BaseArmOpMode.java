@@ -18,7 +18,7 @@ import java.math.RoundingMode;
 public class BaseArmOpMode extends CommandOpMode {
 
     protected DcMotor slideLeft, slideRight;
-    protected ServoEx claw,arm1,arm2;
+    protected ServoEx claw;
     protected ArmSubsystem arm;
 
 
@@ -29,7 +29,7 @@ public class BaseArmOpMode extends CommandOpMode {
     public void initialize() {
         initHardware();
         setUpHardwareDevices();
-        arm = new ArmSubsystem(claw, arm1, arm2, slideLeft, slideRight);
+        arm = new ArmSubsystem(claw,slideLeft, slideRight);
 
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -44,8 +44,6 @@ public class BaseArmOpMode extends CommandOpMode {
 
         //TODO find min and max
         claw = new SimpleServo(hardwareMap, "claw", 0, 120);
-        arm1 = new SimpleServo(hardwareMap, "arm1", 0, 120);
-        arm2 = new SimpleServo(hardwareMap, "arm2", 0, 120);
 
     }
     protected void setUpHardwareDevices() {
@@ -58,9 +56,8 @@ public class BaseArmOpMode extends CommandOpMode {
         super.run();
         telemetry.addData("claw Position", claw.getPosition());
 
-        telemetry.addData("armServo1 Position", arm1.getPosition());
-        telemetry.addData("armServo2 Position", arm2.getPosition());
-
+        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
+        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
         telemetry.update();
     }
 

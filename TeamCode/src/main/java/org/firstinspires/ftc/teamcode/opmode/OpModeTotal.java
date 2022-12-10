@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.command.drive.*;
 import org.firstinspires.ftc.teamcode.command.lift.*;
-import org.firstinspires.ftc.teamcode.command.arm.*;
 import org.firstinspires.ftc.teamcode.command.claw.*;
 
 
@@ -26,15 +25,11 @@ public class OpModeTotal extends BaseTotalOpMode {
 
     private SlowMode slowMode;
 
-    private GoHome goHome;
-
-    private GoScore goScore;
-
     private DropCone dropCone;
 
     private GrabCone grabCone;
 
-    private Button slowtime, armManip, slideManip, clawManip;
+    private Button slowtime, slideManip, clawManip;
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
 
@@ -98,11 +93,6 @@ public class OpModeTotal extends BaseTotalOpMode {
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
-
-        //flips between arm out and arm in
-        goHome = new GoHome(arm);
-        goScore = new GoScore(arm);
-        armManip = (new GamepadButton(driverOp2, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
 
         //manual lift code;
         isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));
