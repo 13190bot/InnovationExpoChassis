@@ -116,8 +116,7 @@ public class OpModeAll extends BaseTotalOpMode {
                 new SetJunction(arm, ArmSubsystem.Junction.MEDIUM)
         );
         moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.HIGH)
-        );
+                new SetJunction(arm, ArmSubsystem.Junction.HIGH)        );
 
 
 
