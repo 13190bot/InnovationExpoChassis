@@ -29,6 +29,9 @@ public class OpModeTotal extends BaseTotalOpMode {
 
     private GrabCone grabCone;
 
+    private LiftUp liftUp;
+
+    private LiftDown liftDown;
     private Button slowtime, slideManip, clawManip;
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
@@ -87,17 +90,17 @@ public class OpModeTotal extends BaseTotalOpMode {
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
-        //arm, slides, and claw manipulation
-
-        //flips between open and close;
+        //toggles between open and close
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
 
-        //manual lift code;
-        isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));
-        isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new LiftDown(arm));
+        //manual lift code
+        liftUp = new LiftUp(arm);
+        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( liftUp);
 
+        liftDown = new LiftDown(arm);
+        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed(liftDown);
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
         //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE

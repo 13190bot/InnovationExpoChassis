@@ -5,11 +5,10 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.command.claw.DropCone;
-import org.firstinspires.ftc.teamcode.command.claw.GrabCone;
-import org.firstinspires.ftc.teamcode.command.lift.SetJunction;
-import org.firstinspires.ftc.teamcode.command.lift.LiftDown;
-import org.firstinspires.ftc.teamcode.command.lift.LiftUp;
+
+import org.firstinspires.ftc.teamcode.command.claw.*;
+import org.firstinspires.ftc.teamcode.command.lift.*;
+
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
@@ -22,6 +21,10 @@ public class OpModeArm extends BaseTotalOpMode {
     private DropCone dropCone;
 
     private GrabCone grabCone;
+
+    private LiftUp liftUp;
+
+    private LiftDown liftDown;
 
     private Button armManip, slideManip, clawManip;
 
@@ -46,7 +49,6 @@ public class OpModeArm extends BaseTotalOpMode {
               A
 
             right_bumper -> alternates between claw open and close
-            left_bumper -> alternates between arm forward and back
             dpad_up -> slides go up
             dpad_down -> slides go down
 
@@ -56,16 +58,17 @@ public class OpModeArm extends BaseTotalOpMode {
 
         driverOp1 = new GamepadEx(gamepad1);
 
-        //arm, slides, and claw manipulation
-
-        //flips between open and close;
+        //toggles between open and close
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
 
-        //manual lift code;
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new LiftDown(arm));
+        //manual lift code
+        liftUp = new LiftUp(arm);
+        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( liftUp);
+
+        liftDown = new LiftDown(arm);
+        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed(liftDown);
 
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
