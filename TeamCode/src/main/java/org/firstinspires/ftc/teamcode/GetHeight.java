@@ -54,7 +54,7 @@ public class GetHeight extends OpMode{
             telemetry.addData("SlideL pos", slideLeft.getCurrentPosition());
             telemetry.update();
         }
-       
+
 
     }
 
