@@ -14,9 +14,6 @@ public class BaseDriveOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DriveSubsystem drive;
 
-
-
-
     @Override
     public void initialize() {
         initHardware();

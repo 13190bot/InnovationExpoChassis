@@ -4,12 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 // FOR EMERGENCY USE
 
 @TeleOp(name = "Emergency TeleOp")
-public class Teleop1 extends OpMode {
+public class weirdassTeleOp extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
 
@@ -17,10 +16,10 @@ public class Teleop1 extends OpMode {
 
     @Override
     public void init() {
-        motorFrontLeft = hardwareMap.dcMotor.get("lf");
-        motorBackLeft = hardwareMap.dcMotor.get("lb");
-        motorFrontRight = hardwareMap.dcMotor.get("rf");
-        motorBackRight = hardwareMap.dcMotor.get("rb");
+        motorFrontLeft = hardwareMap.dcMotor.get("leftFront");
+        motorBackLeft = hardwareMap.dcMotor.get("leftBack");
+        motorFrontRight = hardwareMap.dcMotor.get("rightFront");
+        motorBackRight = hardwareMap.dcMotor.get("rightBack");
 //        lift = hardwareMap.dcMotor.get("slideMotor");
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
@@ -43,7 +42,7 @@ public class Teleop1 extends OpMode {
     public void loop() {
 
         double Y = -gamepad1.left_stick_y; // Remember, this is reversed!
-        double X = gamepad1.right_stick_x * 1.1; // Counteract imperfect strafing
+        double X = gamepad1.right_stick_x; // Counteract imperfect strafing
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
