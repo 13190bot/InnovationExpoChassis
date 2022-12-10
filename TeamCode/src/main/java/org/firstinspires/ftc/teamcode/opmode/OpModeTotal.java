@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.command.arm.*;
 import org.firstinspires.ftc.teamcode.command.claw.*;
 
 
+import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Main TeleOp")
@@ -104,8 +105,8 @@ public class OpModeTotal extends BaseTotalOpMode {
         armManip = (new GamepadButton(driverOp2, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
 
         //manual lift code;
-        isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whenPressed( new SetLiftUp(arm));
-        isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new SetLiftDown(arm));
+        isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));
+        isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new LiftDown(arm));
 
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]

@@ -42,16 +42,11 @@ public class ArmSubsystem extends SubsystemBase{
 
         setLiftPosition(0);
 
-        liftL.setDirection(DcMotorSimple.Direction.REVERSE);
-
         liftL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         liftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        liftL.setPower(speed);
-        liftR.setPower(speed);
     }
 
 
@@ -59,12 +54,13 @@ public class ArmSubsystem extends SubsystemBase{
 
     public void clawClose() {claw.setPosition(0);}
 
-    //TODO tune values depending on servo placement
+    //TODO tune values after servo placed
     public void armHome() {
         arm1.setPosition(0);
         arm2.setPosition(0);
     }
 
+    //TODO tune values after servo placed
     public void armScore() {
         arm1.setPosition(1);
         arm2.setPosition(1);
@@ -80,23 +76,20 @@ public class ArmSubsystem extends SubsystemBase{
         liftR.setTargetPosition(targetPosition);
     }
 
-    /**
-        true = goes up, false = go down
-    */
-
-    public void setLiftUp(){
-        liftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        liftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void LiftUp(){
         liftL.setPower(speed);
         liftR.setPower(speed);
     }
-    public void setLiftDown(){
-        liftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        liftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public void LiftDown(){
+
         liftL.setPower(-speed);
         liftR.setPower(-speed);
     }
 
+    public void setLiftManual(){
+        liftL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        liftR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
 
     public void setLiftAuto(){

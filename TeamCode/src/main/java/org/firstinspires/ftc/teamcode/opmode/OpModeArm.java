@@ -9,11 +9,10 @@ import org.firstinspires.ftc.teamcode.command.arm.GoHome;
 import org.firstinspires.ftc.teamcode.command.arm.GoScore;
 import org.firstinspires.ftc.teamcode.command.claw.DropCone;
 import org.firstinspires.ftc.teamcode.command.claw.GrabCone;
-import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
-import org.firstinspires.ftc.teamcode.command.drive.SlowMode;
 import org.firstinspires.ftc.teamcode.command.lift.SetJunction;
-import org.firstinspires.ftc.teamcode.command.lift.SetLiftDown;
-import org.firstinspires.ftc.teamcode.command.lift.SetLiftUp;
+import org.firstinspires.ftc.teamcode.command.lift.LiftDown;
+import org.firstinspires.ftc.teamcode.command.lift.LiftUp;
+import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Arm TeleOp")
@@ -76,8 +75,8 @@ public class OpModeArm extends BaseTotalOpMode {
         armManip = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
 
         //manual lift code;
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( new SetLiftUp(arm));
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new SetLiftDown(arm));
+        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( new LiftUp(arm));
+        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed( new LiftDown(arm));
 
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
