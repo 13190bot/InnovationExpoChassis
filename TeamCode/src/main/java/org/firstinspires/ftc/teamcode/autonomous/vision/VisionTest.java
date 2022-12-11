@@ -30,7 +30,7 @@ public class VisionTest extends LinearOpMode {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(320,240);
+                camera.startStreaming(1280,720);
             }
 
             @Override
