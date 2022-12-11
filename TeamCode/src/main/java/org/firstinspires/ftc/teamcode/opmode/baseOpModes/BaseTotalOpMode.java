@@ -54,6 +54,13 @@ public class BaseTotalOpMode extends CommandOpMode {
         //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
         slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //Use this to fix stuff
+        fL.setInverted(true);
+        fR.setInverted(false);
+        bL.setInverted(false);
+        bR.setInverted(false);
+
+
     }
 
     @Override

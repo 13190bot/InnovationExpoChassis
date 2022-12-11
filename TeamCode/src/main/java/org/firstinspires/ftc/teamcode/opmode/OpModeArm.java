@@ -52,8 +52,6 @@ public class OpModeArm extends BaseTotalOpMode {
             dpad_up -> slides go up
             dpad_down -> slides go down
 
-
-
          */
 
         driverOp1 = new GamepadEx(gamepad1);
