@@ -28,9 +28,9 @@ public class BaseTotalOpMode extends CommandOpMode {
     public void initialize() {
         initHardware();
         setUpHardwareDevices();
+
         drive = new DriveSubsystem(fL, fR, bL, bR);
         arm = new ArmSubsystem(claw, slideLeft, slideRight);
-
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
@@ -48,41 +48,38 @@ public class BaseTotalOpMode extends CommandOpMode {
 
         //TODO find min and max
         claw = new SimpleServo(hardwareMap, "claw", 0, 120);
-
     }
+
     protected void setUpHardwareDevices() {
         //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
         slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Use this to fix stuff
-        fL.setInverted(true);
+        fL.setInverted(false);
         fR.setInverted(false);
         bL.setInverted(false);
         bR.setInverted(false);
-
-
     }
 
     @Override
     public void run() {
         super.run();
+
         telemetry.addData("leftFront Power", round(fL.motor.getPower()));
         telemetry.addData("leftBack Power", round(bL.motor.getPower()));
         telemetry.addData("rightFront Power", round(fR.motor.getPower()));
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
 
+        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
+        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
+
         telemetry.addData("claw Position", claw.getPosition());
-
-        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
-        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
-
 
         telemetry.update();
     }
 
     private static double round(double value, @SuppressWarnings("SameParameterValue") int places) {
         if (places < 0) throw new IllegalArgumentException();
-
         return new BigDecimal(Double.toString(value)).setScale(places, RoundingMode.HALF_UP).doubleValue();
     }
 

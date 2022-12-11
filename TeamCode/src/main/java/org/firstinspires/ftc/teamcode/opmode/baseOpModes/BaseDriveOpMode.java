@@ -17,6 +17,7 @@ public class BaseDriveOpMode extends CommandOpMode {
     @Override
     public void initialize() {
         initHardware();
+
         drive = new DriveSubsystem(fL, fR, bL, bR);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
@@ -28,15 +29,13 @@ public class BaseDriveOpMode extends CommandOpMode {
         fL = new MotorEx(hardwareMap, "leftFront");
         fR = new MotorEx(hardwareMap, "rightFront");
         bL = new MotorEx(hardwareMap, "leftBack");
-        bR = new MotorEx(hardwareMap, "rightBack")
-        ;
+        bR = new MotorEx(hardwareMap, "rightBack");
 
         //Use this to fix stuff
-        fL.setInverted(true);
+        fL.setInverted(false);
         fR.setInverted(false);
         bL.setInverted(false);
         bR.setInverted(false);
-
     }
     @Override
     public void run() {
@@ -51,7 +50,6 @@ public class BaseDriveOpMode extends CommandOpMode {
 
     private static double round(double value, @SuppressWarnings("SameParameterValue") int places) {
         if (places < 0) throw new IllegalArgumentException();
-
         return new BigDecimal(Double.toString(value)).setScale(places, RoundingMode.HALF_UP).doubleValue();
     }
 

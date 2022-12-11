@@ -36,8 +36,6 @@ public class OpModeTotal extends BaseTotalOpMode {
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
 
-
-
     @Override
     public void initialize() {
         super.initialize();
@@ -65,9 +63,6 @@ public class OpModeTotal extends BaseTotalOpMode {
             left_bumper -> alternates between arm forward and back
             dpad_up -> slides go up
             dpad_down -> slides go down
-
-
-
          */
 
         driverOp1 = new GamepadEx(gamepad1);
@@ -88,7 +83,8 @@ public class OpModeTotal extends BaseTotalOpMode {
 
         //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
-                GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
+                GamepadKeys.Button.LEFT_BUMPER)).
+                toggleWhenPressed(robotCentricDrive,slowMode);
 
         //toggles between open and close
         grabCone = new GrabCone(arm);
@@ -118,7 +114,6 @@ public class OpModeTotal extends BaseTotalOpMode {
         );
         moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed(
                 new SetJunction(arm, ArmSubsystem.Junction.HIGH)        );
-
 
 
         register(drive, arm);

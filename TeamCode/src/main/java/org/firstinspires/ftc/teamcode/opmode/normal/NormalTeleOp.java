@@ -23,6 +23,7 @@ public class NormalTeleOp extends OpMode {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
+        //TODO correct motors reversed?
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackRight.setDirection((DcMotorSimple.Direction.REVERSE));

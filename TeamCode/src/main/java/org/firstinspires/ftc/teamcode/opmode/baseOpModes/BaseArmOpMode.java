@@ -21,10 +21,6 @@ public class BaseArmOpMode extends CommandOpMode {
     protected ServoEx claw;
     protected ArmSubsystem arm;
 
-
-
-
-
     @Override
     public void initialize() {
         initHardware();

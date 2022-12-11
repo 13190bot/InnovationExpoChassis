@@ -16,7 +16,6 @@ public class GetHeight extends OpMode{
         slideLeft = hardwareMap.dcMotor.get("slideL");
         slideRight = hardwareMap.dcMotor.get("slideR");
 
-
         slideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -26,10 +25,8 @@ public class GetHeight extends OpMode{
     }
 
     public void start () {
-
         slideRight.setPower(0);
         slideLeft.setPower(0);
-
     }
 
     public void loop () {

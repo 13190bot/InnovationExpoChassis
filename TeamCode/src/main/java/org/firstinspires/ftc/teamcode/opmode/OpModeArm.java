@@ -35,9 +35,7 @@ public class OpModeArm extends BaseTotalOpMode {
     @Override
     public void initialize() {
         super.initialize();
-
         /*
-
         Player1
             START -> moveCancel (Cancel all current movement)
             A -> moveGround (Ground junction)
@@ -51,7 +49,6 @@ public class OpModeArm extends BaseTotalOpMode {
             right_bumper -> alternates between claw open and close
             dpad_up -> slides go up
             dpad_down -> slides go down
-
          */
 
         driverOp1 = new GamepadEx(gamepad1);
@@ -86,7 +83,6 @@ public class OpModeArm extends BaseTotalOpMode {
         moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.Y)).whenPressed(
                 new SetJunction(arm, ArmSubsystem.Junction.HIGH)
         );
-
 
         register(arm);
     }
