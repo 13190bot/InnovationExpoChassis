@@ -2,14 +2,14 @@ package org.firstinspires.ftc.teamcode.autonomous.vision;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@TeleOp(name = "Signal Sleeve Test")
+@Autonomous(name = "Vision Test")
+
 public class VisionTest extends LinearOpMode {
 
     SleeveDetection sleeveDetection;
@@ -30,7 +30,7 @@ public class VisionTest extends LinearOpMode {
             @Override
             public void onOpened()
             {
-                camera.startStreaming(320,240, OpenCvCameraRotation.SIDEWAYS_LEFT);
+                camera.startStreaming(320,240);
             }
 
             @Override
@@ -38,7 +38,7 @@ public class VisionTest extends LinearOpMode {
         });
 
         while (!isStarted()) {
-            telemetry.addData("ROTATION: ", sleeveDetection.getPosition());
+            telemetry.addData("Position: ", sleeveDetection.getPosition());
             telemetry.update();
         }
 

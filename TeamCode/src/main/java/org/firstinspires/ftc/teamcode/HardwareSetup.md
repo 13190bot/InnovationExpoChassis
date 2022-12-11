@@ -4,8 +4,6 @@ these should be the names for the different thingies
 
 ## Motors
 
-please fucking fix this
-
 0 leftFront,
 1 rightFront,
 2 leftBack,
