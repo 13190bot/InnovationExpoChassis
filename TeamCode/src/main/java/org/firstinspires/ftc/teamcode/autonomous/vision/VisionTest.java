@@ -7,7 +7,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
 
-@Autonomous(name = "Vision Test 8872")
+@Autonomous(name = "Vision Test")
 public class VisionTest extends LinearOpMode {
 
     SleeveDetection sleeveDetection;
