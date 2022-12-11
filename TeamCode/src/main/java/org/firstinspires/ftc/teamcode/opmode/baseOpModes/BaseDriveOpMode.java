@@ -30,6 +30,12 @@ public class BaseDriveOpMode extends CommandOpMode {
         bL = new MotorEx(hardwareMap, "leftBack");
         bR = new MotorEx(hardwareMap, "rightBack");
 
+        //Use this to fix stuff
+        fL.setInverted(true);
+        fR.setInverted(false);
+        bL.setInverted(false);
+        bR.setInverted(false);
+
     }
     @Override
     public void run() {
