@@ -4,6 +4,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.hardware.RevIMU;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
@@ -32,10 +33,12 @@ public class BaseDriveOpMode extends CommandOpMode {
         bR = new MotorEx(hardwareMap, "rightBack");
 
         //Use this to fix stuff
-        fL.setInverted(false);
-        fR.setInverted(false);
-        bL.setInverted(false);
-        bR.setInverted(false);
+        fL.setInverted(true);
+        fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
     }
     @Override
     public void run() {

@@ -9,6 +9,7 @@ public class DriveSubsystem extends SubsystemBase {
 
 
     public double slowFactor = 2.5; //change this to change how much slowmode slows robot down
+    public double GenSpeed = 1.5;
     public DriveSubsystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR){
         drive = new MecanumDrive(fL, fR, bL, bR);
     }
@@ -17,7 +18,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         double turnSpeedT = (-1*turnSpeedL)+turnSpeedR;
 
-        drive.driveRobotCentric(strafeSpeed, forwardSpeed, turnSpeedT);
+        drive.driveRobotCentric(strafeSpeed/GenSpeed, forwardSpeed/GenSpeed, turnSpeedT/GenSpeed);
     }
     public void driveRobotCentricSlowMode(double strafeSpeed, double forwardSpeed, double turnSpeedL, double turnSpeedR){
 

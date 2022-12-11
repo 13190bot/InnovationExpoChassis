@@ -4,6 +4,8 @@ these should be the names for the different thingies
 
 ## Motors
 
+
+all on expansion hub: 
 0 leftFront,
 1 rightFront,
 2 leftBack,
