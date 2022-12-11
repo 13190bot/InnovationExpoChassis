@@ -25,6 +25,7 @@ public class NormalTeleOp extends OpMode {
 
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBackRight.setDirection((DcMotorSimple.Direction.REVERSE));
 
         telemetry.addData("init", "done");
 

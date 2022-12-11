@@ -38,14 +38,14 @@ public class OpModeDrive extends BaseDriveOpMode {
         driverOp1 = new GamepadEx(gamepad1);
 
         robotCentricDrive = new DefaultRobotCentricDrive(drive,
-                () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightY(),
+                () -> driverOp1.getLeftY(),
+                () -> driverOp1.getRightX(),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
         slowMode = new SlowMode(drive,
-                () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightY(),
+                () -> driverOp1.getLeftY(),
+                () -> driverOp1.getRightX(),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
