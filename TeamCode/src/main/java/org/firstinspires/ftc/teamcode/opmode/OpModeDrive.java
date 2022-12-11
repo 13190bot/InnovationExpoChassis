@@ -33,6 +33,8 @@ public class OpModeDrive extends BaseDriveOpMode {
             Right Trigger = Turn Right
 
             Left bumper -> toggles between slow mode and normal mode
+
+            //reverse front left
          */
 
         driverOp1 = new GamepadEx(gamepad1);

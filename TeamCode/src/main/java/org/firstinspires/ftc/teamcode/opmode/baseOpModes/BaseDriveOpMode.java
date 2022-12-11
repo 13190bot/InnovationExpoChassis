@@ -28,7 +28,8 @@ public class BaseDriveOpMode extends CommandOpMode {
         fL = new MotorEx(hardwareMap, "leftFront");
         fR = new MotorEx(hardwareMap, "rightFront");
         bL = new MotorEx(hardwareMap, "leftBack");
-        bR = new MotorEx(hardwareMap, "rightBack");
+        bR = new MotorEx(hardwareMap, "rightBack")
+        ;
 
     }
     @Override
