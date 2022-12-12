@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.opmode.baseOpModes;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
@@ -11,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BaseDriveOpMode extends CommandOpMode {
+public class BaseDriveOpModeTest extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DriveSubsystem drive;
 
