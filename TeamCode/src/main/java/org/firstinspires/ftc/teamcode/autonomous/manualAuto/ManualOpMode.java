@@ -12,7 +12,7 @@ import static android.os.SystemClock.sleep;
 
 
 //TODO: code strafe, test in VirtualBot
-@Autonomous
+@Autonomous(name = "ParkAuto")
 public class ManualOpMode extends OpMode {
 
     DcMotor lf, lb, rf, rb;
@@ -24,17 +24,16 @@ public class ManualOpMode extends OpMode {
     @Override
     public void init() {
 
-        lf = hardwareMap.dcMotor.get("lf");
-        lb = hardwareMap.dcMotor.get("lb");
-        rf = hardwareMap.dcMotor.get("rf");
-        rb = hardwareMap.dcMotor.get("rb");
+        lf = hardwareMap.dcMotor.get("leftFront");
+        lb = hardwareMap.dcMotor.get("leftBack");
+        rf = hardwareMap.dcMotor.get("rightFront");
+        rb = hardwareMap.dcMotor.get("rightBack");
 
         DcMotor motors [] = {lf, lb, rf, rb};
 
         for(DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
         telemetry.addData("init", "done");
@@ -62,39 +61,55 @@ public class ManualOpMode extends OpMode {
     }
 
     @Override
+    public void init_loop() {
+        super.init_loop();
+
+        if(lf != null || lb != null || rf != null || rb != null){
+            telemetry.addData("lf", lf::getPower);
+            telemetry.addData("lb", lb::getPower);
+            telemetry.addData("rf", rf::getPower);
+            telemetry.addData("rb", rb::getPower);
+        }
+
+    }
+
+    @Override
     public void start () {
+
+        lf.setPower(0.1);
+        rf.setPower(0.1);
+        lb.setPower(0.1);
+        rb.setPower(0.1);
+        sleep(3000);
 
         //strafe to face park pos
         switch ( sleeveDetection.getPosition()) {
             case LEFT: //left
-                rf.setPower(.5);
-                rb.setPower(-.5);
-                lf.setPower(-.5);
-                lb.setPower(.5);
-                sleep(3000);
+                rf.setPower(0.1);
+                rb.setPower(-0.1);
+                lf.setPower(-0.1);
+                lb.setPower(0.1);
                 break;
             case CENTER: //if the middle parkpos
                 break;
             case RIGHT: //right
-                rf.setPower(-.5);
-                rb.setPower(.5);
-                lf.setPower(.5);
-                lb.setPower(-.5);
-                sleep(3000);
+                rf.setPower(-0.1);
+                rb.setPower(0.1);
+                lf.setPower(0.1);
+                lb.setPower(-0.1);
                 break;
         }
+        sleep(3000);
 
-        //move forwards
-        lf.setPower(.5);
-        lb.setPower(.5);
-        rf.setPower(.5);
-        rb.setPower(.5);
-
-        sleep(2000);
+        lf.setPower(0);
+        rf.setPower(0);
+        lb.setPower(0);
+        rb.setPower(0);
 
     }
 
     @Override
     public void loop() {}
+
 
 }
