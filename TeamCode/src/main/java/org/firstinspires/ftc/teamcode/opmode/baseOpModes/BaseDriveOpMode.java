@@ -27,20 +27,20 @@ public class BaseDriveOpMode extends CommandOpMode {
     }
 
     protected void initHardware() {
-        fL = new MotorEx(hardwareMap, "leftFront");
-        fR = new MotorEx(hardwareMap, "rightFront");
-        bL = new MotorEx(hardwareMap, "leftBack");
-        bR = new MotorEx(hardwareMap, "rightBack");
+        fL = new MotorEx(hardwareMap, "frontLeft");
+        fR = new MotorEx(hardwareMap, "frontRight");
+        bL = new MotorEx(hardwareMap, "backLeft");
+        bR = new MotorEx(hardwareMap, "backRight");
 
-        //Use this to fix stuff
-        //TODO FIX ROTATION BRUH
-
+        //Motor Reversal
         fL.setInverted(true);
 
+        //ask whether or not we should use this (8872 are hypocrites if they tell us not to use this)
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
 
     }
     @Override

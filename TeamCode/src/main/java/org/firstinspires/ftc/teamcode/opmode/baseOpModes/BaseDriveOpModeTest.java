@@ -5,20 +5,20 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystem.DriveTestSubsystem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class BaseDriveOpModeTest extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
-    protected DriveSubsystem drive;
+    protected DriveTestSubsystem drive;
 
     @Override
     public void initialize() {
         initHardware();
 
-        drive = new DriveSubsystem(fL, fR, bL, bR);
+        drive = new DriveTestSubsystem(fL, fR, bL, bR);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
@@ -26,16 +26,15 @@ public class BaseDriveOpModeTest extends CommandOpMode {
     }
 
     protected void initHardware() {
-        fL = new MotorEx(hardwareMap, "leftFront");
-        fR = new MotorEx(hardwareMap, "rightFront");
-        bL = new MotorEx(hardwareMap, "leftBack");
-        bR = new MotorEx(hardwareMap, "rightBack");
+        fL = new MotorEx(hardwareMap, "frontLeft");
+        fR = new MotorEx(hardwareMap, "frontRight");
+        bL = new MotorEx(hardwareMap, "backLeft");
+        bR = new MotorEx(hardwareMap, "backRight");
 
-        //Use this to fix stuff
-        //TODO FIX ROTATION BRUH
+        //Motor Reversal
+        //fL.setInverted(true);
 
-        fL.setInverted(true);
-
+        //ask whether or not we should use this (8872 are hypocrites if they tell us not to use this)
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);

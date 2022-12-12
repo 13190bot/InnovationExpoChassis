@@ -5,9 +5,8 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
-import org.firstinspires.ftc.teamcode.command.drive.SlowMode;
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpMode;
+import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricTestDrive;
+import org.firstinspires.ftc.teamcode.command.drive.SlowModeTest;
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpModeTest;
 
 
@@ -17,9 +16,9 @@ public class OpModeTestDrive extends BaseDriveOpModeTest {
 
     private GamepadEx driverOp1;
 
-    private DefaultRobotCentricDrive robotCentricDrive;
+    private DefaultRobotCentricTestDrive robotCentricDrive;
 
-    private SlowMode slowMode;
+    private SlowModeTest slowMode;
     private Button slowtime;
 
 
@@ -28,27 +27,24 @@ public class OpModeTestDrive extends BaseDriveOpModeTest {
         super.initialize();
         /*
         Player1
-            Left Stick X -> Strafe
-            Right Stick Y -> Forward and Back
-            Left Trigger = Turn left
-            Right Trigger = Turn Right
+            Right Stick X -> Strafe
+            Left Stick Y -> Forward and Back
+            Left Stick X -> rotation
 
             Left bumper -> toggles between slow mode and normal mode\
          */
 
         driverOp1 = new GamepadEx(gamepad1);
 
-        robotCentricDrive = new DefaultRobotCentricDrive(drive,
-                () -> driverOp1.getLeftY(),
+        robotCentricDrive = new DefaultRobotCentricTestDrive(drive,
                 () -> driverOp1.getRightX(),
-                () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
-                () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+                () -> driverOp1.getLeftY(),
+                () -> driverOp1.getLeftX());
 
-        slowMode = new SlowMode(drive,
-                () -> driverOp1.getLeftY(),
+        slowMode = new SlowModeTest(drive,
                 () -> driverOp1.getRightX(),
-                () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
-                () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+                () -> driverOp1.getLeftY(),
+                () -> driverOp1.getLeftX());
 
         //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
