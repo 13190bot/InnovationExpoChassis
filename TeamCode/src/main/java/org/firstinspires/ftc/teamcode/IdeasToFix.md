@@ -16,6 +16,7 @@ did i initialize something wrong?
 
 motors defined correctly?
 
+could be the 2 fuses on 2 motors and none on the other 2?
 
 # THINGS TO CHECK
 
@@ -48,5 +49,5 @@ dpad_right = BackRight motor
 
 dpad_left = BackLeft motor
 
-## NO MOTORS WERE REVERSED SO ALL WHEELS SHOULD BE MOVING IN THE SAME DIRECTION WHEN ACTIVATED.
+## NO MOTORS WERE REVERSED SO ALL WHEELS SHOULD BE MOVING IN THE SAME CLOCK-WISE DIRECTION WHEN ACTIVATED.
 
