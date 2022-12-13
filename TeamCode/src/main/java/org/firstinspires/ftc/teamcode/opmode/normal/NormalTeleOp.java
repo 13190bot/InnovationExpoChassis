@@ -38,7 +38,7 @@ public class NormalTeleOp extends OpMode {
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBackRight.setDirection((DcMotorSimple.Direction.REVERSE));
+        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
@@ -81,7 +81,11 @@ public class NormalTeleOp extends OpMode {
         boolean slowTime = gamepad1.left_bumper;
 
         if (slowTime) {
-            mul = 0.5;
+            if (mul == 0.5) {
+                mul = 1;
+            } else {
+                mul = 0.5;
+            }
         }
 
         // Denominator is the largest motor power (absolute value) or 1
