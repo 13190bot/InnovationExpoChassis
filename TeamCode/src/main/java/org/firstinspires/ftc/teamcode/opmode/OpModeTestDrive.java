@@ -49,6 +49,10 @@ public class OpModeTestDrive extends BaseDriveOpModeTest {
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
+        telemetry.addData("Strafe Speed", driverOp1.getRightX());
+        telemetry.addData("Forward Speed", driverOp1.getLeftY());
+        telemetry.addData("Turn Speed", driverOp1.getLeftX());
+
         register(drive);
         drive.setDefaultCommand(robotCentricDrive);
     }
