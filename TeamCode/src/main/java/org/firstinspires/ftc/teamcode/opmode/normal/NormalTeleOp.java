@@ -18,9 +18,20 @@ public class NormalTeleOp extends OpMode {
     static DcMotor slideL;
     static DcMotor slideR;
     ServoEx claw;
+
+    // slowmode
     double mul = 1;
+
+
     double turnSpeed = 0.5;
     double slideSpeed = 0.7;
+
+    // junctions
+    double target = 0;
+    boolean goingUp = false;
+    boolean liftMoving = false;
+
+
     public void init () {
         motorFrontLeft = hardwareMap.dcMotor.get("leftFront");
         motorBackLeft = hardwareMap.dcMotor.get("leftBack");
@@ -80,13 +91,13 @@ public class NormalTeleOp extends OpMode {
 
         boolean slowTime = gamepad1.left_bumper;
 
+
         if (slowTime) {
-            if (mul == 0.5) {
-                mul = 1;
-            } else {
-                mul = 0.5;
-            }
+            mul = 0.5;
+        } else {
+            mul = 1;
         }
+
 
         // Denominator is the largest motor power (absolute value) or 1
         // This ensures all the powers maintain the same ratio, but only when
