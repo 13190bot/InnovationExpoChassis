@@ -84,8 +84,7 @@ public class OpModeTotal extends BaseTotalOpMode {
 
         //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
-                GamepadKeys.Button.LEFT_BUMPER)).
-                toggleWhenPressed(robotCentricDrive,slowMode);
+                GamepadKeys.Button.LEFT_BUMPER)).whileHeld(slowMode);
 
         //toggles between open and close
         grabCone = new GrabCone(arm);
