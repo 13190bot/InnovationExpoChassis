@@ -1,13 +1,10 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.testing;
 
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricTestDrive;
-import org.firstinspires.ftc.teamcode.command.drive.SlowModeTest;
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpModeTest;
 
 
 @TeleOp(name = "Drive Test TeleOp")

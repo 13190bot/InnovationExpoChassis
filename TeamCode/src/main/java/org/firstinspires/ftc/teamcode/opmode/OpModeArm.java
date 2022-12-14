@@ -64,10 +64,8 @@ public class OpModeArm extends BaseTotalOpMode {
         liftStop = new LiftStop(arm);
         //manual lift code
         liftUp = new LiftUp(arm);
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(liftStop, liftUp);
-
-        liftDown = new LiftDown(arm);
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).toggleWhenPressed(liftStop, liftDown);
+        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whileHeld(liftUp);
+        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
 
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
@@ -89,5 +87,6 @@ public class OpModeArm extends BaseTotalOpMode {
         );
 
         register(arm);
+        arm.setDefaultCommand(liftStop);
     }
 }

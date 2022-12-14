@@ -19,6 +19,7 @@ public class BaseTotalOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DcMotor slideLeft, slideRight;
     protected ServoEx claw;
+
     protected DriveSubsystem drive;
     protected ArmSubsystem arm;
 
@@ -45,7 +46,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         bR = new MotorEx(hardwareMap, "backRight");
 
         //Motor Reversal
-        fL.setInverted(true);
+        bR.setInverted(true);
 
         //ask whether or not we should use this (8872 are hypocrites if they tell us not to use this)
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);

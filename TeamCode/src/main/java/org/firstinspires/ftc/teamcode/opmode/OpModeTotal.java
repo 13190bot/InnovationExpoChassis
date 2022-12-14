@@ -32,6 +32,8 @@ public class OpModeTotal extends BaseTotalOpMode {
     private LiftUp liftUp;
 
     private LiftDown liftDown;
+
+    private LiftStop liftStop;
     private Button slowtime, slideManip, clawManip;
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
@@ -68,16 +70,15 @@ public class OpModeTotal extends BaseTotalOpMode {
         driverOp1 = new GamepadEx(gamepad1);
         driverOp2 = new GamepadEx(gamepad2);
 
-
         robotCentricDrive = new DefaultRobotCentricDrive(drive,
-                () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightY(),
+                () -> driverOp1.getRightX(),
+                () -> driverOp1.getLeftY(),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
         slowMode = new SlowMode(drive,
-                () -> driverOp1.getLeftX(),
-                () -> driverOp1.getRightY(),
+                () -> driverOp1.getRightX(),
+                () -> driverOp1.getLeftY(),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
@@ -91,15 +92,20 @@ public class OpModeTotal extends BaseTotalOpMode {
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
 
+        //toggles between open and close
+        grabCone = new GrabCone(arm);
+        dropCone = new DropCone(arm);
+        clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
+
+
+        liftStop = new LiftStop(arm);
         //manual lift code
         liftUp = new LiftUp(arm);
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( liftUp);
-
-        liftDown = new LiftDown(arm);
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed(liftDown);
+        isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whileHeld(liftUp);
+        isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
+        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE and ask if they even want move cancel
         moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed(
                 new SetJunction(arm, ArmSubsystem.Junction.NONE)
         );
@@ -117,6 +123,7 @@ public class OpModeTotal extends BaseTotalOpMode {
 
 
         register(drive, arm);
+        arm.setDefaultCommand(liftStop);
         drive.setDefaultCommand(robotCentricDrive);
     }
 }
