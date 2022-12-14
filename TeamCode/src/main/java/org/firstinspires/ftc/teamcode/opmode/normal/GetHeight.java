@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.normal;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "GetHeight")
 public class GetHeight extends OpMode{
@@ -15,6 +16,9 @@ public class GetHeight extends OpMode{
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
         slideRight = hardwareMap.dcMotor.get("slideR");
+
+        //reverse this one
+        slideRight.setMode(DcMotor.);
 
         slideLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

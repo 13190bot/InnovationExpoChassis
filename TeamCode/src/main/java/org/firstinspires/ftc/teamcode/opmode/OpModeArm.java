@@ -26,6 +26,8 @@ public class OpModeArm extends BaseTotalOpMode {
 
     private LiftDown liftDown;
 
+    private LiftStop liftStop;
+
     private Button armManip, slideManip, clawManip;
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
@@ -58,12 +60,14 @@ public class OpModeArm extends BaseTotalOpMode {
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
 
+
+        liftStop = new LiftStop(arm);
         //manual lift code
         liftUp = new LiftUp(arm);
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whenPressed( liftUp);
+        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).toggleWhenPressed(liftStop, liftUp);
 
         liftDown = new LiftDown(arm);
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whenPressed(liftDown);
+        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).toggleWhenPressed(liftStop, liftDown);
 
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]

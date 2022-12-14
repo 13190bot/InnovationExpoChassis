@@ -19,7 +19,7 @@ public class ArmSubsystem extends SubsystemBase{
     private static int GROUND = 0;
 
     //change this to change lift speed
-    double speed = 0.5;
+    double speed = 0.2;
 
     public enum Junction {
         NONE,
@@ -65,6 +65,11 @@ public class ArmSubsystem extends SubsystemBase{
 
         liftL.setPower(-speed);
         liftR.setPower(-speed);
+    }
+    public void LiftStop(){
+
+        liftL.setPower(0);
+        liftR.setPower(0);
     }
 
     public void setLiftManual(){

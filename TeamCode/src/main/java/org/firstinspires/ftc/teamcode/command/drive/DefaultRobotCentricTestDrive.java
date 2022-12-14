@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 public class DefaultRobotCentricTestDrive extends CommandBase {
     private final DriveTestSubsystem drive;
     private final DoubleSupplier strafeSpeed, forwardSpeed, turnSpeed;
+    double strafe, forward;
 
     public DefaultRobotCentricTestDrive(DriveTestSubsystem drive,
                                         DoubleSupplier strafeSpeed,
@@ -18,6 +19,7 @@ public class DefaultRobotCentricTestDrive extends CommandBase {
         this.strafeSpeed = strafeSpeed;
         this.forwardSpeed = forwardSpeed;
         this.turnSpeed = turnSpeed;
+
 
         addRequirements(drive);
     }

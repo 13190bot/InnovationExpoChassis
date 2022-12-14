@@ -13,7 +13,7 @@ public class NormalArmTeleOp extends OpMode {
     static DcMotor slideR;
     ServoEx claw;
 
-    double slideSpeed = 0.7;
+    double slideSpeed = 0.5;
     public void init () {
 
         slideL = hardwareMap.dcMotor.get("slideL");
