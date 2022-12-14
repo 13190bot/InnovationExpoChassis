@@ -5,25 +5,26 @@ import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 
 public class DriveSubsystem extends SubsystemBase {
-    private final MecanumDrive drive;
+    //private final MecanumDrive drive;
 
 
     public double slowFactor = 2.5; //change this to change how much slowmode slows robot down
     public double GenSpeed = 1.5;
     public DriveSubsystem(MotorEx fL, MotorEx fR, MotorEx bL, MotorEx bR){
-        drive = new MecanumDrive(fL, fR, bL, bR);
+
+        //drive = new MecanumDrive(fL, fR, bL, bR);
     }
 
     public void driveRobotCentric(double strafeSpeed, double forwardSpeed, double turnSpeedL, double turnSpeedR){
 
         double turnSpeedT = (-1*turnSpeedL)+turnSpeedR;
 
-        drive.driveRobotCentric(strafeSpeed/GenSpeed, forwardSpeed/GenSpeed, turnSpeedT/GenSpeed);
+        //drive.driveRobotCentric(strafeSpeed/GenSpeed, forwardSpeed/GenSpeed, turnSpeedT/GenSpeed);
     }
     public void driveRobotCentricSlowMode(double strafeSpeed, double forwardSpeed, double turnSpeedL, double turnSpeedR){
 
         double turnSpeedT = (-1*turnSpeedL)+turnSpeedR;
 
-        drive.driveRobotCentric(strafeSpeed / slowFactor, forwardSpeed / slowFactor, turnSpeedT / slowFactor);
+        //drive.driveRobotCentric(strafeSpeed / slowFactor, forwardSpeed / slowFactor, turnSpeedT / slowFactor);
     }
 }

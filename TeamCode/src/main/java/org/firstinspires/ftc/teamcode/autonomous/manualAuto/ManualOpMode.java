@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -28,10 +29,10 @@ public class ManualOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        lf = hardwareMap.dcMotor.get("leftFront");
-        lb = hardwareMap.dcMotor.get("leftBack");
-        rf = hardwareMap.dcMotor.get("rightFront");
-        rb = hardwareMap.dcMotor.get("rightBack");
+        lf = hardwareMap.dcMotor.get("frontLeft");
+        lb = hardwareMap.dcMotor.get("backLeft");
+        rf = hardwareMap.dcMotor.get("frontRight");
+        rb = hardwareMap.dcMotor.get("backRight");
 
         DcMotor[] motors = {lf, lb, rf, rb};
 
@@ -41,6 +42,10 @@ public class ManualOpMode extends LinearOpMode {
         }
 
         //TODO: need to reverse motors
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        rb.setDirection((DcMotorSimple.Direction.REVERSE));
+
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
@@ -66,12 +71,6 @@ public class ManualOpMode extends LinearOpMode {
 
         waitForStart();
 
-        lf.setPower(0.1);
-        rf.setPower(0.1);
-        lb.setPower(0.1);
-        rb.setPower(0.1);
-        sleep(3000);
-
         //strafe to face park pos
         switch ( sleeveDetection.getPosition()) {
             case LEFT: //left
@@ -89,7 +88,14 @@ public class ManualOpMode extends LinearOpMode {
                 lb.setPower(-0.1);
                 break;
         }
-        sleep(3000);
+        sleep(1000);
+
+        lf.setPower(0.1);
+        rf.setPower(0.1);
+        lb.setPower(0.1);
+        rb.setPower(0.1);
+
+        sleep(1250);
 
         lf.setPower(0);
         rf.setPower(0);
