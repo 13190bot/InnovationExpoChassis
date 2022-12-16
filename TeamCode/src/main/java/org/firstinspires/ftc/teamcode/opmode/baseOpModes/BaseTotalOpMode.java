@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@TeleOp
 public class BaseTotalOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DcMotor slideLeft, slideRight;
@@ -46,7 +48,9 @@ public class BaseTotalOpMode extends CommandOpMode {
         bR = new MotorEx(hardwareMap, "backRight");
 
         //Motor Reversal
-        bR.setInverted(true);
+        bL.setInverted(true);
+        fR.setInverted(true);
+        fL.setInverted(true);
 
         //ask whether or not we should use this (8872 are hypocrites if they tell us not to use this)
         fL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -67,10 +71,10 @@ public class BaseTotalOpMode extends CommandOpMode {
         slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //Use this to fix stuff
-        fL.setInverted(false);
-        fR.setInverted(false);
-        bL.setInverted(false);
-        bR.setInverted(false);
+//        fL.setInverted(false);
+//        fR.setInverted(false);
+//        bL.setInverted(false);
+//        bR.setInverted(false);
     }
 
     @Override

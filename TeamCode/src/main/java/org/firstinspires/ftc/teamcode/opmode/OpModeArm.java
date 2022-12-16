@@ -87,6 +87,8 @@ public class OpModeArm extends BaseTotalOpMode {
         );
 
         register(arm);
+//        arm.setDefaultCommand(liftStop);
         arm.setDefaultCommand(liftStop);
+
     }
 }

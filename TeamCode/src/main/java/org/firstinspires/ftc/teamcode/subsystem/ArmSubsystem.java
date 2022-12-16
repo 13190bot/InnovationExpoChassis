@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.subsystem;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class ArmSubsystem extends SubsystemBase{
 
@@ -19,7 +18,7 @@ public class ArmSubsystem extends SubsystemBase{
     private static int GROUND = 0;
 
     //change this to change lift speed
-    double speed = 0.2;
+    double speed = 0.5;
 
     public enum Junction {
         NONE,
@@ -40,8 +39,8 @@ public class ArmSubsystem extends SubsystemBase{
 
         setLiftPosition(0);
 
-        liftL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        liftL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        liftR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         liftL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,13 +57,21 @@ public class ArmSubsystem extends SubsystemBase{
     }
 
     public void LiftUp(){
-        liftL.setPower(speed);
-        liftR.setPower(speed);
+//        liftL.setPower(speed);
+//        liftR.setPower(speed);
+
+        liftL.setTargetPosition(liftL.getCurrentPosition() - 20);
+        liftR.setTargetPosition(liftR.getCurrentPosition() - 20);
+
     }
     public void LiftDown(){
 
-        liftL.setPower(-speed);
-        liftR.setPower(-speed);
+//        liftL.setPower(-speed);
+//        liftR.setPower(-speed);
+
+        liftL.setTargetPosition(liftL.getCurrentPosition() + 20);
+        liftR.setTargetPosition(liftR.getCurrentPosition() + 20);
+
     }
     public void LiftStop(){
 
@@ -111,5 +118,8 @@ public class ArmSubsystem extends SubsystemBase{
         }
     }
 
-
+    public void manualControlLift(double power) {
+        liftL.setPower(power/2);
+        liftR.setPower(power/2);
+    }
 }

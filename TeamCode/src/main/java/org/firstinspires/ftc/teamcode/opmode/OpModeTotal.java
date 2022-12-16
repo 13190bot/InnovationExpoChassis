@@ -70,6 +70,7 @@ public class OpModeTotal extends BaseTotalOpMode {
         driverOp1 = new GamepadEx(gamepad1);
         driverOp2 = new GamepadEx(gamepad2);
 
+        //drive
         robotCentricDrive = new DefaultRobotCentricDrive(drive,
                 () -> driverOp1.getRightX(),
                 () -> driverOp1.getLeftY(),
@@ -84,7 +85,12 @@ public class OpModeTotal extends BaseTotalOpMode {
 
         //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
-                GamepadKeys.Button.LEFT_BUMPER)).whileHeld(slowMode);
+                GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
+
+        register(drive);
+        drive.setDefaultCommand(robotCentricDrive);
+
+
 
         //toggles between open and close
         grabCone = new GrabCone(arm);
@@ -122,7 +128,14 @@ public class OpModeTotal extends BaseTotalOpMode {
 
 
         register(drive, arm);
-        arm.setDefaultCommand(liftStop);
+//        arm.setDefaultCommand(liftStop);
         drive.setDefaultCommand(robotCentricDrive);
+    }
+
+    @Override
+    public void run() {
+        super.run();
+
+        arm.manualControlLift(gamepad2.left_stick_y);
     }
 }
