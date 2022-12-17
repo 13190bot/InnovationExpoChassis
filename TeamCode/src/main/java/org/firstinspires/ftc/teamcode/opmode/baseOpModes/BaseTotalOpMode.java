@@ -16,7 +16,6 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-@TeleOp
 public class BaseTotalOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DcMotor slideLeft, slideRight;

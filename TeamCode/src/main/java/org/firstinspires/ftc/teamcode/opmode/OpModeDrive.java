@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
 import org.firstinspires.ftc.teamcode.command.drive.SlowMode;
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpMode;
 
-
+//@Deprecated
 @TeleOp(name = "Drive TeleOp")
 public class OpModeDrive extends BaseDriveOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png

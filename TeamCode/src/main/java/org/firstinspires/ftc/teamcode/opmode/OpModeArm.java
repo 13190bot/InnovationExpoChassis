@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.command.lift.*;
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
+@Deprecated
 @TeleOp(name = "Arm TeleOp")
 public class OpModeArm extends BaseTotalOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
@@ -31,7 +32,6 @@ public class OpModeArm extends BaseTotalOpMode {
     private Button armManip, slideManip, clawManip;
 
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
-
 
 
     @Override

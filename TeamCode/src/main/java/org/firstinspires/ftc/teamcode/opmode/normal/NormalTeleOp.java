@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode.normal;
 
+import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,25 +13,26 @@ import com.qualcomm.robotcore.hardware.ServoImpl;
 @TeleOp (name = "Normie TeleOp")
 public class NormalTeleOp extends OpMode {
 
+    //define motors
     DcMotor motorFrontLeft;
     DcMotor motorFrontRight;
     DcMotor motorBackLeft;
     DcMotor motorBackRight;
-    static DcMotor slideL;
-    static DcMotor slideR;
+    DcMotor slideL;
+    DcMotor slideR;
     ServoImpl claw;
-
+    boolean clawState;
     // slowmode
     double mul = 1;
 
 
     double turnSpeed = 0.5;
-    double slideSpeed = 0.2;
 
     // junctions
     double target = 0;
     boolean goingUp = false;
     boolean liftMoving = false;
+
 
 
     public void init () {
@@ -39,56 +41,40 @@ public class NormalTeleOp extends OpMode {
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
 
-        DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
+        slideL = hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR = hardwareMap.get(DcMotorEx.class, "slideR");
 
+        DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight, slideL, slideR};
         for(DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        //TODO correct motors reversed?
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
-
-        slideL = hardwareMap.dcMotor.get("slideL");
-        slideR = hardwareMap.dcMotor.get("slideR");
-
-        DcMotor[] slides = {slideL, slideR};
-        for(DcMotor slide : slides) {
-            slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }
-
-        slideR.setPower(slideSpeed);
-        slideL.setPower(slideSpeed);
+        slideR.setDirection(DcMotorSimple.Direction.REVERSE);
 
         claw = hardwareMap.get(ServoImpl.class, "claw");
 
-
         telemetry.addData("init", "done");
-
     }
+
     public void loop () {
 
-        //claw manip
+        //arm
         if(gamepad2.right_bumper){claw.setPosition(1);}
-        if(gamepad2.left_bumper){claw.setPosition(0);}
+        if(gamepad2.left_bumper){claw.setPosition(.5);}
+        telemetry.addData("claw", claw.getPosition());
 
-        //lift gonna be manual (if parteek want set junctions, he can write them himself)
-        if(gamepad2.dpad_up){
-            slideL.setTargetPosition(slideL.getCurrentPosition() + 10);
-            slideR.setTargetPosition(slideR.getCurrentPosition() + 10);
-        }
-        if(gamepad2.dpad_down){
-            slideL.setTargetPosition(slideL.getCurrentPosition() - 10);
-            slideR.setTargetPosition(slideR.getCurrentPosition() - 10);
-        }
-        else {
-            slideR.setTargetPosition(slideR.getCurrentPosition());
-            slideL.setTargetPosition(slideL.getCurrentPosition());
-        }
+        //double slideSpeed = gamepad2.dpad_up ? .5 : (gamepad2.dpad_down ? -.5 : 0) ;
+
+            slideL.setPower(gamepad2.right_stick_y * .5);
+            slideR.setPower(gamepad2.right_stick_y * .5);
+            telemetry.addData("Left Encoder", slideL.getCurrentPosition());
+            telemetry.addData("Right Encoder", slideR.getCurrentPosition());
+            telemetry.update();
+
 
         //run drive
         double Y = -gamepad1.left_stick_y; // Remember, this is reversed!
