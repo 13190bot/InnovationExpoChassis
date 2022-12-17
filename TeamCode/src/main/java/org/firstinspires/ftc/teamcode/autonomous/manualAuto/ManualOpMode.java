@@ -106,7 +106,7 @@ public class ManualOpMode extends OpMode {
                 break;
         }
         sleep(3000);
-
+        telemetry.addData("Parking",0);
         lf.setPower(0);
         rf.setPower(0);
         lb.setPower(0);
