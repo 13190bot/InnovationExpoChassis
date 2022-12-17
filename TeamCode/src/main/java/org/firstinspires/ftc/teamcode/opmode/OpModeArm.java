@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmode;
 
+import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -27,10 +28,12 @@ public class OpModeArm extends BaseTotalOpMode {
     private LiftDown liftDown;
 
     private LiftStop liftStop;
+    
+    private setAuto SetAuto; 
 
     private Button armManip, slideManip, clawManip;
 
-    private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
+    private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown, isAuto;
 
 
 
@@ -85,8 +88,9 @@ public class OpModeArm extends BaseTotalOpMode {
         moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.Y)).whenPressed(
                 new SetJunction(arm, ArmSubsystem.Junction.HIGH)
         );
-
+        
         register(arm);
-        arm.setDefaultCommand(liftStop);
+        SetAuto = new setAuto(arm);
+        arm.setDefaultCommand(SetAuto);
     }
 }

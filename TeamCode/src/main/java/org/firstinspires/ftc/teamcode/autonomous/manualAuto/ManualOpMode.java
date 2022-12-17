@@ -85,14 +85,20 @@ public class ManualOpMode extends OpMode {
         //strafe to face park pos
         switch ( sleeveDetection.getPosition()) {
             case LEFT: //left
+
+                telemetry.addData("Detected left",1);
                 rf.setPower(0.1);
                 rb.setPower(-0.1);
                 lf.setPower(-0.1);
                 lb.setPower(0.1);
                 break;
             case CENTER: //if the middle parkpos
+
+                telemetry.addData("Detected center",2);
                 break;
             case RIGHT: //right
+
+                telemetry.addData("Detected right",3);
                 rf.setPower(-0.1);
                 rb.setPower(0.1);
                 lf.setPower(0.1);
