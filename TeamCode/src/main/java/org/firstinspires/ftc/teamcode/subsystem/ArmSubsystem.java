@@ -12,6 +12,7 @@ public class ArmSubsystem extends SubsystemBase{
     private final DcMotor liftL, liftR;
 
     //TODO tune values appropriately (otherwise no work)
+    private static int NONE = 0;
     private static int LOW = 0;
     private static int MEDIUM = 0;
     private static int HIGH = 0;
@@ -102,7 +103,8 @@ public class ArmSubsystem extends SubsystemBase{
     public void setJunction(ArmSubsystem arm, Junction junction) {
         switch(junction) {
             case NONE:
-                arm.setLiftPosition(getLiftsPos()[0]);
+                arm.setLiftPosition(0);
+                // arm.setLiftPosition(getLiftsPos()[0]);
                 break;
             case GROUND:
                 arm.setLiftPosition(GROUND);

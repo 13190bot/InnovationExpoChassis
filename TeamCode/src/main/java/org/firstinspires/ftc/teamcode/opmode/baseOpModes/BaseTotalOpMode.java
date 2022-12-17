@@ -60,7 +60,7 @@ public class BaseTotalOpMode extends CommandOpMode {
 
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
-        slideRight = hardwareMap.dcMotor.get("slideR");
+            slideRight = hardwareMap.dcMotor.get("slideR");
 
         //TODO find min and max
         claw = new SimpleServo(hardwareMap, "claw", 0, 120);

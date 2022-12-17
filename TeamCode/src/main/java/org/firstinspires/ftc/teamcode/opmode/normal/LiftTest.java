@@ -1,35 +1,50 @@
 package org.firstinspires.ftc.teamcode.opmode.normal;
 
+import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import static android.os.SystemClock.sleep;
-
-
-@Autonomous
+@TeleOp(name = "Manual Lift Opmode")
 public class LiftTest extends OpMode {
 
-    DcMotor slideL, slideR;
+    private DcMotorEx slideL, slideR;
+
 
     @Override
     public void init() {
+        Log.d("test", "e");
+        slideL = hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR = hardwareMap.get(DcMotorEx.class, "slideR");
 
-        slideL = hardwareMap.dcMotor.get("slideL");
-        slideR = hardwareMap.dcMotor.get("slideR");
+        slideL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        slideL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slideR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         slideL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        telemetry.addData("init", "complete");
+        telemetry.update();
 
         slideR.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
-    @Override
-    public void start () {
-    }
 
     @Override
-    public void loop() {}
+    public void loop() {
+        Log.d("loop","yes");
+        slideL.setPower(gamepad1.right_stick_y);
+        slideR.setPower(gamepad1.right_stick_y);
+        telemetry.addData("Left Encoder", slideL.getCurrentPosition());
+        telemetry.addData("Right Encoder", slideR.getCurrentPosition());
+        telemetry.update();
+    }
 }

@@ -61,6 +61,9 @@ public class NormalTeleOp extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+        slideR.setPower(slideSpeed);
+        slideL.setPower(slideSpeed);
+
         claw = hardwareMap.get(ServoImpl.class, "claw");
 
 
@@ -75,16 +78,16 @@ public class NormalTeleOp extends OpMode {
 
         //lift gonna be manual (if parteek want set junctions, he can write them himself)
         if(gamepad2.dpad_up){
-            slideR.setPower(slideSpeed);
-            slideL.setPower(slideSpeed);
+            slideL.setTargetPosition(slideL.getCurrentPosition() + 10);
+            slideR.setTargetPosition(slideR.getCurrentPosition() + 10);
         }
         if(gamepad2.dpad_down){
-            slideR.setPower(-slideSpeed);
-            slideL.setPower(-slideSpeed);
+            slideL.setTargetPosition(slideL.getCurrentPosition() - 10);
+            slideR.setTargetPosition(slideR.getCurrentPosition() - 10);
         }
         else {
-            slideR.setPower(0);
-            slideL.setPower(0);
+            slideR.setTargetPosition(slideR.getCurrentPosition());
+            slideL.setTargetPosition(slideL.getCurrentPosition());
         }
 
         //run drive
