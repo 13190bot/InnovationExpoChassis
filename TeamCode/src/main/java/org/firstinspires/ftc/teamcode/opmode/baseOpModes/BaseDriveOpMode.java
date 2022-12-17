@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
@@ -41,15 +42,30 @@ public class BaseDriveOpMode extends CommandOpMode {
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
+        MotorEx[] motors = new MotorEx[]{fL, fR, bL, bR};
+
+        for(MotorEx motor_ : motors) {
+            motor_.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor_.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor_.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        }
 
     }
     @Override
     public void run() {
         super.run();
         telemetry.addData("leftFront Power", round(fL.motor.getPower()));
+        telemetry.addData("leftFront pos", fL.motor.getCurrentPosition());
+
         telemetry.addData("leftBack Power", round(bL.motor.getPower()));
+        telemetry.addData("leftBack pos", bL.motor.getCurrentPosition());
+
         telemetry.addData("rightFront Power", round(fR.motor.getPower()));
+        telemetry.addData("rightFront pos", fR.motor.getCurrentPosition());
+
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
+        telemetry.addData("rightBack pos", bR.motor.getCurrentPosition());
+
 
         telemetry.update();
     }

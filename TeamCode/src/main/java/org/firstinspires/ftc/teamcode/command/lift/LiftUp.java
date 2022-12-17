@@ -12,7 +12,7 @@ public class LiftUp extends SimpleArmCommand {
 
     @Override
     public void initialize() {
-        arm.setLiftManual();
+//        arm.setLiftManual();
         arm.LiftUp();
     }
 }
