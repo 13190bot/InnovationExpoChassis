@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous.vision;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -44,7 +45,7 @@ public class SleeveDetection extends OpenCvPipeline {
             SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
 
     // Running variable storing the parking position
-    private volatile ParkingPosition position = ParkingPosition.LEFT;
+    private volatile ParkingPosition position = ParkingPosition.RIGHT;
 
     @Override
     public Mat processFrame(Mat input) {
@@ -53,22 +54,13 @@ public class SleeveDetection extends OpenCvPipeline {
         Scalar sumColors = Core.sumElems(areaMat);
 
         // Get the minimum RGB value from every single channel
-        double red = sumColors.val[2];
+        double red = sumColors.val[0];
         double green = sumColors.val[1];
-        double blue = sumColors.val[0];
+        double blue = sumColors.val[2];
         double minColor = Math.min(red, Math.min(green, blue));
 
         // Change the bounding box color based on the sleeve color
         if (red == minColor) {
-            position = ParkingPosition.LEFT;
-            Imgproc.rectangle(
-                    input,
-                    sleeve_pointA,
-                    sleeve_pointB,
-                    YELLOW,
-                    2
-            );
-        } else if (green == minColor)  {
             position = ParkingPosition.CENTER;
             Imgproc.rectangle(
                     input,
@@ -77,13 +69,22 @@ public class SleeveDetection extends OpenCvPipeline {
                     CYAN,
                     2
             );
-        } else {
+        } else if (green == minColor)  {
             position = ParkingPosition.RIGHT;
             Imgproc.rectangle(
                     input,
                     sleeve_pointA,
                     sleeve_pointB,
                     MAGENTA,
+                    2
+            );
+        } else {
+            position = ParkingPosition.LEFT;
+            Imgproc.rectangle(
+                    input,
+                    sleeve_pointA,
+                    sleeve_pointB,
+                    YELLOW,
                     2
             );
         }
