@@ -2,12 +2,9 @@ package org.firstinspires.ftc.teamcode.opmode.normal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.*;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.qualcomm.robotcore.hardware.ServoImpl;
 
 @TeleOp (name = "Normie TeleOp")
 public class NormalTeleOp extends OpMode {
@@ -19,6 +16,8 @@ public class NormalTeleOp extends OpMode {
     static DcMotor slideL;
     static DcMotor slideR;
     ServoImpl claw;
+    private Servo DR4b1; //Added by RCGV
+    private Servo DR4b2; //Added by RCGV
 
     // slowmode
     double mul = 1;
@@ -38,6 +37,9 @@ public class NormalTeleOp extends OpMode {
         motorBackLeft = hardwareMap.dcMotor.get("backLeft");
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
+
+        DR4b1 = hardwareMap.get(Servo.class, "servo_name"); //Added by RCGV (Set "servo_name" as it appears in config)
+        DR4b2 = hardwareMap.get(Servo.class, "servo_name"); //Added by RCGV (Set "servo_name" as it appears in config)
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -75,6 +77,22 @@ public class NormalTeleOp extends OpMode {
         //claw manip
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
+
+        //DR4b Servos
+        if (gamepad2.dpad_left) {
+            DR4b1.setPosition(1);
+            DR4b2.setPosition(0);
+        }
+
+    }//Added by RCGV (might want to modify these values)
+        if(gamepad2.dpad_right)
+
+    {
+
+        DR4b1.setPosition(0);
+        DR4b2.setPosition(1);
+
+    }
 
         //lift gonna be manual (if parteek want set junctions, he can write them himself)
         if(gamepad2.dpad_up){
