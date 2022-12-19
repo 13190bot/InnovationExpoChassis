@@ -85,7 +85,7 @@ public class NormalTeleOp extends OpMode {
             DR4b2.setPosition(0);
         }
 
-    }//(might want to modify these values)
+    //(might want to modify these values)
         if(gamepad2.dpad_right)
 
     {
