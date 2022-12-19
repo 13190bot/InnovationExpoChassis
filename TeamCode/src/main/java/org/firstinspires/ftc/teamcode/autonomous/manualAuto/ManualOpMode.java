@@ -29,9 +29,9 @@ public class ManualOpMode extends OpMode {
         rf = hardwareMap.dcMotor.get("rightFront");
         rb = hardwareMap.dcMotor.get("rightBack");
 
-        DcMotor motors [] = {lf, lb, rf, rb};
+        DcMotor motors[] = {lf, lb, rf, rb};
 
-        for(DcMotor motor : motors) {
+        for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
@@ -43,16 +43,15 @@ public class ManualOpMode extends OpMode {
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
         sleeveDetection = new SleeveDetection();
         camera.setPipeline(sleeveDetection);
-        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
-                camera.startStreaming(1280,720);
+            public void onOpened() {
+                camera.startStreaming(1280, 720);
             }
 
             @Override
-            public void onError(int errorCode) {}
+            public void onError(int errorCode) {
+            }
         });
 
         telemetry.addData("Position: ", sleeveDetection.getPosition());
@@ -64,7 +63,7 @@ public class ManualOpMode extends OpMode {
     public void init_loop() {
         super.init_loop();
 
-        if(lf != null || lb != null || rf != null || rb != null){
+        if (lf != null || lb != null || rf != null || rb != null) {
             telemetry.addData("lf", lf::getPower);
             telemetry.addData("lb", lb::getPower);
             telemetry.addData("rf", rf::getPower);
@@ -74,7 +73,7 @@ public class ManualOpMode extends OpMode {
     }
 
     @Override
-    public void start () {
+    public void start() {
 
         lf.setPower(0.1);
         rf.setPower(0.1);
@@ -83,10 +82,10 @@ public class ManualOpMode extends OpMode {
         sleep(3000);
 
         //strafe to face park pos
-        switch ( sleeveDetection.getPosition()) {
+        switch (sleeveDetection.getPosition()) {
             case LEFT: //left
 
-                telemetry.addData("Detected left",1);
+                telemetry.addData("Detected left", 1);
                 rf.setPower(0.1);
                 rb.setPower(-0.1);
                 lf.setPower(-0.1);
@@ -94,11 +93,10 @@ public class ManualOpMode extends OpMode {
                 break;
             case CENTER: //if the middle parkpos
 
-                telemetry.addData("Detected center",2);
+                telemetry.addData("Detected center", 2);
                 break;
             case RIGHT: //right
-
-                telemetry.addData("Detected right",3);
+                telemetry.addData("Detected right", 3);
                 rf.setPower(-0.1);
                 rb.setPower(0.1);
                 lf.setPower(0.1);
@@ -106,7 +104,7 @@ public class ManualOpMode extends OpMode {
                 break;
         }
         sleep(3000);
-        telemetry.addData("Parking",0);
+        telemetry.addData("Parking", 0);
         lf.setPower(0);
         rf.setPower(0);
         lb.setPower(0);
@@ -115,7 +113,8 @@ public class ManualOpMode extends OpMode {
     }
 
     @Override
-    public void loop() {}
+    public void loop() {
+    }
 
 
 }
