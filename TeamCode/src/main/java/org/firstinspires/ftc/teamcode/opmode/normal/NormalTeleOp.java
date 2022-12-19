@@ -16,8 +16,8 @@ public class NormalTeleOp extends OpMode {
     static DcMotor slideL;
     static DcMotor slideR;
     ServoImpl claw;
-    private Servo DR4b1; //Added by RCGV
-    private Servo DR4b2; //Added by RCGV
+    static Servo DR4b1; //Added by RCGV
+    static Servo DR4b2; //Added by RCGV
 
     // slowmode
     double mul = 1;
