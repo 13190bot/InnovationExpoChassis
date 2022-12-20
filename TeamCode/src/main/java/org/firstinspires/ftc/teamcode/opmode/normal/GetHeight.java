@@ -26,6 +26,8 @@ public class GetHeight extends OpMode{
         slideRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void start () {
@@ -49,7 +51,10 @@ public class GetHeight extends OpMode{
             slideRight.setPower(0);
             slideLeft.setPower(0);
         }
-
+if(gamepad1.b){ //Position testing
+   slideRight.setTargetPosition(-743);
+    slideRight.setTargetPosition(40);
+}
         if(gamepad1.a){
             telemetry.addData("SlideR pos", slideRight.getCurrentPosition());
             telemetry.addData("SlideL pos", slideLeft.getCurrentPosition());
