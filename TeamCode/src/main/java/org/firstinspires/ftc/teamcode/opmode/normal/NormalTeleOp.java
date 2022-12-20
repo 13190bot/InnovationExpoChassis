@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImpl;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp (name = "Normie TeleOp")
 public class NormalTeleOp extends OpMode {
@@ -75,13 +76,22 @@ public class NormalTeleOp extends OpMode {
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
+if(gamepad2.y){
 
+}
 
-        //lift gonna be manual (if parteek want set junctions, he can write them himself)
-        if(gamepad2.dpad_up){
-            slideL.setTargetPosition(slideL.getCurrentPosition() + 10);
-            slideR.setTargetPosition(slideR.getCurrentPosition() + 10);
+        //Presets
+        if(gamepad2.dpad_up){ //Medium junction
+           if(slideL.getCurrentPosition()==0) {
+               slideL.setTargetPosition(slideL.getCurrentPosition() + 10);
+               slideR.setTargetPosition(slideR.getCurrentPosition() + 10);
+           }
+           else{
+               telemetry.addData("Servo is not at 0", slideL.getCurrentPosition());
+               telemetry.update();
+           }
         }
+
         if(gamepad2.dpad_down){
             slideL.setTargetPosition(slideL.getCurrentPosition() - 10);
             slideR.setTargetPosition(slideR.getCurrentPosition() - 10);
