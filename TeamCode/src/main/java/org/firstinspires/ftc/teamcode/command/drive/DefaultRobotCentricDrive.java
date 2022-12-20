@@ -12,8 +12,8 @@ public class DefaultRobotCentricDrive extends CommandBase {
     public DefaultRobotCentricDrive(DriveSubsystem drive,
                                     DoubleSupplier strafeSpeed,
                                     DoubleSupplier forwardSpeed,
-                                     DoubleSupplier turnSpeedL,
-                                    DoubleSupplier turnspeedR){
+                                    DoubleSupplier turnSpeedL,
+                                    DoubleSupplier turnspeedR) {
         this.drive = drive;
         this.strafeSpeed = strafeSpeed;
         this.forwardSpeed = forwardSpeed;
