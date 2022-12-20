@@ -17,8 +17,8 @@ public class NormalTeleOp extends OpMode {
     static DcMotor slideL;
     static DcMotor slideR;
     ServoImpl claw;
-    static Servo DR4b1;
-    static Servo DR4b2;
+    static Servo V4b1;
+    static Servo V4b2;
 
     // slowmode
     double mul = 1;
@@ -39,8 +39,8 @@ public class NormalTeleOp extends OpMode {
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
 
-        DR4b1 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
-        DR4b2 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
+        V4b1 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
+        V4b2 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -81,8 +81,8 @@ public class NormalTeleOp extends OpMode {
 
         //DR4b Servos
         if (gamepad2.dpad_left) {
-            DR4b1.setPosition(1);
-            DR4b2.setPosition(0);
+            V4b1.setPosition(1);
+            V4b2.setPosition(0);
         }
 
     //(might want to modify these values)
@@ -90,8 +90,8 @@ public class NormalTeleOp extends OpMode {
 
     {
 
-        DR4b1.setPosition(0);
-        DR4b2.setPosition(1);
+        V4b1.setPosition(0);
+        V4b2.setPosition(1);
 
     }
 
