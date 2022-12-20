@@ -2,10 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.normal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImpl;
+import com.qualcomm.robotcore.hardware.*;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp (name = "Normie TeleOp")
@@ -81,15 +78,13 @@ if(gamepad2.y){
 }
 
         //Presets
-        if(gamepad2.dpad_up){ //Medium junction
-           if(slideL.getCurrentPosition()==0) {
-               slideL.setTargetPosition(slideL.getCurrentPosition() + 10);
-               slideR.setTargetPosition(slideR.getCurrentPosition() + 10);
-           }
-           else{
-               telemetry.addData("Servo is not at 0", slideL.getCurrentPosition());
-               telemetry.update();
-           }
+        if(gamepad2.y){ //Medium junction
+               slideL.setTargetPosition(10);
+               slideR.setTargetPosition(10);
+        }
+        if(gamepad2.x){ //Small junction
+            slideL.setTargetPosition(10);
+            slideR.setTargetPosition(10);
         }
 
         if(gamepad2.dpad_down){
