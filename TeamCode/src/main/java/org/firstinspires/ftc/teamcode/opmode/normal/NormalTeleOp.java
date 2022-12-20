@@ -73,9 +73,6 @@ public class NormalTeleOp extends OpMode {
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
-if(gamepad2.y){
-
-}
 
         //Presets
         if(gamepad2.y){ //Medium junction
