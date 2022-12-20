@@ -17,8 +17,6 @@ public class NormalTeleOp extends OpMode {
     static DcMotor slideL;
     static DcMotor slideR;
     ServoImpl claw;
-    static Servo V4b1;
-    static Servo V4b2;
 
     // slowmode
     double mul = 1;
@@ -39,8 +37,6 @@ public class NormalTeleOp extends OpMode {
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
 
-        V4b1 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
-        V4b2 = hardwareMap.get(Servo.class, "servo_name"); //(Set "servo_name" as it appears in config)
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -79,21 +75,7 @@ public class NormalTeleOp extends OpMode {
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
-        //DR4b Servos
-        if (gamepad2.dpad_left) {
-            V4b1.setPosition(1);
-            V4b2.setPosition(0);
-        }
 
-    //(might want to modify these values)
-        if(gamepad2.dpad_right)
-
-    {
-
-        V4b1.setPosition(0);
-        V4b2.setPosition(1);
-
-    }
 
         //lift gonna be manual (if parteek want set junctions, he can write them himself)
         if(gamepad2.dpad_up){
