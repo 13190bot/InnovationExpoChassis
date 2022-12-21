@@ -31,11 +31,14 @@ public class newAuto extends OpMode {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
-        telemetry.addData("init", "done");
+
     }
 
     @Override
     public void loop() {
 
+
+
     }
+
 }
