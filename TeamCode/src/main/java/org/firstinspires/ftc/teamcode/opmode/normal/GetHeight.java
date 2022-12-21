@@ -11,7 +11,7 @@ public class GetHeight extends OpMode{
     DcMotor slideLeft, slideRight;
 
     double speed = 0.3;
-
+    int TestHeight = 10; //Change for any tests, Activated by A button
     public void init () {
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
@@ -52,8 +52,8 @@ public class GetHeight extends OpMode{
             slideLeft.setPower(0);
         }
 if(gamepad1.b){ //Position testing
-   slideRight.setTargetPosition(-743);
-    slideRight.setTargetPosition(40);
+   slideRight.setTargetPosition(TestHeight);
+    slideRight.setTargetPosition(TestHeight);
 }
         if(gamepad1.a){
             telemetry.addData("SlideR pos", slideRight.getCurrentPosition());
