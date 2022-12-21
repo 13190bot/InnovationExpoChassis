@@ -122,7 +122,7 @@ public class NormalTeleOp extends OpMode {
         }
         if(lx>0.3) {
 
-            frontLeftPower = backLeftPower = -turnSpeed;
+            frontLeftPower = backLeftPower = -turnSpeed; //Change the Var
             frontRightPower = backRightPower = turnSpeed;
         }
 
