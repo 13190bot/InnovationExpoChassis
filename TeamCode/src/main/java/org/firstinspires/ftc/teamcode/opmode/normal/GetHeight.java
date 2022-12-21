@@ -11,7 +11,7 @@ public class GetHeight extends OpMode{
     DcMotor slideLeft, slideRight;
 
     double speed = 0.3;
-    int TestHeight = 10; //Change for any tests, Activated by A button
+    int TestHeight = 10; //Change for any tests, Activated by B button
     public void init () {
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
