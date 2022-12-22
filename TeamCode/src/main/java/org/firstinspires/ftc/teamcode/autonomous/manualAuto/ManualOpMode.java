@@ -29,7 +29,7 @@ public class ManualOpMode extends OpMode {
         rf = hardwareMap.dcMotor.get("rightFront");
         rb = hardwareMap.dcMotor.get("rightBack");
 
-        DcMotor motors[] = {lf, lb, rf, rb};
+        DcMotor[] motors = {lf, lb, rf, rb};
 
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
