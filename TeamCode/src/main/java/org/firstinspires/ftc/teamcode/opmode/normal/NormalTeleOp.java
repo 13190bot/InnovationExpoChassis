@@ -28,6 +28,7 @@ public class NormalTeleOp extends OpMode {
     boolean goingUp = false;
     boolean liftMoving = false;
 
+
     int mediumJunct = 10; //Change these values
     int smallJunct = 10; //Change these values
 
@@ -78,13 +79,19 @@ public class NormalTeleOp extends OpMode {
 
         //Presets
         if (gamepad2.y) { //Medium junction
-            moveSlide(mediumJunct);
+            slideTarget(mediumJunct);
         } else if (gamepad2.x) { //Small junction
-            moveSlide(smallJunct);
-        } else if (gamepad2.dpad_down) {
-            moveSlideRelativeToCurrentPosition(-10);
-        } else {
-            moveSlideRelativeToCurrentPosition(0);
+            slideTarget(smallJunct);
+        }
+
+        
+        if (gamepad2.dpad_down) {
+            moveSlide(-10);
+        } else if (gamepad2.dpad_up){
+            moveSlide(+10);
+        }
+        else {
+            moveSlide(0); //Keeps at same pos
         }
 
         //run drive
@@ -132,12 +139,12 @@ public class NormalTeleOp extends OpMode {
 
     }
 
-    private static void moveSlideRelativeToCurrentPosition(int delta) {
-        slideL.setTargetPosition(slideL.getCurrentPosition() + delta);
-        slideR.setTargetPosition(slideR.getCurrentPosition() + delta);
+    private static void moveSlide(int amount) {
+        slideL.setTargetPosition(slideL.getCurrentPosition() + amount);
+        slideR.setTargetPosition(slideR.getCurrentPosition() + amount);
     }
 
-    private static void moveSlide(int pos) {
+    private static void slideTarget(int pos) {
         slideL.setTargetPosition(pos);
         slideR.setTargetPosition(pos);
     }
