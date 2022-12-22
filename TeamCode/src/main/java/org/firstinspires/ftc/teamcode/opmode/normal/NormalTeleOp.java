@@ -28,6 +28,8 @@ public class NormalTeleOp extends OpMode {
     boolean goingUp = false;
     boolean liftMoving = false;
 
+    int mediumJunct = 10; //Change these values
+    int smallJunct = 10; //Change these values
 
     public void init () {
         motorFrontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -69,28 +71,20 @@ public class NormalTeleOp extends OpMode {
     }
     public void loop () {
 
-        //claw manip
+        //claw manipulation
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
 
         //Presets
-        if(gamepad2.y){ //Medium junction
-               slideL.setTargetPosition(10);
-               slideR.setTargetPosition(10);
-        }
-        if(gamepad2.x){ //Small junction
-            slideL.setTargetPosition(10);
-            slideR.setTargetPosition(10);
-        }
-
-        if(gamepad2.dpad_down){
-            slideL.setTargetPosition(slideL.getCurrentPosition() - 10);
-            slideR.setTargetPosition(slideR.getCurrentPosition() - 10);
-        }
-        else {
-            slideR.setTargetPosition(slideR.getCurrentPosition());
-            slideL.setTargetPosition(slideL.getCurrentPosition());
+        if (gamepad2.y) { //Medium junction
+            moveSlide(mediumJunct);
+        } else if (gamepad2.x) { //Small junction
+            moveSlide(smallJunct);
+        } else if (gamepad2.dpad_down) {
+            moveSlideRelativeToCurrentPosition(-10);
+        } else {
+            moveSlideRelativeToCurrentPosition(0);
         }
 
         //run drive
@@ -122,7 +116,7 @@ public class NormalTeleOp extends OpMode {
         }
         if(lx>0.3) {
 
-            frontLeftPower = backLeftPower = -turnSpeed; //Change the Var
+            frontLeftPower = backLeftPower = -turnSpeed;
             frontRightPower = backRightPower = turnSpeed;
         }
 
@@ -136,6 +130,16 @@ public class NormalTeleOp extends OpMode {
         motorFrontRight.setPower(-frontRightPower);
         motorBackRight.setPower(-backRightPower);
 
+    }
+
+    private static void moveSlideRelativeToCurrentPosition(int delta) {
+        slideL.setTargetPosition(slideL.getCurrentPosition() + delta);
+        slideR.setTargetPosition(slideR.getCurrentPosition() + delta);
+    }
+
+    private static void moveSlide(int pos) {
+        slideL.setTargetPosition(pos);
+        slideR.setTargetPosition(pos);
     }
 
 }
