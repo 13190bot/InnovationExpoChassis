@@ -82,10 +82,7 @@ public class NormalTeleOp extends OpMode {
             slideTarget(mediumJunct);
         } else if (gamepad2.x) { //Small junction
             slideTarget(smallJunct);
-        }
-
-        
-        if (gamepad2.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             moveSlide(-10);
         } else if (gamepad2.dpad_up){
             moveSlide(+10);
