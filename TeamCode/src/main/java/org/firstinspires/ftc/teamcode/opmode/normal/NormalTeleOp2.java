@@ -69,7 +69,7 @@ public class NormalTeleOp2 extends OpMode {
 
 
         telemetry.addData("init", "done");
-
+        telemetry.update();
     }
     public void loop () {
 
@@ -81,8 +81,12 @@ public class NormalTeleOp2 extends OpMode {
         //Presets
         if (gamepad2.x) { //Medium junction
             slideTarget(mediumJunct);
+            telemetry.addData("going to medium junction",mediumJunct);
+            telemetry.update();
         } else if (gamepad2.a) { //Small junction
             slideTarget(smallJunct);
+            telemetry.addData("going to small junction",smallJunct);
+            telemetry.update();
         } else if (gamepad2.dpad_down) {
             moveSlide(-10);
         } else if (gamepad2.dpad_up){
