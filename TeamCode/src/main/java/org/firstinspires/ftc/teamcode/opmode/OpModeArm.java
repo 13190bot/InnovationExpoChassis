@@ -33,7 +33,6 @@ public class OpModeArm extends BaseTotalOpMode {
     private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
 
 
-
     @Override
     public void initialize() {
         super.initialize();
@@ -65,6 +64,7 @@ public class OpModeArm extends BaseTotalOpMode {
         //manual lift code
         liftUp = new LiftUp(arm);
         isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whileHeld(liftUp);
+
         isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
 
 
@@ -85,8 +85,6 @@ public class OpModeArm extends BaseTotalOpMode {
         moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.Y)).whenPressed(
                 new SetJunction(arm, ArmSubsystem.Junction.HIGH)
         );
-
         register(arm);
-        arm.setDefaultCommand(liftStop);
     }
 }
