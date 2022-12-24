@@ -79,9 +79,9 @@ public class NormalTeleOp2 extends OpMode {
 
 
         //Presets
-        if (gamepad2.y) { //Medium junction
+        if (gamepad2.x) { //Medium junction
             slideTarget(mediumJunct);
-        } else if (gamepad2.x) { //Small junction
+        } else if (gamepad2.a) { //Small junction
             slideTarget(smallJunct);
         } else if (gamepad2.dpad_down) {
             moveSlide(-10);
