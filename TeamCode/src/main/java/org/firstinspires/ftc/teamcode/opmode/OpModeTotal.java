@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.command.claw.*;
 
 
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
-import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Main TeleOp")
 public class OpModeTotal extends BaseTotalOpMode {
@@ -110,21 +109,21 @@ public class OpModeTotal extends BaseTotalOpMode {
         isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
 
         // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE and ask if they even want move cancel
+        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE and ask if they even want move cancel
         moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.NONE)
+                new SetJunction(arm, ArmSubsystem_OG.Junction.NONE)
         );
         moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.GROUND)
+                new SetJunction(arm, ArmSubsystem_OG.Junction.GROUND)
         );
         moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.X)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.LOW)
+                new SetJunction(arm, ArmSubsystem_OG.Junction.LOW)
         );
         moveMedium = (new GamepadButton(driverOp2, GamepadKeys.Button.B)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.MEDIUM)
+                new SetJunction(arm, ArmSubsystem_OG.Junction.MEDIUM)
         );
         moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed(
-                new SetJunction(arm, ArmSubsystem.Junction.HIGH)        );
+                new SetJunction(arm, ArmSubsystem_OG.Junction.HIGH)        );
 
 
         register(drive, arm);

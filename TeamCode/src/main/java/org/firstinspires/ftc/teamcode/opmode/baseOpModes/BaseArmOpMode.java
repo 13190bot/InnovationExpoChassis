@@ -3,29 +3,22 @@ package org.firstinspires.ftc.teamcode.opmode.baseOpModes;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
-import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class BaseArmOpMode extends CommandOpMode {
 
     protected DcMotor slideLeft, slideRight;
     protected ServoEx claw;
-    protected ArmSubsystem arm;
+    protected ArmSubsystem_OG arm;
 
     @Override
     public void initialize() {
         initHardware();
         setUpHardwareDevices();
-        arm = new ArmSubsystem(claw,slideLeft, slideRight);
+        arm = new ArmSubsystem_OG(claw,slideLeft, slideRight);
 
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());

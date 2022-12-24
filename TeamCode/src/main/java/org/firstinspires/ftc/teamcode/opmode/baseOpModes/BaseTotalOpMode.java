@@ -10,7 +10,6 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public class BaseTotalOpMode extends CommandOpMode {
     protected ServoEx claw;
 
     protected DriveSubsystem drive;
-    protected ArmSubsystem arm;
+    protected ArmSubsystem_OG arm;
 
 
 
@@ -34,7 +33,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         setUpHardwareDevices();
 
         drive = new DriveSubsystem(fL, fR, bL, bR);
-        arm = new ArmSubsystem(claw, slideLeft, slideRight);
+        arm = new ArmSubsystem_OG(claw, slideLeft, slideRight);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");

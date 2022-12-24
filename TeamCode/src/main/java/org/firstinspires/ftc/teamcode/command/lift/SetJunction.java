@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.command.lift;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 public class SetJunction extends CommandBase {
-    private final ArmSubsystem arm;
-    private ArmSubsystem.Junction junction;
+    private final ArmSubsystem_OG arm;
+    private ArmSubsystem_OG.Junction junction;
 
-    public SetJunction(ArmSubsystem arm, ArmSubsystem.Junction junction) {
+    public SetJunction(ArmSubsystem_OG arm, ArmSubsystem_OG.Junction junction) {
         this.arm = arm;
         this.junction = junction;
         addRequirements(arm);

@@ -8,11 +8,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.command.claw.*;
 import org.firstinspires.ftc.teamcode.command.lift.*;
+import org.firstinspires.ftc.teamcode.command.arm.*;
 
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
 
-@TeleOp(name = "Arm TeleOp")
-public class OpModeArm extends BaseTotalOpMode {
+@TeleOp(name = "Arm PID TeleOp")
+public class OpModePIDArmTesting extends BaseTotalOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
@@ -20,6 +21,9 @@ public class OpModeArm extends BaseTotalOpMode {
     private DropCone dropCone;
 
     private GrabCone grabCone;
+    private GoHome goHome;
+
+    private GoScore goScore;
 
     private LiftUp liftUp;
 
@@ -57,6 +61,11 @@ public class OpModeArm extends BaseTotalOpMode {
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
         clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
+
+        //flips between arm out and arm in
+        goHome = new GoHome(arm);
+        goScore = new GoScore(arm);
+        armManip = (new GamepadButton(driverOp1, GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(goHome, goScore);
 
 
         liftStop = new LiftStop(arm);
