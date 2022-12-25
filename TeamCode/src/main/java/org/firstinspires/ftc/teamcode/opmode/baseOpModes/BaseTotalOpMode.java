@@ -94,6 +94,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         telemetry.addData("Right Slide Power", arm.getSlideRPower());
         telemetry.addData("Left Slide Error", arm.getSlideLError());
         telemetry.addData("Right Slide Error", arm.getSlideRError());
+        telemetry.addData("Claw Position", arm.getClawPos());
         telemetry.update();
 
         telemetry.update();
