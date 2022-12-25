@@ -15,7 +15,7 @@ public class ArmSubsystem extends SubsystemBase{
 
 
     //TODO tune height values
-    public static int NONE = 0;
+    public static int DEFAULT = 0;
     public static int GROUND = 0;
     public static int LOW = 0;
     public static int MEDIUM = 0;
@@ -48,7 +48,7 @@ public class ArmSubsystem extends SubsystemBase{
 
     public static double tolerance = 10;
 
-    public static Junction currentGoal = Junction.NONE;
+    public static Junction currentGoal = Junction.DEFAULT;
 
     //TODO TUNE THESE VALUES
     private final double arm1_home = 0;
@@ -66,7 +66,7 @@ public class ArmSubsystem extends SubsystemBase{
     private final double manualSlideSpeed = 0;
 
     public enum Junction{
-        NONE,
+        DEFAULT,
         GROUND,
         LOW,
         MEDIUM,
@@ -85,8 +85,12 @@ public class ArmSubsystem extends SubsystemBase{
         slide_pidL.setTolerance(tolerance);
         slide_pidR.setTolerance(tolerance);
 
+        //todo make sure this works right (on start should just stay at the bottom)
         slide_pidL.setGoal(0);
         slide_pidR.setGoal(0);
+
+
+        moveToJunction(Junction.DEFAULT);//might not need this part
 
     }
 
@@ -136,8 +140,8 @@ public class ArmSubsystem extends SubsystemBase{
     public void moveToJunction(Junction junction){
         currentGoal = junction;
         switch(junction){
-            case NONE:
-                setSlidesPID(NONE);
+            case DEFAULT:
+                setSlidesPID(DEFAULT);
                 break;
             case GROUND:
                 setSlidesPID(GROUND);
@@ -191,6 +195,11 @@ public class ArmSubsystem extends SubsystemBase{
     public double getSlideRPower(){
         return out_right;
     }
+
+    public double getClawPos(){return claw.getPosition();}
+
+    public double arm1Pos(){return arm1.getPosition();}
+    public double arm2Pos(){return arm2.getPosition();}
 
 
 
