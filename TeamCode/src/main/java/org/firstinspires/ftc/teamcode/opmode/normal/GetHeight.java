@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "GetHeight")
+@TeleOp(name = "Height Testing")
 public class GetHeight extends OpMode{
 
     DcMotor slideLeft, slideRight;
@@ -51,10 +51,11 @@ public class GetHeight extends OpMode{
             slideRight.setPower(0);
             slideLeft.setPower(0);
         }
-if(gamepad1.b){ //Position testing
-   slideRight.setTargetPosition(TestHeight);
-    slideRight.setTargetPosition(TestHeight);
-}
+        if(gamepad1.b){ //Position testing
+            slideRight.setTargetPosition(TestHeight);
+            slideRight.setTargetPosition(TestHeight);
+        }
+
         if(gamepad1.a){
             telemetry.addData("SlideR pos", slideRight.getCurrentPosition());
             telemetry.addData("SlideL pos", slideLeft.getCurrentPosition());
