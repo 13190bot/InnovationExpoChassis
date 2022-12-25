@@ -9,7 +9,7 @@ import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
 
 public class ArmSubsystem extends SubsystemBase{
 
-    private final ServoEx claw, arm1, arm2;
+    private final ServoEx claw;
 
     private final MotorEx slideL, slideR;
 
@@ -36,6 +36,8 @@ public class ArmSubsystem extends SubsystemBase{
 
     //https://www.ctrlaltftc.com/the-pid-controller/tuning-methods-of-a-pid-controller
 
+    //both motors need to be same spec
+
     private final ProfiledPIDController slide_pidL = new ProfiledPIDController(slide_P, slide_I, slide_D,
             new TrapezoidProfile.Constraints(maxVel, maxAccel));
 
@@ -51,19 +53,14 @@ public class ArmSubsystem extends SubsystemBase{
     public static Junction currentGoal = Junction.DEFAULT;
 
     //TODO TUNE THESE VALUES
-    private final double arm1_home = 0;
 
-    private final double arm2_home = 0;
+    private final double clawOpen = 1;//servo position for open
 
-    private final double arm1_score = 0;
+    private final double clawClose = 0;//servo position for close
 
-    private final double arm2_score = 0;
+    private final double manualSlideSpeed = 0.5; //higher is faster
 
-    private final double clawOpen = 1;
 
-    private final double clawClose = 0;
-
-    private final double manualSlideSpeed = 0;
 
     public enum Junction{
         DEFAULT,
@@ -75,10 +72,8 @@ public class ArmSubsystem extends SubsystemBase{
 
     //constructor
 
-    public ArmSubsystem(ServoEx claw, ServoEx arm1, ServoEx arm2, MotorEx slideL, MotorEx slideR){
+    public ArmSubsystem(ServoEx claw,  MotorEx slideL, MotorEx slideR){
         this.claw = claw;
-        this.arm1 = arm1;
-        this.arm2 = arm2;
         this.slideL = slideL;
         this.slideR = slideR;
 
@@ -99,29 +94,6 @@ public class ArmSubsystem extends SubsystemBase{
     public void clawOpen() {claw.setPosition(clawOpen);}
 
     public void clawClose() {claw.setPosition(clawClose);}
-
-
-    //arm control
-
-    public void armHome() {
-        arm1.setPosition(arm1_home);
-        arm2.setPosition(arm2_home);
-    }
-
-    //TODO tune values after servo placed
-    public void armScore() {
-        arm1.setPosition(arm1_score);
-        arm2.setPosition(arm2_score);
-    }
-
-    //would this even work? would both servos have the same motion thingy???
-    public void armPos(double pos){
-        arm1.setPosition(pos);
-        arm2.setPosition(pos);
-    }
-
-
-
 
     //slide pid stuff
 
@@ -175,7 +147,7 @@ public class ArmSubsystem extends SubsystemBase{
 
     public void changeSetPoint(double input){
         slide_pidL.setGoal((int)(slideL.getCurrentPosition()+input*manualSlideSpeed));
-        slide_pidL.setGoal((int)(slideL.getCurrentPosition()+input*manualSlideSpeed));
+        slide_pidR.setGoal((int)(slideR.getCurrentPosition()+input*manualSlideSpeed));
         Log.d("setpoint left", "" + slide_pidL.getSetpoint().position);
         Log.d("setpoint right", "" + slide_pidR.getSetpoint().position);
     }
@@ -196,13 +168,10 @@ public class ArmSubsystem extends SubsystemBase{
         return out_right;
     }
 
+    public double getSlideLError(){return slide_pidL.getPositionError();}
+
+    public double getSlideRError(){return slide_pidR.getPositionError();}
+
     public double getClawPos(){return claw.getPosition();}
-
-    public double arm1Pos(){return arm1.getPosition();}
-    public double arm2Pos(){return arm2.getPosition();}
-
-
-
-
 
 }

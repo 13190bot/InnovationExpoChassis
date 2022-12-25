@@ -1,24 +1,24 @@
-package org.firstinspires.ftc.teamcode.command.lift.PID_Things;
+package org.firstinspires.ftc.teamcode.command.lift;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 import java.util.function.DoubleSupplier;
 
-public class MoveLiftPID extends CommandBase {
+public class ManualLift extends CommandBase {
     private final ArmSubsystem arm;
-    private DoubleSupplier supplier;
+    private DoubleSupplier input;
 
-    public MoveLiftPID(ArmSubsystem arm, DoubleSupplier supplier) {
+    public ManualLift(ArmSubsystem arm, DoubleSupplier input) {
         this.arm = arm;
-        this.supplier = supplier;
+        this.input = input;
         addRequirements(arm);
     }
 
     @Override
     public void execute() {
-        if(supplier.getAsDouble() != 0) {
-            arm.changeSetPoint(supplier.getAsDouble());
+        if(input.getAsDouble() != 0) {
+            arm.changeSetPoint(input.getAsDouble());
             arm.loopPID();
         } else {
             arm.loopPID();

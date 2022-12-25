@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.command.claw.*;
 
 
 import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Main TeleOp")
 public class OpModeTotal extends BaseTotalOpMode {
@@ -24,18 +25,21 @@ public class OpModeTotal extends BaseTotalOpMode {
 
     private SlowMode slowMode;
 
+
     private DropCone dropCone;
 
     private GrabCone grabCone;
 
-    private LiftUp liftUp;
+    //slides
 
-    private LiftDown liftDown;
+    private ManualLift manualLift;
 
-    private LiftStop liftStop;
-    private Button slowtime, slideManip, clawManip;
+    private MoveToJunction moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
 
-    private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
+    private Button slowtime, clawManip, slideMovement;
+
+    private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
+
 
     @Override
     public void initialize() {
@@ -50,20 +54,6 @@ public class OpModeTotal extends BaseTotalOpMode {
 
             Left bumper -> toggles between slow mode and normal mode
 
-        Player2
-            START -> moveCancel (Cancel all current movement)
-            A -> moveGround (Ground junction)
-            X -> moveLow (Low junction)
-            B -> moveMedium (Medium junction)
-            Y -> moveHigh (High junction)
-              Y
-            X   B
-              A
-
-            right_bumper -> alternates between claw open and close
-            left_bumper -> alternates between arm forward and back
-            dpad_up -> slides go up
-            dpad_down -> slides go down
          */
 
         driverOp1 = new GamepadEx(gamepad1);
@@ -86,55 +76,63 @@ public class OpModeTotal extends BaseTotalOpMode {
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
-        register(drive);
-        drive.setDefaultCommand(robotCentricDrive);
+       /*
+        Player2
+            right_bumper -> resets slides to ground
+            dpad_down -> moveGround (Ground junction)
+            dpad_left -> moveLow (Low junction)
+            dpad_right -> moveMedium (Medium junction)
+            dpad_up -> moveHigh (High junction)
 
 
+            a -> alternates between claw open and close
+            b -> alternates between arm home and score
 
-        //toggles between open and close
+            right joystick y-axis --> slides control
+         */
+
+        driverOp1 = new GamepadEx(gamepad1);
+
+        //toggles claw between open and close
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
-        clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
+        clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).toggleWhenPressed(grabCone, dropCone);
 
-        //toggles between open and close
-        grabCone = new GrabCone(arm);
-        dropCone = new DropCone(arm);
-        clawManip = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
+        //slides manual
+        manualLift = new ManualLift(arm, () -> driverOp2.getRightY());
+
+        // automatic junction code
+
+        moveToDefault = new MoveToJunction(arm, ArmSubsystem.Junction.DEFAULT);
+        moveToGround = new MoveToJunction(arm, ArmSubsystem.Junction.GROUND);
+        moveToLow = new MoveToJunction(arm, ArmSubsystem.Junction.LOW);
+        moveToMedium = new MoveToJunction(arm, ArmSubsystem.Junction.MEDIUM);
+        moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
 
 
-        liftStop = new LiftStop(arm);
-        //manual lift code
-        liftUp = new LiftUp(arm);
-        isUp = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP)).whileHeld(liftUp);
-        isDown = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
 
-        // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE and ask if they even want move cancel
-        moveCancel = (new GamepadButton(driverOp2, GamepadKeys.Button.START)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.NONE)
-        );
-        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.A)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.GROUND)
-        );
-        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.X)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.LOW)
-        );
-        moveMedium = (new GamepadButton(driverOp2, GamepadKeys.Button.B)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.MEDIUM)
-        );
-        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.Y)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.HIGH)        );
+        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE
+        moveDefault = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenPressed(moveToDefault);
+
+        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN))
+                .whenPressed(moveToGround);
+
+        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_LEFT))
+                .whenPressed(moveToLow);
+
+        moveMedium= (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_RIGHT))
+                .whenPressed(moveToMedium);
+
+        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP))
+                .whenPressed(moveToHigh);
+
+
+
 
 
         register(drive, arm);
-//        arm.setDefaultCommand(liftStop);
         drive.setDefaultCommand(robotCentricDrive);
-    }
-
-    @Override
-    public void run() {
-        super.run();
-
-        arm.manualControlLift(gamepad2.left_stick_y);
+        arm.setDefaultCommand(manualLift);
     }
 }

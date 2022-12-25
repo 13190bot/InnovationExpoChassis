@@ -9,27 +9,31 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.command.claw.*;
 import org.firstinspires.ftc.teamcode.command.lift.*;
 
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
+import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseArmOpMode;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Arm TeleOp")
-public class OpModeArm extends BaseTotalOpMode {
+public class OpModeArm extends BaseArmOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
 
+    //claw
     private DropCone dropCone;
 
     private GrabCone grabCone;
 
-    private LiftUp liftUp;
+    //slides
 
-    private LiftDown liftDown;
+    private ManualLift manualLift;
 
-    private LiftStop liftStop;
+    private MoveToJunction moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
 
-    private Button armManip, slideManip, clawManip;
+    //buttons
 
-    private Button moveGround, moveLow, moveMedium, moveHigh, moveCancel, isUp, isDown;
+    private Button clawManip, slideMovement;
+
+    private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
 
 
     @Override
@@ -37,53 +41,56 @@ public class OpModeArm extends BaseTotalOpMode {
         super.initialize();
         /*
         Player1
-            START -> moveCancel (Cancel all current movement)
-            A -> moveGround (Ground junction)
-            X -> moveLow (Low junction)
-            B -> moveMedium (Medium junction)
-            Y -> moveHigh (High junction)
-              Y
-            X   B
-              A
+            right_bumper -> resets slides to ground
+            dpad_down -> moveGround (Ground junction)
+            dpad_left -> moveLow (Low junction)
+            dpad_right -> moveMedium (Medium junction)
+            dpad_up -> moveHigh (High junction)
 
-            right_bumper -> alternates between claw open and close
-            dpad_up -> slides go up
-            dpad_down -> slides go down
+
+            a -> alternates between claw open and close
+            b -> alternates between arm home and score
+
+            right joystick y-axis --> slides control
          */
 
         driverOp1 = new GamepadEx(gamepad1);
 
-        //toggles between open and close
+        //toggles claw between open and close
         grabCone = new GrabCone(arm);
         dropCone = new DropCone(arm);
-        clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER)).toggleWhenPressed(grabCone, dropCone);
+        clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.A)).toggleWhenPressed(grabCone, dropCone);
+
+        //slides manual
+        manualLift = new ManualLift(arm, () -> driverOp1.getRightY());
+
+        // automatic junction code
+
+        moveToDefault = new MoveToJunction(arm, ArmSubsystem.Junction.DEFAULT);
+        moveToGround = new MoveToJunction(arm, ArmSubsystem.Junction.GROUND);
+        moveToLow = new MoveToJunction(arm, ArmSubsystem.Junction.LOW);
+        moveToMedium = new MoveToJunction(arm, ArmSubsystem.Junction.MEDIUM);
+        moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
 
 
-        liftStop = new LiftStop(arm);
-        //manual lift code
-        liftUp = new LiftUp(arm);
-        isUp = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP)).whileHeld(liftUp);
 
-        isDown = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN)).whileHeld(liftDown);
-
-
-        // automatic junction code [quite mid actually(since perkeet wrote it), everything else is w code(Since I wrote it)]
         //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE
-        moveCancel = (new GamepadButton(driverOp1, GamepadKeys.Button.START)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.NONE)
-        );
-        moveGround = (new GamepadButton(driverOp1, GamepadKeys.Button.A)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.GROUND)
-        );
-        moveLow = (new GamepadButton(driverOp1, GamepadKeys.Button.X)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.LOW)
-        );
-        moveMedium = (new GamepadButton(driverOp1, GamepadKeys.Button.B)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.MEDIUM)
-        );
-        moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.Y)).whenPressed(
-                new SetJunction(arm, ArmSubsystem_OG.Junction.HIGH)
-        );
+        moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
+                .whenPressed(moveToDefault);
+
+        moveGround = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_DOWN))
+                .whenPressed(moveToGround);
+
+        moveLow = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_LEFT))
+                .whenPressed(moveToLow);
+
+        moveMedium= (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_RIGHT))
+                .whenPressed(moveToMedium);
+
+        moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP))
+                .whenPressed(moveToHigh);
+
         register(arm);
+        arm.setDefaultCommand(manualLift);
     }
 }

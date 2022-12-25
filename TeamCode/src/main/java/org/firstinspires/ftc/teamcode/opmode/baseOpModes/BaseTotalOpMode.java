@@ -10,6 +10,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 
 import java.math.BigDecimal;
@@ -18,11 +19,11 @@ import java.math.RoundingMode;
 @TeleOp
 public class BaseTotalOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
-    protected DcMotor slideLeft, slideRight;
+    protected MotorEx slideLeft, slideRight;
     protected ServoEx claw;
 
     protected DriveSubsystem drive;
-    protected ArmSubsystem_OG arm;
+    protected ArmSubsystem arm;
 
 
 
@@ -33,7 +34,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         setUpHardwareDevices();
 
         drive = new DriveSubsystem(fL, fR, bL, bR);
-        arm = new ArmSubsystem_OG(claw, slideLeft, slideRight);
+        arm = new ArmSubsystem(claw, slideLeft, slideRight);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
@@ -45,6 +46,23 @@ public class BaseTotalOpMode extends CommandOpMode {
         fR = new MotorEx(hardwareMap, "frontRight");
         bL = new MotorEx(hardwareMap, "backLeft");
         bR = new MotorEx(hardwareMap, "backRight");
+
+        slideLeft = new MotorEx(hardwareMap, "slideL");
+        slideRight = new MotorEx(hardwareMap, "slideR");
+
+        //TODO find min and max
+        claw = new SimpleServo(hardwareMap, "claw", 0, 120);
+    }
+
+    protected void setUpHardwareDevices() {
+        //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
+        slideRight.setInverted(true);
+
+        slideLeft.resetEncoder();
+        slideRight.resetEncoder();
+
+        slideLeft.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        slideRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         //Motor Reversal
         bL.setInverted(true);
@@ -58,22 +76,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        slideLeft = hardwareMap.dcMotor.get("slideL");
-            slideRight = hardwareMap.dcMotor.get("slideR");
 
-        //TODO find min and max
-        claw = new SimpleServo(hardwareMap, "claw", 0, 120);
-    }
-
-    protected void setUpHardwareDevices() {
-        //TODO MAKE SURE CORRECT MOTORS ARE REVERSED
-        slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        //Use this to fix stuff
-//        fL.setInverted(false);
-//        fR.setInverted(false);
-//        bL.setInverted(false);
-//        bR.setInverted(false);
     }
 
     @Override
@@ -85,10 +88,13 @@ public class BaseTotalOpMode extends CommandOpMode {
         telemetry.addData("rightFront Power", round(fR.motor.getPower()));
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
 
-        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
-        telemetry.addData("slideLeft Pos", slideLeft.getCurrentPosition());
-
-        telemetry.addData("claw Position", claw.getPosition());
+        telemetry.addData("Left Slide Encoder", arm.getSlideLEncoder());
+        telemetry.addData("Right Slide Encoder", arm.getSlideREncoder());
+        telemetry.addData("Left Slide Power", arm.getSlideLPower());
+        telemetry.addData("Right Slide Power", arm.getSlideRPower());
+        telemetry.addData("Left Slide Error", arm.getSlideLError());
+        telemetry.addData("Right Slide Error", arm.getSlideRError());
+        telemetry.update();
 
         telemetry.update();
     }
