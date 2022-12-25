@@ -24,12 +24,15 @@ public class ArmSubsystem extends SubsystemBase{
 
     //PID stuff for motors
     //TODO NEED TO TUNE THESE VALUES
-    public static double slide_P = 0.003;
 
-    public static double slide_I = 0.05;
+    //follow advice in ctrlaltftc
+    public static double slide_P = 0;
 
-    public static double slide_D = 0.0003;
+    public static double slide_I = 0;
 
+    public static double slide_D = 0;
+
+    //try using ftc dashboard to get these values
     public static double maxVel = 1000;
 
     public static double maxAccel = 1000;

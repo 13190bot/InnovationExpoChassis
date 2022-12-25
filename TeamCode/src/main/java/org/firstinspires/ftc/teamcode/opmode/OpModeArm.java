@@ -74,7 +74,7 @@ public class OpModeArm extends BaseArmOpMode {
 
 
 
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE
+        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
         moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
 

@@ -72,7 +72,7 @@ public class OpModeTotal extends BaseTotalOpMode {
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
+
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
@@ -111,7 +111,7 @@ public class OpModeTotal extends BaseTotalOpMode {
 
 
 
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem_OG BEFORE TRYING TO USE
+        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
         moveDefault = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
 
