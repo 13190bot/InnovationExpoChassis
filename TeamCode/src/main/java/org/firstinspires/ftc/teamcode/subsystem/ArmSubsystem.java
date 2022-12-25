@@ -21,7 +21,11 @@ public class ArmSubsystem extends SubsystemBase{
     public static int MEDIUM = 0;
     public static int HIGH = 0;
 
+    public static int SlidePosMax = 0; //need to define max height
 
+    public static int SlidePosMin = 0; //need to define min height
+
+    public static double calc;
     //PID stuff for motors
     //TODO NEED TO TUNE THESE VALUES
 
@@ -149,10 +153,26 @@ public class ArmSubsystem extends SubsystemBase{
     }
 
     public void changeSetPoint(double input){
-        slide_pidL.setGoal((int)(slideL.getCurrentPosition()+input*manualSlideSpeed));
-        slide_pidR.setGoal((int)(slideR.getCurrentPosition()+input*manualSlideSpeed));
-        Log.d("setpoint left", "" + slide_pidL.getSetpoint().position);
-        Log.d("setpoint right", "" + slide_pidR.getSetpoint().position);
+        calc = slideL.getCurrentPosition()+input*manualSlideSpeed;
+        // is this logic correct?
+        if(calc > SlidePosMax){
+            slide_pidL.setGoal((SlidePosMax));
+            slide_pidR.setGoal((SlidePosMax));
+            Log.d("setpoint left", "" + slide_pidL.getSetpoint().position);
+            Log.d("setpoint right", "" + slide_pidR.getSetpoint().position);
+        }
+        else if(calc < SlidePosMin){
+            slide_pidL.setGoal((SlidePosMin));
+            slide_pidR.setGoal((SlidePosMin));
+            Log.d("setpoint left", "" + slide_pidL.getSetpoint().position);
+            Log.d("setpoint right", "" + slide_pidR.getSetpoint().position);
+        }
+        else{
+            slide_pidL.setGoal((int) (slideL.getCurrentPosition() + input * manualSlideSpeed));
+            slide_pidR.setGoal((int) (slideR.getCurrentPosition() + input * manualSlideSpeed));
+            Log.d("setpoint left", "" + slide_pidL.getSetpoint().position);
+            Log.d("setpoint right", "" + slide_pidR.getSetpoint().position);
+        }
     }
 
 
