@@ -17,7 +17,7 @@ public class NormalTeleOp2 extends OpMode {
     static DcMotor slideR;
     ServoImpl claw;
 
-    // slowmode
+    // slowmode value
     double mul = 1;
 
 
