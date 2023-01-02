@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 public class BaseArmOpMode extends CommandOpMode {
 
     protected MotorEx slideLeft, slideRight;
-    protected ServoEx arm1, arm2, claw;
+    protected ServoEx claw;
     protected ArmSubsystem arm;
 
     @Override
