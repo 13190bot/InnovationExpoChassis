@@ -11,22 +11,26 @@ public class MeepMeepTesting {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(800);
 
+        Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
+        Vector2d medianPos = new Vector2d(34.5,-11.6);
+        Vector2d depositPos = new Vector2d(32.5,-8.5);
+        Vector2d leftPos = new Vector2d(11.666666,-11.666666);
+        Vector2d centerPos = new Vector2d(35,-11.6666666);
+        Vector2d rightPos = new Vector2d(56.5,-11.6666666);
+
+
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // TODO Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width that match our actual bot
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
-                        drive.trajectorySequenceBuilder(new Pose2d(0, -58.333333, Math.toRadians(90)))
-                                //grab cone
-                                //.forward(23.333333*2)
-                                //.splineTo(new Vector2d(34.5,-11.6), Math.toRadians(135))
-                                .lineToConstantHeading(new Vector2d(34.5,-11.6))
-                                //slide up to high junction
+                        drive.trajectorySequenceBuilder(startingPos)
+                                .lineToConstantHeading(medianPos)
                                 .turn(Math.toRadians(45))
-                                .forward(3)
-                                //drop cone
-                                .forward(-3)
+                                .lineToConstantHeading(depositPos)
+                                .lineToConstantHeading(medianPos)
                                 .turn(Math.toRadians(-45))
-                                //slides down
+
+                                .lineToConstantHeading(leftPos)
                                 .build()
                 );
 

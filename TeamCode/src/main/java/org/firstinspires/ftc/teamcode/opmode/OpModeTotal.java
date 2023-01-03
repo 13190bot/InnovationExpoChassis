@@ -110,8 +110,6 @@ public class OpModeTotal extends BaseTotalOpMode {
         moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
 
 
-
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
         moveDefault = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
 

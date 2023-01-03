@@ -73,8 +73,6 @@ public class OpModeArm extends BaseArmOpMode {
         moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
 
 
-
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
         moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
 
