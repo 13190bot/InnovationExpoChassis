@@ -31,9 +31,9 @@ public class NormalTeleOp2 extends OpMode {
     boolean liftMoving = false;
 
 
-    int groundJunct = ArmSubsystem.GROUND;
-    int smallJunct = ArmSubsystem.LOW; //Change these values
-    int mediumJunct = ArmSubsystem.MEDIUM; //Change these values
+    int groundJunct = ArmSubsystem.GROUND; // Change these values
+    int smallJunct = ArmSubsystem.LOW;
+    int mediumJunct = ArmSubsystem.MEDIUM;
     int highJunct = ArmSubsystem.HIGH;
 
 
@@ -76,7 +76,20 @@ public class NormalTeleOp2 extends OpMode {
         telemetry.update();
     }
     public void loop () {
+/*
+Player 2 :
 
+Right bumper : open claw
+Left bumper : close claw
+Dpad down : -10 down
+Dpad up : +10 up
+X : medium junction
+A : small junction
+Y : high junction
+b : ground junction
+
+
+ */
         //claw manipulation
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
@@ -91,7 +104,15 @@ public class NormalTeleOp2 extends OpMode {
             slideTarget(smallJunct);
             telemetry.addData("going to small junction",smallJunct);
             telemetry.update();
-        } else if (gamepad2.dpad_down) {
+        } else if (gamepad2.y){ // High Junction
+            slideTarget(highJunct);
+            telemetry.addData("going to high junction",highJunct);
+            telemetry.update();
+        } else if (gamepad2.b){ // Ground Junction
+            slideTarget(groundJunct);
+            telemetry.addData("going to ground junction",groundJunct);
+            telemetry.update();
+        }else if (gamepad2.dpad_down) {
             moveSlide(-10);
         } else if (gamepad2.dpad_up){
             moveSlide(+10);

@@ -36,7 +36,14 @@ public class GetHeight extends OpMode{
     }
 
     public void loop () {
+/*
+Player 1
 
+Left bumper :
+
+
+
+ */
         if(gamepad1.left_bumper){
             slideRight.setPower(-speed);
             slideLeft.setPower(-speed);
@@ -45,16 +52,14 @@ public class GetHeight extends OpMode{
         else if(gamepad1.right_bumper){
             slideRight.setPower(speed);
             slideLeft.setPower(speed);
-        }
-
-        else{
+        } else if(gamepad1.b){ //Position testing
+            slideRight.setTargetPosition(TestHeight);
+            slideRight.setTargetPosition(TestHeight);
+        } else{
             slideRight.setPower(0);
             slideLeft.setPower(0);
         }
-        if(gamepad1.b){ //Position testing
-            slideRight.setTargetPosition(TestHeight);
-            slideRight.setTargetPosition(TestHeight);
-        }
+
 
         if(gamepad1.a){
             telemetry.addData("SlideR pos", slideRight.getCurrentPosition());
