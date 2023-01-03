@@ -77,11 +77,12 @@ public class ParkAuto extends LinearOpMode {
                     );
 
                     break;
-                case LEFT:drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                        .forward(23.333333)
-                        .turn(Math.toRadians(90))
-                        .forward(23.333333)
-                        .build()
+                case LEFT:
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            .forward(23.333333)
+                            .turn(Math.toRadians(90))
+                            .forward(23.333333)
+                            .build()
                 );
 
                     break;
