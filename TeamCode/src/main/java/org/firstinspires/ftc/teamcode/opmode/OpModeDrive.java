@@ -12,7 +12,6 @@ import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpMode;
 
 @TeleOp(name = "Drive TeleOp")
 public class OpModeDrive extends BaseDriveOpMode {
-    // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
 
@@ -20,7 +19,6 @@ public class OpModeDrive extends BaseDriveOpMode {
 
     private SlowMode slowMode;
     private Button slowtime;
-
 
     @Override
     public void initialize() {
@@ -49,7 +47,6 @@ public class OpModeDrive extends BaseDriveOpMode {
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 

@@ -47,9 +47,7 @@ public class OpModeArm extends BaseArmOpMode {
             dpad_right -> moveMedium (Medium junction)
             dpad_up -> moveHigh (High junction)
 
-
             a -> alternates between claw open and close
-            b -> alternates between arm home and score
 
             right joystick y-axis --> slides control
          */

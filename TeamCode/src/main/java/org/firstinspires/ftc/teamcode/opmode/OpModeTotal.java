@@ -84,9 +84,7 @@ public class OpModeTotal extends BaseTotalOpMode {
             dpad_right -> moveMedium (Medium junction)
             dpad_up -> moveHigh (High junction)
 
-
             a -> alternates between claw open and close
-            b -> alternates between arm home and score
 
             right joystick y-axis --> slides control
          */
@@ -124,9 +122,6 @@ public class OpModeTotal extends BaseTotalOpMode {
 
         moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP))
                 .whenPressed(moveToHigh);
-
-
-
 
 
         register(drive, arm);
