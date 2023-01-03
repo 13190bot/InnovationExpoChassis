@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
@@ -35,8 +36,6 @@ public class HighJunc_Park extends LinearOpMode {
 
     protected ServoEx claw;
 
-    Pose2d startingPos = new Pose2d(0,0,Math.toRadians(180)); //figure out correct to rad.
-
     public enum AutoPhase{
         IDLE,
         GRAB,
@@ -47,14 +46,41 @@ public class HighJunc_Park extends LinearOpMode {
         DROP_CONE,
         MINOR_BACKWARD,
         RESET_ROTATION,
-        SLIDES_DOWN,
+        SLIDE_DOWN,
         PARK
     }
 
-    //TODO create timers for arm actions
+    private ElapsedTime grab;
+
+    private ElapsedTime slideUp;
+
+    private ElapsedTime drop;
+
+    private ElapsedTime slideDown;
+
+
+    private double grabTime;
+
+    private double slideUpTime;
+
+    private double dropTime;
+
+    private double slideDownTime;
+
 
     private AutoPhase action = AutoPhase.GRAB;
 
+    //TODO Tune These Positions
+    //path positions
+    Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
+    Vector2d medianPos = new Vector2d(34.5,-11.6);
+    Vector2d depositPos = new Vector2d(32.5,-8.5);
+
+    //parking positions
+    Vector2d leftPos = new Vector2d(-11.666666,-11.666666);
+    Vector2d centerPos = new Vector2d(35,-11.6666666);
+    Vector2d rightPos = new Vector2d(56.5,-11.6666666);
+    public int rotAngle = 45;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -88,6 +114,20 @@ public class HighJunc_Park extends LinearOpMode {
             }
         });
 
+        //TODO tune timer definitions
+
+        grabTime = 1;
+        grab = new ElapsedTime();
+
+        slideUpTime = 1;
+        slideUp = new ElapsedTime();
+
+        dropTime = 1;
+        drop = new ElapsedTime();
+
+        slideDownTime = 1;
+        slideDown = new ElapsedTime();
+
 
         while (!isStarted()) {
             pos = sleeveDetection.getPosition();
@@ -99,117 +139,117 @@ public class HighJunc_Park extends LinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
             switch(action){
-                case IDLE:
-                    break;
                 case GRAB:
                     if(!drive.isBusy()){
-
+                        grab.reset();
+                        arm.clawClose();
+                        action = AutoPhase.FORWARD;
                     }
-
-                    action = AutoPhase.FORWARD;
-
                     break;
+
                 case FORWARD:
-                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                            .lineToConstantHeading(new Vector2d(34.5,-11.6))
-                            .build()
-                    );
-
-                    action = AutoPhase.SLIDE_UP;
-
-                    break;
-                case SLIDE_UP:
-                    if(!drive.isBusy()){
-
-                    }
-
-                    action = AutoPhase.FACE_POLE;
-
-                    break;
-                case FACE_POLE:
-                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                            .turn(Math.toRadians(45))
-                            .build()
-                    );
-
-                    action = AutoPhase.MINOR_FORWARD;
-
-                    break;
-                case MINOR_FORWARD:
-                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                            .lineToConstantHeading(new Vector2d(32,-10))
-                            .build()
-                    );
-
-                    action = AutoPhase.DROP_CONE;
-
-                    break;
-                case DROP_CONE:
-                    if(!drive.isBusy()){
-
-                    }
-
-                    action = AutoPhase.MINOR_BACKWARD;
-
-                    break;
-                case MINOR_BACKWARD:
-                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                            .lineToConstantHeading(new Vector2d(34.5,-11.6))
-                            .build()
-                    );
-
-                    action = AutoPhase.RESET_ROTATION;
-
-                    break;
-                case RESET_ROTATION:
-                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                            .turn(Math.toRadians(-45))
-                            .build()
-                    );
-
-                    action = AutoPhase.SLIDES_DOWN;
-
-                    break;
-                case SLIDES_DOWN:
-                    if(!drive.isBusy()){
-
-                    }
-
-                    action = AutoPhase.PARK;
-
-                    break;
-                case PARK:
-                    switch (pos){
-                        case RIGHT:
-                            drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                    .forward(23.333333)
-                                    .turn(Math.toRadians(-90))
-                                    .forward(23.333333)
-                                    .build()
-                            );
-
-                            break;
-                        case CENTER:
-                            drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                    .forward(23.333333)
-                                    .build()
-                            );
-
-                            break;
-                        case LEFT:drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                .forward(23.333333)
-                                .turn(Math.toRadians(90))
-                                .forward(23.333333)
+                    if(grab.seconds() > grabTime) {
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                .lineToConstantHeading(medianPos)
                                 .build()
                         );
-
-                            break;
+                        action = AutoPhase.SLIDE_UP;
 
                     }
-
-                    action = AutoPhase.IDLE;
-
                     break;
+
+                case SLIDE_UP:
+                    if(!drive.isBusy()){
+                        slideUp.reset();
+                        arm.moveToJunction(ArmSubsystem.Junction.HIGH);
+                        action = AutoPhase.FACE_POLE;
+                    }
+                    break;
+
+                case FACE_POLE:
+                    if(slideUp.seconds()>slideUpTime) {
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                .turn(Math.toRadians(rotAngle))
+                                .build()
+                        );
+                        action = AutoPhase.MINOR_FORWARD;
+                    }
+                    break;
+
+                case MINOR_FORWARD:
+                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            .lineToConstantHeading(depositPos)
+                            .build()
+
+                    );
+                    action = AutoPhase.DROP_CONE;
+                    break;
+
+                case DROP_CONE:
+                    if(!drive.isBusy()){
+                        drop.reset();
+                        arm.clawOpen();
+                        action = AutoPhase.MINOR_BACKWARD;
+                    }
+                    break;
+
+                case MINOR_BACKWARD:
+                    if(drop.seconds()>dropTime) {
+                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                .lineToConstantHeading(medianPos)
+                                .build()
+                        );
+                        action = AutoPhase.RESET_ROTATION;
+                    }
+                    break;
+
+                case RESET_ROTATION:
+                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            .turn(Math.toRadians(-1*rotAngle))
+                            .build()
+                    );
+                    action = AutoPhase.SLIDE_DOWN;
+                    break;
+
+                case SLIDE_DOWN:
+                    if(!drive.isBusy()){
+                        slideDown.reset();
+                        arm.moveToJunction(ArmSubsystem.Junction.DEFAULT);
+                        action = AutoPhase.PARK;
+                    }
+                    break;
+
+                case PARK:
+                    if(slideDown.seconds() > slideDownTime) {
+
+                        switch (pos) {
+                            case RIGHT:
+                                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                        .turn(Math.toRadians(-2*rotAngle))
+                                        .lineToConstantHeading(rightPos)
+                                        .build()
+                                );
+                                break;
+
+                            case CENTER:
+                                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                        .lineToConstantHeading(centerPos)
+                                        .build()
+                                );
+                                break;
+
+                            case LEFT:
+                                drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                                        .lineToConstantHeading(leftPos)
+                                        .build()
+                                );
+                                break;
+                        }
+                        action = AutoPhase.IDLE;
+                    }
+                case IDLE:
+                    break;
+
             }
 
             drive.update();
@@ -221,11 +261,6 @@ public class HighJunc_Park extends LinearOpMode {
             telemetry.addData("Heading", currentPoseEstimate.getHeading());
             telemetry.addData("Current Action", action);
             telemetry.update();
-
-
-
-
-
 
         }
     }

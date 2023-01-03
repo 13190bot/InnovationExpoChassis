@@ -47,9 +47,7 @@ public class OpModeArm extends BaseArmOpMode {
             dpad_right -> moveMedium (Medium junction)
             dpad_up -> moveHigh (High junction)
 
-
             a -> alternates between claw open and close
-            b -> alternates between arm home and score
 
             right joystick y-axis --> slides control
          */
@@ -73,8 +71,6 @@ public class OpModeArm extends BaseArmOpMode {
         moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
 
 
-
-        //TODO REMEMBER TO TUNE VALUES IN ArmSubsystem BEFORE TRYING TO USE
         moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
 
