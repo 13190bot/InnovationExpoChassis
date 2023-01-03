@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoImpl;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp (name = "Normie TeleOp v2")
 public class NormalTeleOp2 extends OpMode {
@@ -30,8 +31,11 @@ public class NormalTeleOp2 extends OpMode {
     boolean liftMoving = false;
 
 
-    int mediumJunct = 10; //Change these values
-    int smallJunct = 10; //Change these values
+    int groundJunct = ArmSubsystem.GROUND;
+    int smallJunct = ArmSubsystem.LOW; //Change these values
+    int mediumJunct = ArmSubsystem.MEDIUM; //Change these values
+    int highJunct = ArmSubsystem.HIGH;
+
 
     public void init () {
         motorFrontLeft = hardwareMap.dcMotor.get("frontLeft");
