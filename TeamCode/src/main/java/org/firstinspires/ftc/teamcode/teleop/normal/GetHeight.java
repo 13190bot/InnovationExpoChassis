@@ -4,11 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.ServoImpl;
 
 @TeleOp(name = "Height Testing")
 public class GetHeight extends OpMode{
 
     DcMotor slideLeft, slideRight;
+    ServoImpl claw;
 
     double speed = 0.3;
     int TestHeight = 10; //Change for any tests, Activated by B button
@@ -16,6 +18,8 @@ public class GetHeight extends OpMode{
 
         slideLeft = hardwareMap.dcMotor.get("slideL");
         slideRight = hardwareMap.dcMotor.get("slideR");
+
+        claw = hardwareMap.get(ServoImpl.class, "claw");
 
         //reverse this one
         slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -36,16 +40,28 @@ public class GetHeight extends OpMode{
     }
 
     public void loop () {
+
+
 /*
 Player 1
-Left bumper :
+Right bumper : Close claw
+Left bumper : Open claw
+Dpad up : slide up
+Dpad down : slide down
+B : test height
+A : telemetry encoder values
  */
-        if(gamepad1.left_bumper){
+
+
+        if(gamepad1.right_bumper){claw.setPosition(1);} //Claw Manipulation
+        if(gamepad1.left_bumper){claw.setPosition(0);}
+
+        if(gamepad1.dpad_down){
             slideRight.setPower(-speed);
             slideLeft.setPower(-speed);
         }
 
-        else if(gamepad1.right_bumper){
+        else if(gamepad1.dpad_up){
             slideRight.setPower(speed);
             slideLeft.setPower(speed);
         } else if(gamepad1.b){ //Position testing
