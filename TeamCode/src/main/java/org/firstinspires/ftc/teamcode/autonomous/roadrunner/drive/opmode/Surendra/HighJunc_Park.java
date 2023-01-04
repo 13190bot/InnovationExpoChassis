@@ -71,6 +71,7 @@ public class HighJunc_Park extends LinearOpMode {
     private AutoPhase action = AutoPhase.GRAB;
 
     //TODO Tune These Positions
+
     //path positions
     Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
     Vector2d medianPos = new Vector2d(34.5,-11.6);
@@ -114,7 +115,7 @@ public class HighJunc_Park extends LinearOpMode {
             }
         });
 
-        //TODO tune timer definitions
+        //TODO tune timer values
 
         grabTime = 1;
         grab = new ElapsedTime();
