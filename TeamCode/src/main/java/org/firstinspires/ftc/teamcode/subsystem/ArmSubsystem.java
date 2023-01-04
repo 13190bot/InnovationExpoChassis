@@ -137,6 +137,7 @@ public class ArmSubsystem extends SubsystemBase{
         }
         out_left = slide_pidL.calculate(slideL.getCurrentPosition());
 
+        //only works if both motors synced
         while(!slide_pidL.atGoal()){
             out_left = out_left = slide_pidL.calculate(slideL.getCurrentPosition());
             Log.d("output", "" + out_left);

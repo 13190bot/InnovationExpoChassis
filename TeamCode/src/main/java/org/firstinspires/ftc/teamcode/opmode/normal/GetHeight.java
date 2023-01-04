@@ -38,11 +38,7 @@ public class GetHeight extends OpMode{
     public void loop () {
 /*
 Player 1
-
 Left bumper :
-
-
-
  */
         if(gamepad1.left_bumper){
             slideRight.setPower(-speed);

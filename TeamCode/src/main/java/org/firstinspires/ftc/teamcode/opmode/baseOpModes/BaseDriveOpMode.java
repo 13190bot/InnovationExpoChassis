@@ -66,7 +66,6 @@ public class BaseDriveOpMode extends CommandOpMode {
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
         telemetry.addData("rightBack pos", bR.motor.getCurrentPosition());
 
-
         telemetry.update();
     }
 

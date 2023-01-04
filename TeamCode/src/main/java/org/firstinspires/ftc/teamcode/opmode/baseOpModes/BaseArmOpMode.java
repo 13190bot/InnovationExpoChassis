@@ -19,8 +19,8 @@ public class BaseArmOpMode extends CommandOpMode {
     public void initialize() {
         initHardware();
         setUpHardwareDevices();
-        arm = new ArmSubsystem(claw, slideLeft, slideRight);
 
+        arm = new ArmSubsystem(claw, slideLeft, slideRight);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");

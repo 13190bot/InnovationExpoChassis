@@ -31,7 +31,6 @@ public class OpModeTotal extends BaseTotalOpMode {
     private GrabCone grabCone;
 
     //slides
-
     private ManualLift manualLift;
 
     private MoveToJunction moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
@@ -39,7 +38,6 @@ public class OpModeTotal extends BaseTotalOpMode {
     private Button slowtime, clawManip, slideMovement;
 
     private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
-
 
     @Override
     public void initialize() {
@@ -72,7 +70,6 @@ public class OpModeTotal extends BaseTotalOpMode {
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
@@ -100,13 +97,11 @@ public class OpModeTotal extends BaseTotalOpMode {
         manualLift = new ManualLift(arm, () -> driverOp2.getRightY());
 
         // automatic junction code
-
         moveToDefault = new MoveToJunction(arm, ArmSubsystem.Junction.DEFAULT);
         moveToGround = new MoveToJunction(arm, ArmSubsystem.Junction.GROUND);
         moveToLow = new MoveToJunction(arm, ArmSubsystem.Junction.LOW);
         moveToMedium = new MoveToJunction(arm, ArmSubsystem.Junction.MEDIUM);
         moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
-
 
         moveDefault = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
@@ -123,8 +118,8 @@ public class OpModeTotal extends BaseTotalOpMode {
         moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP))
                 .whenPressed(moveToHigh);
 
-
         register(drive, arm);
+
         drive.setDefaultCommand(robotCentricDrive);
         arm.setDefaultCommand(manualLift);
     }

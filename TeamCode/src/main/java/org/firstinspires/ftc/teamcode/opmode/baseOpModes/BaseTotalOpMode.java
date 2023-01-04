@@ -25,9 +25,6 @@ public class BaseTotalOpMode extends CommandOpMode {
     protected DriveSubsystem drive;
     protected ArmSubsystem arm;
 
-
-
-
     @Override
     public void initialize() {
         initHardware();
@@ -74,8 +71,6 @@ public class BaseTotalOpMode extends CommandOpMode {
         fR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         bR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
-
 
     }
 

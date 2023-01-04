@@ -30,7 +30,6 @@ public class OpModeArm extends BaseArmOpMode {
     private MoveToJunction moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
 
     //buttons
-
     private Button clawManip, slideMovement;
 
     private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
@@ -63,13 +62,11 @@ public class OpModeArm extends BaseArmOpMode {
         manualLift = new ManualLift(arm, () -> driverOp1.getRightY());
 
         // automatic junction code
-
         moveToDefault = new MoveToJunction(arm, ArmSubsystem.Junction.DEFAULT);
         moveToGround = new MoveToJunction(arm, ArmSubsystem.Junction.GROUND);
         moveToLow = new MoveToJunction(arm, ArmSubsystem.Junction.LOW);
         moveToMedium = new MoveToJunction(arm, ArmSubsystem.Junction.MEDIUM);
         moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
-
 
         moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
