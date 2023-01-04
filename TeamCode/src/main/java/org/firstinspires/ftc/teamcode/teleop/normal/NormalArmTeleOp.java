@@ -1,10 +1,9 @@
-package org.firstinspires.ftc.teamcode.opmode.normal;
+package org.firstinspires.ftc.teamcode.teleop.normal;
 
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp (name = "Normie Arm TeleOp")
 public class NormalArmTeleOp extends OpMode {

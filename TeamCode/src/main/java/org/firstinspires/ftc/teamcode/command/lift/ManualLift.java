@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.command.lift;
 
+import android.util.Log;
 import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
@@ -23,5 +24,9 @@ public class ManualLift extends CommandBase {
         } else {
             arm.loopPID();
         }
+    }
+
+    public boolean isFinished() {
+        return false;
     }
 }

@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode.opmode.normal;
+package org.firstinspires.ftc.teamcode.teleop.normal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.*;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp (name = "Normie TeleOp")
 public class NormalTeleOp extends OpMode {

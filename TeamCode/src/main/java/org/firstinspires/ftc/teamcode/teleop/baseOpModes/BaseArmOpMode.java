@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.baseOpModes;
+package org.firstinspires.ftc.teamcode.teleop.baseOpModes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;

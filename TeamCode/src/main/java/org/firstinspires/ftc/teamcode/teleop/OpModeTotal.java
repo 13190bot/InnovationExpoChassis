@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.command.lift.*;
 import org.firstinspires.ftc.teamcode.command.claw.*;
 
 
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseTotalOpMode;
+import org.firstinspires.ftc.teamcode.teleop.baseOpModes.BaseTotalOpMode;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
 @TeleOp(name = "Main TeleOp")

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -7,7 +7,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
 import org.firstinspires.ftc.teamcode.command.drive.SlowMode;
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpMode;
+import org.firstinspires.ftc.teamcode.teleop.baseOpModes.BaseDriveOpMode;
 
 
 @TeleOp(name = "Drive TeleOp")
