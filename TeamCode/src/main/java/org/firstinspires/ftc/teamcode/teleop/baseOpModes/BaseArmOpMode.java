@@ -9,6 +9,9 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class BaseArmOpMode extends CommandOpMode {
 
     protected MotorEx slideLeft, slideRight;
@@ -51,15 +54,24 @@ public class BaseArmOpMode extends CommandOpMode {
     @Override
     public void run() {
         super.run();
-        telemetry.addData("Left Slide Encoder", arm.getSlideLEncoder());
-        telemetry.addData("Right Slide Encoder", arm.getSlideREncoder());
-        telemetry.addData("Left Slide Power", arm.getSlideLPower());
-        telemetry.addData("Right Slide Power", arm.getSlideRPower());
-        telemetry.addData("Left Slide Error", arm.getSlideLError());
-        telemetry.addData("Right Slide Error", arm.getSlideRError());
-        telemetry.addData("Claw Position", arm.getClawPos());
+        telemetry.addData("Right Slide Encoder", round(arm.getSlideREncoder()));
+        telemetry.addData("Left Slide Encoder", round(arm.getSlideLEncoder()));
+        telemetry.addData("Left Slide Power", round(arm.getSlideLPower()));
+        telemetry.addData("Right Slide Power", round(arm.getSlideRPower()));
+        telemetry.addData("Left Slide Error", round(arm.getSlideLError()));
+        telemetry.addData("Right Slide Error", round(arm.getSlideRError()));
+        telemetry.addData("Claw Position", round(arm.getClawPos()));
+
         telemetry.update();
     }
 
+    private static double round(double value, @SuppressWarnings("SameParameterValue") int places) {
+        if (places < 0) throw new IllegalArgumentException();
+        return new BigDecimal(Double.toString(value)).setScale(places, RoundingMode.HALF_UP).doubleValue();
+    }
+
+    private static double round(double value) {
+        return round(value, 4);
+    }
 
 }
