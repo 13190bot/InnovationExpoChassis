@@ -21,7 +21,7 @@ public class ManualOpMode extends OpMode {
 
     // defining constants for ez editing
     private static final int long_timer = 3000; // 3 sec
-    private static final int short_timer = 1000; // 1 sec, unused but here if we need while testing auto
+    // 1000 = 1 second, can add more constants if necessary
 
     private static final double drive_power = 0.1;
     private static final double strafe_power = 0.1;
