@@ -36,13 +36,16 @@ public class indepententMotorControl extends OpMode {
         //nothing here is reversed so all motors should spin clockwise when given input. If they dont, fix wiring.......
 
         if (gamepad1.dpad_up) motorFrontLeft.setPower(motorSpeed);
+        else motorFrontLeft.setPower(0);
 
         if (gamepad1.dpad_down) motorFrontRight.setPower(motorSpeed);
+        else motorFrontRight.setPower(0);
 
         if (gamepad1.dpad_right) motorBackRight.setPower(motorSpeed);
+        else motorBackRight.setPower(0);
 
         if (gamepad1.dpad_left) motorBackLeft.setPower(motorSpeed);
-
+        else motorBackLeft.setPower(0);
     }
 
 }

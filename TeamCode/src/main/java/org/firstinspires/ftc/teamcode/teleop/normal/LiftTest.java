@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Deprecated
 @TeleOp(name = "Manual Lift Opmode")
 public class LiftTest extends OpMode {
 
@@ -42,8 +41,8 @@ public class LiftTest extends OpMode {
     @Override
     public void loop() {
         Log.d("loop","yes");
-        slideL.setPower(gamepad2.right_stick_y);
-        slideR.setPower(gamepad2.right_stick_y);
+        slideL.setPower(gamepad1.right_stick_y);
+        slideR.setPower(gamepad1.right_stick_y);
         telemetry.addData("Left Encoder", slideL.getCurrentPosition());
         telemetry.addData("Right Encoder", slideR.getCurrentPosition());
         telemetry.update();

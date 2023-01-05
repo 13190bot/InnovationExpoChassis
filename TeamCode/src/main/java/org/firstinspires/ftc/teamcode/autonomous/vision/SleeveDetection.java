@@ -8,7 +8,8 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class SleeveDetection extends OpenCvPipeline {
+public class
+SleeveDetection extends OpenCvPipeline {
     /*
     YELLOW  = Parking Left
     CYAN    = Parking Middle
@@ -21,7 +22,7 @@ public class SleeveDetection extends OpenCvPipeline {
 //        RIGHT
 //    }
 
-    // TOPLEFT anchor point for the bounding box
+    // TODO TOPLEFT anchor point for the bounding box, is this in the correct spot?
     private static final Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(640, 260);
 
     // Width and height for the bounding box

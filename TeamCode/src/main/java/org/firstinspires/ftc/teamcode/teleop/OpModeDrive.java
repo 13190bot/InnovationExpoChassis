@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.teleop;
 
 import com.arcrobotics.ftclib.command.button.Button;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
@@ -7,12 +7,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.command.drive.DefaultRobotCentricDrive;
 import org.firstinspires.ftc.teamcode.command.drive.SlowMode;
-import org.firstinspires.ftc.teamcode.opmode.baseOpModes.BaseDriveOpMode;
+import org.firstinspires.ftc.teamcode.teleop.baseOpModes.BaseDriveOpMode;
 
 //@Deprecated
 @TeleOp(name = "Drive TeleOp")
 public class OpModeDrive extends BaseDriveOpMode {
-    // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
 
@@ -20,7 +19,6 @@ public class OpModeDrive extends BaseDriveOpMode {
 
     private SlowMode slowMode;
     private Button slowtime;
-
 
     @Override
     public void initialize() {
@@ -49,7 +47,6 @@ public class OpModeDrive extends BaseDriveOpMode {
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        //TODO probably need to tune speedvalue inside of SlowMode to make this work properly
         slowtime = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
