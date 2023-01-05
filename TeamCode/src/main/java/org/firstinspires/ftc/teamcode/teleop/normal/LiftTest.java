@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Manual Lift Opmode")
+@TeleOp(name = "Lift Test")
 public class LiftTest extends OpMode {
 
     private DcMotorEx slideL, slideR;

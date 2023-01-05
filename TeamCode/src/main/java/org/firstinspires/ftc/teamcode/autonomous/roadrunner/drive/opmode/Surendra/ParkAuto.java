@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
-@Autonomous(name = "ParkAuto_Surendra")
+@Autonomous(name = "RR-ParkAuto")
 
 public class ParkAuto extends LinearOpMode {
 

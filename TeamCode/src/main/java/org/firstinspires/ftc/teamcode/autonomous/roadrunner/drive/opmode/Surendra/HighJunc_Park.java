@@ -17,7 +17,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 @Autonomous(name = "HighJunc_Park")
-
 public class HighJunc_Park extends LinearOpMode {
 
     private SleeveDetection sleeveDetection;

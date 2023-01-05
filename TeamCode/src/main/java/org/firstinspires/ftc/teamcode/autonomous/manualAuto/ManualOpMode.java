@@ -12,7 +12,7 @@ import static android.os.SystemClock.sleep;
 
 
 //TODO: code strafe, test in VirtualBot
-@Autonomous(name = "ParkAuto")
+@Autonomous(name = "Manual_ParkAuto")
 public class ManualOpMode extends OpMode {
 
     DcMotor lf, lb, rf, rb;

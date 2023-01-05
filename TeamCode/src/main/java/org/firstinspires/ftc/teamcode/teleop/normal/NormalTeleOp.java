@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.*;
 
-@TeleOp (name = "Normie TeleOp")
+@TeleOp (name = "Normie Total TeleOp")
 public class NormalTeleOp extends OpMode {
 
     DcMotor motorFrontLeft;
