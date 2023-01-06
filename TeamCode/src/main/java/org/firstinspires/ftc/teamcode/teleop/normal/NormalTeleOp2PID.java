@@ -138,7 +138,17 @@ b : ground junction
         }
 
         // PID
-        
+        int encoderPosition = slideR.getCurrentPosition();
+        double error = reference - encoderPosition;
+        double derivative = (error - lastError) / timer.seconds();
+        integralSum = integralSum + (error * timer.seconds());
+        double out = (Kp * error) + (Ki * integralSum) + (Kd * derivative);
+        slideR.setPower(out);
+        slideL.setPower(out);
+
+        timer.reset();
+
+
 
 
 
