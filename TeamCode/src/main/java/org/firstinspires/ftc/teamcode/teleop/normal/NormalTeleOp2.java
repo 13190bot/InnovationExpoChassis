@@ -83,6 +83,7 @@ Player 2 :
 
 Right bumper : open claw
 Left bumper : close claw
+Back : Slow mode toggle
 Dpad down : -10 down
 Dpad up : +10 up
 X : medium junction

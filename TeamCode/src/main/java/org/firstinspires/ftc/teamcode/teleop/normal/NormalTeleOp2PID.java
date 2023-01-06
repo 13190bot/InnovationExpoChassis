@@ -26,6 +26,13 @@ public class NormalTeleOp2PID extends OpMode {
     double turnSpeed = 0.5;
     double slideSpeed = 0.2;
 
+    // slide slowmode values
+    int regularSpeed = 10; //Lift values
+    int slowSpeed = 5;
+    boolean slowSlide = false; //Slowmode Lift
+
+
+
     // junctions
     double target = 0;
     boolean goingUp = false;
@@ -111,6 +118,15 @@ b : ground junction
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
 
+        if(gamepad2.back){
+            if(!slowSlide){
+                slowSlide = true;
+            } else {
+                slowSlide = false;
+            }
+        }
+
+
         //Presets
         if (gamepad2.x) { //Medium junction
             reference = mediumJunct;
@@ -129,9 +145,17 @@ b : ground junction
             telemetry.addData("going to ground junction",groundJunct);
             telemetry.update();
         }else if (gamepad2.dpad_down) {
-            reference += -10;
+            if (!slowSlide) {
+                reference -= regularSpeed; //Regular
+            } else {
+                reference -= slowSpeed; //Slow
+            }
         } else if (gamepad2.dpad_up){
-            reference += +10;
+            if (!slowSlide) {
+                reference += regularSpeed; //Regular
+            } else {
+                reference += slowSpeed; //Slow
+            }
         }
         else {
             // moveSlide(0); //Keeps at same pos
