@@ -16,11 +16,11 @@ SleeveDetection extends OpenCvPipeline {
     MAGENTA = Parking Right
      */
 
-//    public enum ParkingPosition {
-//        LEFT,
-//        CENTER,
-//        RIGHT
-//    }
+    public enum ParkingPosition {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
 
     // TODO TOPLEFT anchor point for the bounding box, is this in the correct spot?
     private static final Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(640, 260);
