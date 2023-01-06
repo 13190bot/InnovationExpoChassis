@@ -193,8 +193,15 @@ b : ground junction
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
-        boolean slowTime = gamepad1.left_bumper;
+        boolean slowTime = false;
 
+        if (gamepad1.left_bumper) {
+            if (slowTime == false) {
+                slowTime = true;
+            } else {
+                slowTime = false;
+            }
+        }
 
         if (slowTime) {
             mul = 0.5;
