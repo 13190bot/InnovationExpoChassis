@@ -68,7 +68,7 @@ public class NormalTeleOp2 extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        slideR.setPower(0);
+        slideR.setPower(0); //fixed bug Prateek caused
         slideL.setPower(0);
 
         claw = hardwareMap.get(ServoImpl.class, "claw");
@@ -93,6 +93,8 @@ b : ground junction
 
 
  */
+
+
         //claw manipulation
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
@@ -145,7 +147,15 @@ b : ground junction
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
-        boolean slowTime = gamepad1.left_bumper;
+        boolean slowTime = false;
+
+        if (gamepad1.left_bumper) {
+          if (slowTime == false) {
+            slowTime = true;
+          } else {
+            slowTime = false;
+          }
+        }
 
 
         if (slowTime) {
