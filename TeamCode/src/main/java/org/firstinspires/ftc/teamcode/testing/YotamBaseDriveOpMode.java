@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode.opmode.baseOpModes;
+package org.firstinspires.ftc.teamcode.testing;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class BaseDriveOpMode extends CommandOpMode {
+public class YotamBaseDriveOpMode extends CommandOpMode {
     protected MotorEx fL, fR, bL, bR;
     protected DriveSubsystem drive;
 
@@ -65,7 +64,6 @@ public class BaseDriveOpMode extends CommandOpMode {
 
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
         telemetry.addData("rightBack pos", bR.motor.getCurrentPosition());
-
 
         telemetry.update();
     }

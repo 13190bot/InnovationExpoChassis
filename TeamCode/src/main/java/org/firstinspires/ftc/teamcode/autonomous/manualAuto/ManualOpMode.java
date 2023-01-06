@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import static android.os.SystemClock.sleep;
 
 
-//TODO: code strafe, test in VirtualBot, USE ENCODER VALUES
+//TODO: code strafe, test in VirtualBot
 @Autonomous(name = "ParkAuto")
 public class ManualOpMode extends OpMode {
 
@@ -86,7 +86,7 @@ public class ManualOpMode extends OpMode {
         switch ( sleeveDetection.getPosition()) {
             case LEFT: //left
 
-                telemetry.addData("Detected left","left");
+                telemetry.addData("Detected left",1);
                 rf.setPower(0.1);
                 rb.setPower(-0.1);
                 lf.setPower(-0.1);
@@ -94,11 +94,11 @@ public class ManualOpMode extends OpMode {
                 break;
             case CENTER: //if the middle parkpos
 
-                telemetry.addData("Detected center","center");
+                telemetry.addData("Detected center",2);
                 break;
             case RIGHT: //right
 
-                telemetry.addData("Detected right","right");
+                telemetry.addData("Detected right",3);
                 rf.setPower(-0.1);
                 rb.setPower(0.1);
                 lf.setPower(0.1);

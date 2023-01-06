@@ -1,15 +1,14 @@
-package org.firstinspires.ftc.teamcode.opmode.normal;
+package org.firstinspires.ftc.teamcode.teleop.normal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.qualcomm.robotcore.hardware.ServoImpl;
+import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 
-@TeleOp (name = "Normie TeleOp")
-public class NormalTeleOp extends OpMode {
+@TeleOp (name = "Normie TeleOp v2")
+public class NormalTeleOp2 extends OpMode {
 
     DcMotor motorFrontLeft;
     DcMotor motorFrontRight;
@@ -17,14 +16,14 @@ public class NormalTeleOp extends OpMode {
     DcMotor motorBackRight;
     static DcMotor slideL;
     static DcMotor slideR;
-    ServoEx claw;
+    ServoImpl claw;
 
-    // slowmode
+    // slowmode value
     double mul = 1;
 
 
     double turnSpeed = 0.5;
-    double slideSpeed = 0.7;
+    double slideSpeed = 0.2;
 
     // junctions
     double target = 0;
@@ -32,11 +31,18 @@ public class NormalTeleOp extends OpMode {
     boolean liftMoving = false;
 
 
+    int groundJunct = ArmSubsystem.GROUND; // Change these values
+    int smallJunct = ArmSubsystem.LOW;
+    int mediumJunct = ArmSubsystem.MEDIUM;
+    int highJunct = ArmSubsystem.HIGH;
+
+
     public void init () {
-        motorFrontLeft = hardwareMap.dcMotor.get("leftFront");
-        motorBackLeft = hardwareMap.dcMotor.get("leftBack");
-        motorFrontRight = hardwareMap.dcMotor.get("rightFront");
-        motorBackRight = hardwareMap.dcMotor.get("rightBack");
+        motorFrontLeft = hardwareMap.dcMotor.get("frontLeft");
+        motorBackLeft = hardwareMap.dcMotor.get("backLeft");
+        motorFrontRight = hardwareMap.dcMotor.get("frontRight");
+        motorBackRight = hardwareMap.dcMotor.get("backRight");
+
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
@@ -46,10 +52,7 @@ public class NormalTeleOp extends OpMode {
         }
 
         //TODO correct motors reversed?
-        motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
 
@@ -63,24 +66,59 @@ public class NormalTeleOp extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+        slideR.setPower(slideSpeed);
+        slideL.setPower(slideSpeed);
+
+        claw = hardwareMap.get(ServoImpl.class, "claw");
+
 
         telemetry.addData("init", "done");
-
+        telemetry.update();
     }
     public void loop () {
+/*
+Player 2 :
 
-        //claw manip
+Right bumper : open claw
+Left bumper : close claw
+Dpad down : -10 down
+Dpad up : +10 up
+X : medium junction
+A : small junction
+Y : high junction
+b : ground junction
+
+
+ */
+        //claw manipulation
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
-        //lift gonna be manual (if parteek want set junctions, he can write them himself)
-        if(gamepad2.dpad_up){
-            slideR.setPower(slideSpeed);
-            slideL.setPower(slideSpeed);
+
+        //Presets
+        if (gamepad2.x) { //Medium junction
+            slideTarget(mediumJunct);
+            telemetry.addData("going to medium junction",mediumJunct);
+            telemetry.update();
+        } else if (gamepad2.a) { //Small junction
+            slideTarget(smallJunct);
+            telemetry.addData("going to small junction",smallJunct);
+            telemetry.update();
+        } else if (gamepad2.y){ // High Junction
+            slideTarget(highJunct);
+            telemetry.addData("going to high junction",highJunct);
+            telemetry.update();
+        } else if (gamepad2.b){ // Ground Junction
+            slideTarget(groundJunct);
+            telemetry.addData("going to ground junction",groundJunct);
+            telemetry.update();
+        }else if (gamepad2.dpad_down) {
+            moveSlide(-10);
+        } else if (gamepad2.dpad_up){
+            moveSlide(+10);
         }
-        if(gamepad2.dpad_down){
-            slideR.setPower(-slideSpeed);
-            slideL.setPower(-slideSpeed);
+        else {
+            moveSlide(0); //Keeps at same pos
         }
 
         //run drive
@@ -111,7 +149,6 @@ public class NormalTeleOp extends OpMode {
             frontRightPower = backRightPower = -turnSpeed;
         }
         if(lx>0.3) {
-
             frontLeftPower = backLeftPower = -turnSpeed;
             frontRightPower = backRightPower = turnSpeed;
         }
@@ -121,11 +158,21 @@ public class NormalTeleOp extends OpMode {
         frontRightPower *= mul;
         backRightPower *= mul;
 
-        motorFrontLeft.setPower(frontLeftPower);
-        motorBackLeft.setPower(backLeftPower);
-        motorFrontRight.setPower(frontRightPower);
-        motorBackRight.setPower(backRightPower);
+        motorFrontLeft.setPower(-frontLeftPower);
+        motorBackLeft.setPower(-backLeftPower);
+        motorFrontRight.setPower(-frontRightPower);
+        motorBackRight.setPower(-backRightPower);
 
+    }
+
+    private static void moveSlide(int amount) {
+        slideL.setTargetPosition(slideL.getCurrentPosition() + amount);
+        slideR.setTargetPosition(slideR.getCurrentPosition() + amount);
+    }
+
+    private static void slideTarget(int pos) {
+        slideL.setTargetPosition(pos);
+        slideR.setTargetPosition(pos);
     }
 
 }
