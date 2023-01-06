@@ -89,8 +89,8 @@ public class NormalTeleOp2PID extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
-        slideR.setPower(slideSpeed);
-        slideL.setPower(slideSpeed);
+        slideR.setPower(0);
+        slideL.setPower(0);
 
         claw = hardwareMap.get(ServoImpl.class, "claw");
 
