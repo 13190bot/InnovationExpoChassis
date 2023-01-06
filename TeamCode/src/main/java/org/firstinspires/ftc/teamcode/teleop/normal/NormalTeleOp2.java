@@ -21,7 +21,9 @@ public class NormalTeleOp2 extends OpMode {
     // slowmode value
     double mul = 1;
 
-
+    int regularSpeed = 10; //Lift values
+    int slowSpeed = 5;
+    boolean slowSlide = false; //Slowmode Lift
     double turnSpeed = 0.5;
     double slideSpeed = 0.2;
 
@@ -94,28 +96,43 @@ b : ground junction
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
+        if(gamepad2.back){
+            if(!slowSlide){
+                slowSlide = true;
+            } else {
+            slowSlide = false;
+            }
+        }
 
         //Presets
         if (gamepad2.x) { //Medium junction
             slideTarget(mediumJunct);
-            telemetry.addData("going to medium junction",mediumJunct);
+            telemetry.addData("going to medium junction", mediumJunct);
             telemetry.update();
         } else if (gamepad2.a) { //Small junction
             slideTarget(smallJunct);
-            telemetry.addData("going to small junction",smallJunct);
+            telemetry.addData("going to small junction", smallJunct);
             telemetry.update();
-        } else if (gamepad2.y){ // High Junction
+        } else if (gamepad2.y) { // High Junction
             slideTarget(highJunct);
-            telemetry.addData("going to high junction",highJunct);
+            telemetry.addData("going to high junction", highJunct);
             telemetry.update();
-        } else if (gamepad2.b){ // Ground Junction
+        } else if (gamepad2.b) { // Ground Junction
             slideTarget(groundJunct);
-            telemetry.addData("going to ground junction",groundJunct);
+            telemetry.addData("going to ground junction", groundJunct);
             telemetry.update();
-        }else if (gamepad2.dpad_down) {
-            moveSlide(-10);
-        } else if (gamepad2.dpad_up){
-            moveSlide(+10);
+        } else if (gamepad2.dpad_down) {
+            if (!slowSlide) {
+                moveSlide(-regularSpeed); //Regular
+            } else {
+                moveSlide(-slowSpeed); //Slow
+            }
+        } else if (gamepad2.dpad_up) {
+            if (!slowSlide) {
+                moveSlide(+regularSpeed); //Regular
+            } else {
+                moveSlide(+slowSpeed); //Slow
+            }
         }
         else {
             moveSlide(0); //Keeps at same pos
