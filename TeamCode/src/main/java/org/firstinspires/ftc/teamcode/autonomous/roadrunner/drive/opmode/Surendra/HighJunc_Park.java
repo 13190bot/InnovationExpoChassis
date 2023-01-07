@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.vision.SleeveDetection;
 import org.firstinspires.ftc.teamcode.subsystem.ArmSubsystem;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;

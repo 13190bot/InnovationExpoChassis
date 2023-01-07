@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
@@ -27,6 +27,8 @@ public class ManualOpMode extends OpMode {
     private static final double strafe_power = 0.1;
 
     String webcamName = "Webcam 1";
+
+    SleeveDetection.ParkingPosition lol;
 
     @Override
     public void init() {
@@ -88,6 +90,7 @@ public class ManualOpMode extends OpMode {
         rb.setPower(drive_power);
         sleep(long_timer);
 
+        lol = sleeveDetection.getPosition();
         //strafe to face park pos
         switch (sleeveDetection.getPosition()) {
             case LEFT: //left

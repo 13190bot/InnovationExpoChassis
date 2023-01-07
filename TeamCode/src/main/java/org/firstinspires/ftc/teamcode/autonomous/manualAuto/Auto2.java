@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
@@ -85,7 +85,7 @@ public class Auto2 extends LinearOpMode {
         Integer targPos;
 
         switch ( sleeveDetection.getPosition() ) {
-            case 1: //left
+            case LEFT: //left
                 targPos = SEGMENT_LENGTH * 2;
                 rf.setPower(0.2);
                 rb.setPower(-0.2);
@@ -93,11 +93,11 @@ public class Auto2 extends LinearOpMode {
                 lb.setPower(0.2);
                 break;
 
-            case 0: //if the middle parkpos
+            case CENTER: //if the middle parkpos
                 targPos = SEGMENT_LENGTH;
                 break;
 
-            case 2: //right
+            case RIGHT: //right
                 rf.setPower(-0.2);
                 rb.setPower(0.2);
                 lf.setPower(0.2);
