@@ -169,7 +169,7 @@ b : ground junction
         if (gamepad1.left_bumper) {
             if (lastSlowmodeButton == false) {
                 // okay, last check the button was up. now it is PRESSED
-                slowTime = !slowTime // toggle
+                slowTime = !slowTime; // toggle
             }
             lastSlowmodeButton = true;
         } else {
