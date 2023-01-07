@@ -130,12 +130,17 @@ b : ground junction
             } else {
                 moveSlide(-slowSpeed); //Slow
             }
+            telemetry.addData("Dpad down. Slow Slide :", slowSlide);
+            telemetry.update();
         } else if (gamepad2.dpad_up) {
             if (!slowSlide) {
                 moveSlide(+regularSpeed); //Regular
             } else {
                 moveSlide(+slowSpeed); //Slow
             }
+            telemetry.addData("Dpad up. Slow Slide :", slowSlide);
+            telemetry.update();
+
         }
         else {
             moveSlide(0); //Keeps at same pos

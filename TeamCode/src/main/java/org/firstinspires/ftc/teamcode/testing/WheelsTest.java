@@ -53,7 +53,7 @@ public class WheelsTest extends OpMode {
             motorFrontRight.setPower(0);
             motorBackRight.setPower(0);
         }
-    if (gamepad1.left_bumper){
+    if (gamepad1.left_bumper){  //For fixing the robot and disable wheel movement
         if (gamepad1.right_bumper){
             if (safeMode == false){
                 safeMode = true;
