@@ -22,8 +22,7 @@ public class indepententMotorControl extends OpMode {
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
         for (DcMotor motor : motors) {
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
 
@@ -46,6 +45,7 @@ public class indepententMotorControl extends OpMode {
 
         if (gamepad1.dpad_left) motorBackLeft.setPower(motorSpeed);
         else motorBackLeft.setPower(0);
+
     }
 
 }
