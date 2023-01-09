@@ -39,11 +39,12 @@ public class NormalTeleOp2 extends OpMode {
         Now just implement that!
     */
     boolean lastSlowmodeButton = false;
-
-    // junctions
-    double target = 0;
-    boolean goingUp = false;
-    boolean liftMoving = false;
+    boolean lastSlowmodeLiftButton = false;
+//
+//    // junctions
+//    double target = 0;
+//    boolean goingUp = false;
+//    boolean liftMoving = false;
 
 
     int groundJunct = ArmSubsystem.GROUND; // Change these values
@@ -112,12 +113,22 @@ b : ground junction
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
-        if(gamepad2.back){
-            if(!slowSlide){
-                slowSlide = true;
-            } else {
-            slowSlide = false;
+//        if(gamepad2.back){
+//            if(!slowSlide){
+//                slowSlide = true;
+//            } else {
+//                slowSlide = false;
+//            }
+//        }
+
+        if (gamepad1.back) {
+            if (!lastSlowmodeLiftButton) {
+                // okay, last check the button was up. now it is PRESSED
+                slowSlide = !slowSlide; // toggle
             }
+            lastSlowmodeLiftButton = true;
+        } else {
+            lastSlowmodeLiftButton = false;
         }
 
         //Presets
