@@ -36,7 +36,7 @@ public class WheelsTest extends OpMode {
 
 
         if (gamepad1.y) {
-            if (safeMode == true) {
+            if (safeMode) {
                 telemetry.addData("Error cannot run Safe mode on (disable by L and R bumper) ", safeMode);
                 telemetry.update();
             } else {
