@@ -21,8 +21,8 @@ public class NormalTeleOp2 extends OpMode {
     // slowmode value
     double mul = 1;
 
-    int regularSpeed = 10; //Lift values
-    int slowSpeed = 5;
+    double regularSpeed = 0.5; //Lift values
+    double slowSpeed = 0.25;
     boolean slowTime = false;
     boolean slowSlide = false; //Slowmode Lift
     double turnSpeed = 0.5;
@@ -227,9 +227,9 @@ b : ground junction
 
     }
 
-    private static void moveSlide(int amount) {
-        slideL.setTargetPosition(slideL.getCurrentPosition() + amount);
-        slideR.setTargetPosition(slideR.getCurrentPosition() + amount);
+    private static void moveSlide(double speed) {
+        slideL.setPower(speed);
+        slideR.setPower(speed);
     }
 
     private static void slideTarget(int pos) {
