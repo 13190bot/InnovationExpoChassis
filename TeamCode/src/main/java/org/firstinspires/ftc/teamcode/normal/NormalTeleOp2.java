@@ -182,6 +182,8 @@ b : ground junction
             if (!lastSlowmodeButton) {
                 // okay, last check the button was up. now it is PRESSED
                 slowTime = !slowTime; // toggle
+                telemetry.addData("Slow time ", slowTime);
+                telemetry.update();
             }
             lastSlowmodeButton = true;
         } else {
