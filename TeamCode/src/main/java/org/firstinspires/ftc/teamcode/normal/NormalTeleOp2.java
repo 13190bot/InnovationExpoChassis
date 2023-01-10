@@ -21,16 +21,30 @@ public class NormalTeleOp2 extends OpMode {
     // slowmode value
     double mul = 1;
 
-    int regularSpeed = 10; //Lift values
-    int slowSpeed = 5;
+    double regularSpeed = 0.5; //Lift values
+    double slowSpeed = 0.25;
+    boolean slowTime = false;
     boolean slowSlide = false; //Slowmode Lift
     double turnSpeed = 0.5;
     double slideSpeed = 0.2;
-
-    // junctions
-    double target = 0;
-    boolean goingUp = false;
-    boolean liftMoving = false;
+    
+    /*
+        Slowmode
+        Lift -> Hold
+        Drive -> Toggle
+        
+        How toggle works:
+        First, what is pressing? It is when a button was previously (on last check) not held down and is now being held down.
+        This is all so that it doesn't repeatedly switch on and off.
+        Now just implement that!
+    */
+    boolean lastSlowmodeButton = false;
+    boolean lastSlowmodeLiftButton = false;
+//
+//    // junctions
+//    double target = 0;
+//    boolean goingUp = false;
+//    boolean liftMoving = false;
 
 
     int groundJunct = ArmSubsystem.GROUND; // Change these values
@@ -68,6 +82,7 @@ public class NormalTeleOp2 extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+
         slideR.setPower(0); //fixed bug Prateek caused
         slideL.setPower(0);
 
@@ -99,12 +114,22 @@ b : ground junction
         if(gamepad2.right_bumper){claw.setPosition(1);}
         if(gamepad2.left_bumper){claw.setPosition(0);}
 
-        if(gamepad2.back){
-            if(!slowSlide){
-                slowSlide = true;
-            } else {
-            slowSlide = false;
+//        if(gamepad2.back){
+//            if(!slowSlide){
+//                slowSlide = true;
+//            } else {
+//                slowSlide = false;
+//            }
+//        }
+
+        if (gamepad2.back) {
+            if (!lastSlowmodeLiftButton) {
+                // okay, last check the button was up. now it is PRESSED
+                slowSlide = !slowSlide; // toggle
             }
+            lastSlowmodeLiftButton = true;
+        } else {
+            lastSlowmodeLiftButton = false;
         }
 
         //Presets
@@ -142,7 +167,7 @@ b : ground junction
             telemetry.update();
 
         }
-        else {
+        else if (!slideL.isBusy() & !slideR.isBusy() ) {
             moveSlide(0); //Keeps at same pos
         }
 
@@ -152,14 +177,15 @@ b : ground junction
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
-        boolean slowTime = false;
 
         if (gamepad1.left_bumper) {
-          if (slowTime == false) {
-            slowTime = true;
-          } else {
-            slowTime = false;
-          }
+            if (!lastSlowmodeButton) {
+                // okay, last check the button was up. now it is PRESSED
+                slowTime = !slowTime; // toggle
+            }
+            lastSlowmodeButton = true;
+        } else {
+            lastSlowmodeButton = false;
         }
 
 
@@ -198,9 +224,9 @@ b : ground junction
 
     }
 
-    private static void moveSlide(int amount) {
-        slideL.setTargetPosition(slideL.getCurrentPosition() + amount);
-        slideR.setTargetPosition(slideR.getCurrentPosition() + amount);
+    private static void moveSlide(double speed) {
+        slideL.setPower(-speed);
+        slideR.setPower(speed);
     }
 
     private static void slideTarget(int pos) {

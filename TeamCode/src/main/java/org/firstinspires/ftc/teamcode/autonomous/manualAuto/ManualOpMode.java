@@ -96,10 +96,7 @@ public class ManualOpMode extends OpMode {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
-                rf.setPower(strafe_power); // strafing instead of driving; even though they have the same value, stored separately for convenience
-                rb.setPower(-strafe_power);
-                lf.setPower(-strafe_power);
-                lb.setPower(strafe_power);
+                strafeLeft(strafe_power);
                 break;
             case CENTER: //if the middle parkpos
 
@@ -107,13 +104,10 @@ public class ManualOpMode extends OpMode {
                 break;
             case RIGHT: //right
                 telemetry.addData("Detected right", 3);
-                rf.setPower(-strafe_power);
-                rb.setPower(strafe_power);
-                lf.setPower(strafe_power);
-                lb.setPower(-strafe_power);
+                strafeRight(strafe_power);
                 break;
-            default: // error for if no sleeve
-                telemetry.addData("Error: No Sleeve", "No Sleeve Detected.");
+            default: // error for if no parking pos detected
+                telemetry.addData("Error: No Parking Position", "No parkpos detected.");
                 break;
         }
 
@@ -139,6 +133,20 @@ public class ManualOpMode extends OpMode {
         rf.setPower(0);
         lb.setPower(0);
         rb.setPower(0);
+    }
+
+    private void strafeRight(double motorPower) {
+        lf.setPower(-motorPower);
+        rf.setPower(motorPower);
+        lb.setPower(motorPower);
+        rb.setPower(-motorPower);
+    }
+
+    private void strafeLeft(double motorPower) {
+        lf.setPower(motorPower);
+        rf.setPower(-motorPower);
+        lb.setPower(-motorPower);
+        rb.setPower(motorPower);
     }
 
 

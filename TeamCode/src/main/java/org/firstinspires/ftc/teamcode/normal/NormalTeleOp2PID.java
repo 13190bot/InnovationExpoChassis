@@ -31,7 +31,18 @@ public class NormalTeleOp2PID extends OpMode {
     int slowSpeed = 5;
     boolean slowSlide = false; //Slowmode Lift
 
+    /*
+            Slowmode
+            Lift -> Hold
+            Drive -> Toggle
 
+            How toggle works:
+            First, what is pressing? It is when a button was previously (on last check) not held down and is now being held down.
+            This is all so that it doesn't repeatedly switch on and off.
+            Now just implement that!
+        */
+    boolean lastSlowmodeButton = false;
+    boolean slowTime = false;
 
     // junctions
     double target = 0;
@@ -178,14 +189,14 @@ b : ground junction
         double rx = gamepad1.right_trigger;
         double lx = gamepad1.left_trigger;
 
-        boolean slowTime = false;
-
         if (gamepad1.left_bumper) {
-            if (slowTime == false) {
-                slowTime = true;
-            } else {
-                slowTime = false;
+            if (!lastSlowmodeButton) {
+                // okay, last check the button was up. now it is PRESSED
+                slowTime = !slowTime; // toggle
             }
+            lastSlowmodeButton = true;
+        } else {
+            lastSlowmodeButton = false;
         }
 
         if (slowTime) {
