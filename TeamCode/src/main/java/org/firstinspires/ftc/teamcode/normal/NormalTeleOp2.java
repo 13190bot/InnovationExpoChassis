@@ -82,6 +82,7 @@ public class NormalTeleOp2 extends OpMode {
             slide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
+
         slideR.setPower(0); //fixed bug Prateek caused
         slideL.setPower(0);
 
@@ -121,7 +122,7 @@ b : ground junction
 //            }
 //        }
 
-        if (gamepad1.back) {
+        if (gamepad2.back) {
             if (!lastSlowmodeLiftButton) {
                 // okay, last check the button was up. now it is PRESSED
                 slowSlide = !slowSlide; // toggle
@@ -132,10 +133,6 @@ b : ground junction
         }
 
         //Presets
-        /*
-        TODO FIX ISSUE
-        Make sure we are not supplying 0 power and braking when it is moving towards target position
-         */
         if (gamepad2.x) { //Medium junction
             slideTarget(mediumJunct);
             telemetry.addData("going to medium junction", mediumJunct);
@@ -228,7 +225,7 @@ b : ground junction
     }
 
     private static void moveSlide(double speed) {
-        slideL.setPower(speed);
+        slideL.setPower(-speed);
         slideR.setPower(speed);
     }
 
