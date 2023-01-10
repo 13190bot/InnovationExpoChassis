@@ -132,6 +132,10 @@ b : ground junction
         }
 
         //Presets
+        /*
+        TODO FIX ISSUE
+        Make sure we are not supplying 0 power and braking when it is moving towards target position
+         */
         if (gamepad2.x) { //Medium junction
             slideTarget(mediumJunct);
             telemetry.addData("going to medium junction", mediumJunct);
@@ -166,7 +170,7 @@ b : ground junction
             telemetry.update();
 
         }
-        else {
+        else if (!slideL.isBusy() & !slideR.isBusy() ) {
             moveSlide(0); //Keeps at same pos
         }
 
