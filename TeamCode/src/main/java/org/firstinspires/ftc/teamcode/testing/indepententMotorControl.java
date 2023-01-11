@@ -14,16 +14,15 @@ public class indepententMotorControl extends OpMode {
 
     public void init() {
 
-        motorFrontLeft = hardwareMap.dcMotor.get("leftFront");
-        motorBackLeft = hardwareMap.dcMotor.get("leftBack");
-        motorFrontRight = hardwareMap.dcMotor.get("rightFront");
-        motorBackRight = hardwareMap.dcMotor.get("rightBack");
+        motorFrontLeft = hardwareMap.dcMotor.get("frontLeft");
+        motorBackLeft = hardwareMap.dcMotor.get("backLeft");
+        motorFrontRight = hardwareMap.dcMotor.get("frontRight");
+        motorBackRight = hardwareMap.dcMotor.get("backRight");
 
         DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
         for (DcMotor motor : motors) {
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
 
@@ -46,6 +45,7 @@ public class indepententMotorControl extends OpMode {
 
         if (gamepad1.dpad_left) motorBackLeft.setPower(motorSpeed);
         else motorBackLeft.setPower(0);
+
     }
 
 }

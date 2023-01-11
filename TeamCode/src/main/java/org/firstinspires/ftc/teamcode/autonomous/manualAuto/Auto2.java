@@ -85,7 +85,7 @@ public class Auto2 extends LinearOpMode {
         Integer targPos;
 
         switch ( sleeveDetection.getPosition() ) {
-            case 1: //left
+            case LEFT: //left
                 targPos = SEGMENT_LENGTH * 2;
                 rf.setPower(0.2);
                 rb.setPower(-0.2);
@@ -93,11 +93,11 @@ public class Auto2 extends LinearOpMode {
                 lb.setPower(0.2);
                 break;
 
-            case 0: //if the middle parkpos
+            case CENTER: //if the middle parkpos
                 targPos = SEGMENT_LENGTH;
                 break;
 
-            case 2: //right
+            case RIGHT: //right
                 rf.setPower(-0.2);
                 rb.setPower(0.2);
                 lf.setPower(0.2);

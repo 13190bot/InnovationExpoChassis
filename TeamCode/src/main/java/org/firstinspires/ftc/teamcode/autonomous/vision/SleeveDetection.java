@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.autonomous.vision;
-
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -21,15 +20,14 @@ public class SleeveDetection extends OpenCvPipeline {
         RIGHT
     }
 
-    // TOPLEFT anchor point for the bounding box
-    private static final Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(640, 260);
+    // TODO fix TOPLEFT anchor point for the bounding box
+    private static Point SLEEVE_TOPLEFT_ANCHOR_POINT = new Point(145, 168);
 
     // Width and height for the bounding box
-    public static int REGION_WIDTH = 60;
-    public static int REGION_HEIGHT = 60;
+    public static int REGION_WIDTH = 30;
+    public static int REGION_HEIGHT = 50;
 
     // Color definitions
-
     private final Scalar
             YELLOW  = new Scalar(255, 255, 0),
             CYAN    = new Scalar(0, 255, 255),
@@ -53,22 +51,10 @@ public class SleeveDetection extends OpenCvPipeline {
         Scalar sumColors = Core.sumElems(areaMat);
 
         // Get the minimum RGB value from every single channel
-        double red = sumColors.val[2];
-        double green = sumColors.val[1];
-        double blue = sumColors.val[0];
-        double minColor = Math.min(red, Math.min(green, blue));
+        double minColor = Math.min(sumColors.val[0], Math.min(sumColors.val[1], sumColors.val[2]));
 
         // Change the bounding box color based on the sleeve color
-        if (red == minColor) {
-            position = ParkingPosition.LEFT;
-            Imgproc.rectangle(
-                    input,
-                    sleeve_pointA,
-                    sleeve_pointB,
-                    YELLOW,
-                    2
-            );
-        } else if (green == minColor)  {
+        if (sumColors.val[0] == minColor) {
             position = ParkingPosition.CENTER;
             Imgproc.rectangle(
                     input,
@@ -77,13 +63,22 @@ public class SleeveDetection extends OpenCvPipeline {
                     CYAN,
                     2
             );
-        } else {
+        } else if (sumColors.val[1] == minColor) {
             position = ParkingPosition.RIGHT;
             Imgproc.rectangle(
                     input,
                     sleeve_pointA,
                     sleeve_pointB,
                     MAGENTA,
+                    2
+            );
+        } else {
+            position = ParkingPosition.LEFT;
+            Imgproc.rectangle(
+                    input,
+                    sleeve_pointA,
+                    sleeve_pointB,
+                    YELLOW,
                     2
             );
         }
@@ -93,7 +88,7 @@ public class SleeveDetection extends OpenCvPipeline {
         return input;
     }
 
-    // returns an enum for parking position
+    // Returns an enum being the current position where the robot will park
     public ParkingPosition getPosition() {
         return position;
     }
