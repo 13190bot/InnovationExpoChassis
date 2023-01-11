@@ -33,10 +33,10 @@ public class ManualOpMode extends OpMode {
     @Override
     public void init() {
 
-        lf = hardwareMap.dcMotor.get("leftFront");
-        lb = hardwareMap.dcMotor.get("leftBack");
-        rf = hardwareMap.dcMotor.get("rightFront");
-        rb = hardwareMap.dcMotor.get("rightBack");
+        lf = hardwareMap.dcMotor.get("frontLeft");
+        lb = hardwareMap.dcMotor.get("backLeft");
+        rf = hardwareMap.dcMotor.get("frontRight");
+        rb = hardwareMap.dcMotor.get("backRight");
 
         DcMotor[] motors = {lf, lb, rf, rb};
 
