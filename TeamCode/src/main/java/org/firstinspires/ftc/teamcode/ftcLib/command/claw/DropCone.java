@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.ftcLib.command.claw;
 
-import org.firstinspires.ftc.teamcode.ftcLib.command.SimpleArmCommand;
+import com.arcrobotics.ftclib.command.CommandBase;
 import org.firstinspires.ftc.teamcode.ftcLib.subsystem.ArmSubsystem;
 
-public class DropCone extends SimpleArmCommand {
+public class DropCone extends CommandBase {
+    private final ArmSubsystem arm;
+
     public DropCone(ArmSubsystem arm) {
-        super(arm);
+        this.arm = arm;
+        addRequirements(arm);
     }
 
     @Override

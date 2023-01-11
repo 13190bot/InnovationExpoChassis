@@ -16,12 +16,12 @@ public class ArmSubsystem extends SubsystemBase{
 
     //TODO tune height values
     public static int DEFAULT = 0;
-    public static int GROUND = 0;
-    public static int LOW = 0;
-    public static int MEDIUM = 0;
-    public static int HIGH = 0;
+    public static int GROUND = 230;
+    public static int LOW = 540;
+    public static int MEDIUM = 770;
+    public static int HIGH = 970;
 
-    public static int SlidePosMax = 0; //need to define max height
+    public static int SlidePosMax = 1000; //need to define max height
 
     public static int SlidePosMin = 0; //need to define min height
 

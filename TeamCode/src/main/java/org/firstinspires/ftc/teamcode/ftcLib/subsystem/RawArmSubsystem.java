@@ -1,39 +1,29 @@
 package org.firstinspires.ftc.teamcode.ftcLib.subsystem;
 
-import android.util.Log;
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.controller.wpilibcontroller.ProfiledPIDController;
 import com.arcrobotics.ftclib.hardware.ServoEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import com.arcrobotics.ftclib.trajectory.TrapezoidProfile;
+
 
 public class RawArmSubsystem extends SubsystemBase{
-
-    private final ServoEx claw;
 
     private final MotorEx slideL, slideR;
 
 
     //TODO tune height values
     public static int DEFAULT = 0;
-    public static int GROUND = 0;
-    public static int LOW = 0;
-    public static int MEDIUM = 0;
-    public static int HIGH = 0;
+    public static int GROUND = 230;
+    public static int LOW = 540;
+    public static int MEDIUM = 770;
+    public static int HIGH = 970;
 
-    public static int SlidePosMax = 0; //need to define max height
+    public static int SlidePosMax = 1000; //need to define max height
 
     public static int SlidePosMin = 0; //need to define min height
 
     private double calc;
 
-    private double out_left;
-
-    private double out_right;
-
     public static Junction currentGoal = Junction.DEFAULT;
-
-    //TODO TUNE THESE VALUES
 
     private final double clawOpen = 1;//servo position for open
 
@@ -53,24 +43,15 @@ public class RawArmSubsystem extends SubsystemBase{
 
     //constructor
 
-    public RawArmSubsystem(ServoEx claw,  MotorEx slideL, MotorEx slideR){
-        this.claw = claw;
+    public RawArmSubsystem(MotorEx slideL, MotorEx slideR){
         this.slideL = slideL;
         this.slideR = slideR;
 
-        slideL.set(manualSlideSpeed);
-        slideR.set(manualSlideSpeed);
-
         //todo make sure this works right (on start should just stay at the bottom)
         moveToJunction(Junction.DEFAULT);//might not need this part
+        slidesGo();
 
     }
-
-    //claw control
-
-    public void clawOpen() {claw.setPosition(clawOpen);}
-
-    public void clawClose() {claw.setPosition(clawClose);}
 
     //slide stuff
     public void moveToJunction(Junction junction){
@@ -92,14 +73,14 @@ public class RawArmSubsystem extends SubsystemBase{
                 slidesTargetPos(HIGH);
                 break;
         }
-
-
+        slidesGo();
     }
 
     public void manualSlide(double input){
         calc = slideL.getCurrentPosition()+input*manualSlideSpeed;
         if(calc > SlidePosMax){
             slidesTargetPos(SlidePosMax);
+
         }
         else if(calc < SlidePosMin){
             slidesTargetPos(SlidePosMin);
@@ -107,11 +88,20 @@ public class RawArmSubsystem extends SubsystemBase{
         else{
             slidesTargetPos((int) calc);
         }
+        slidesGo();
     }
 
+
+    //helper methods
     public void slidesTargetPos(int targetPos){
         slideR.setTargetPosition(targetPos);
         slideL.setTargetPosition(targetPos);
+    }
+
+    public void slidesGo(){
+        slideL.set(manualSlideSpeed);
+        slideR.set(manualSlideSpeed);
+
     }
 
 
@@ -122,14 +112,12 @@ public class RawArmSubsystem extends SubsystemBase{
         return slideR.getCurrentPosition();
     }
 
-    public double getSlideLPower(){
-        return out_left;
+    public double getSlideLVelocity(){
+        return slideL.getVelocity();
     }
-    public double getSlideRPower(){
-        return out_right;
+    public double getSlideRVelocity(){
+        return slideR.getVelocity();
     }
 
-
-    public double getClawPos(){return claw.getPosition();}
 
 }
