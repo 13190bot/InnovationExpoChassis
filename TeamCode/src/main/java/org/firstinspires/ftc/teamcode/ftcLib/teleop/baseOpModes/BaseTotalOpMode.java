@@ -58,6 +58,9 @@ public class BaseTotalOpMode extends CommandOpMode {
         slideRight.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
         //Motor Reversal
+        bL.setInverted(false);
+        fR.setInverted(false);
+        fL.setInverted(false);
         bR.setInverted(true);
 
         //ask whether or not we should use this (8872 are hypocrites if they tell us not to use this)
