@@ -48,8 +48,6 @@ public class RawArmSubsystem extends SubsystemBase{
         this.slideR = slideR;
 
         //todo make sure this works right (on start should just stay at the bottom)
-        moveToJunction(Junction.DEFAULT);//might not need this part
-        slidesGo();
 
     }
 
@@ -88,7 +86,8 @@ public class RawArmSubsystem extends SubsystemBase{
         else{
             slidesTargetPos((int) calc);
         }
-        slidesGo();
+      slideL.set(input*manualSlideSpeed);
+      slideR.set(input*manualSlideSpeed);
     }
 
 
