@@ -15,6 +15,7 @@ public class SleeveDetection extends OpenCvPipeline {
      */
 
     public enum ParkingPosition {
+        NOPOS,
         LEFT,
         CENTER,
         RIGHT
@@ -36,13 +37,15 @@ public class SleeveDetection extends OpenCvPipeline {
     // Anchor point definitions
     Point sleeve_pointA = new Point(
             SLEEVE_TOPLEFT_ANCHOR_POINT.x,
-            SLEEVE_TOPLEFT_ANCHOR_POINT.y);
+            SLEEVE_TOPLEFT_ANCHOR_POINT.y
+            );
     Point sleeve_pointB = new Point(
             SLEEVE_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-            SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
+            SLEEVE_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT
+            );
 
     // Running variable storing the parking position
-    private volatile ParkingPosition position = ParkingPosition.LEFT;
+    private volatile ParkingPosition position = ParkingPosition.NOPOS;
 
     @Override
     public Mat processFrame(Mat input) {

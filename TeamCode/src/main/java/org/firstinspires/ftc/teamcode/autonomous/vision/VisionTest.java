@@ -1,8 +1,15 @@
 package org.firstinspires.ftc.teamcode.autonomous.vision;
 
+import android.os.SystemClock;
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamClient;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
+import org.firstinspires.ftc.teamcode.autonomous.roadrunner.util.LynxModuleUtil;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -19,10 +26,14 @@ public class VisionTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
         sleeveDetection = new SleeveDetection();
         camera.setPipeline(sleeveDetection);
+        FtcDashboard.getInstance().startCameraStream(camera, 20);
+        telemetry.addData("init", "done");
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
@@ -38,6 +49,7 @@ public class VisionTest extends LinearOpMode {
 
         while (!isStarted()) {
             telemetry.addData("Position: ", sleeveDetection.getPosition());
+            telemetry.addData("time", SystemClock.uptimeMillis());
             telemetry.update();
         }
 
