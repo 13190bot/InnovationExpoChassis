@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Slide Tuner")
+@TeleOp(name = "Slide Tuner", group = "Testing")
 public class slideTuner extends OpMode {
 
     private DcMotorEx slideL, slideR;

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoImpl;
 
-@TeleOp(name = "Height Testing")
+@TeleOp(name = "Height Testing", group = "Testing")
 public class GetHeight extends OpMode{
 
     DcMotor slideLeft, slideRight;

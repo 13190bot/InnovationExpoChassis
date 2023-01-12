@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp (name = "Independent Motor Control")
+@TeleOp (name = "Independent Motor Control", group = "Testing")
 public class indepententMotorControl extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
