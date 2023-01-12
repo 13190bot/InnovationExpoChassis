@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.*;
 
-@TeleOp (name = "Wheels Test")
+@TeleOp (name = "Wheels Test", group = "Testing")
 public class WheelsTest extends OpMode {
     boolean safeMode = false;
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
