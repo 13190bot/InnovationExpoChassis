@@ -26,7 +26,7 @@ public class PCArmSubsystem extends SubsystemBase {
 
     private final double manualSlideSpeed = 0.5; //higher is faster
 
-    //TODO tune
+    //TODO tune using ftc dashboard
     private final double PositionCoefficient = 0.05;
     private final double PositionTolerance = 10;
 
