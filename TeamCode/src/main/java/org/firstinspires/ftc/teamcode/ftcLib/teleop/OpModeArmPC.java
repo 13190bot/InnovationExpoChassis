@@ -5,13 +5,19 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.ftcLib.command.claw.*;
-import org.firstinspires.ftc.teamcode.ftcLib.command.lift.*;
+import org.firstinspires.ftc.teamcode.ftcLib.command.claw.DropCone;
+import org.firstinspires.ftc.teamcode.ftcLib.command.claw.GrabCone;
+import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCJunc;
+import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCLift;
+import org.firstinspires.ftc.teamcode.ftcLib.command.lift.RawJunc;
+import org.firstinspires.ftc.teamcode.ftcLib.command.lift.RawLift;
+import org.firstinspires.ftc.teamcode.ftcLib.subsystem.PCArmSubsystem;
 import org.firstinspires.ftc.teamcode.ftcLib.subsystem.RawArmSubsystem;
+import org.firstinspires.ftc.teamcode.ftcLib.teleop.baseOpModes.BasePCArmOpMode;
 import org.firstinspires.ftc.teamcode.ftcLib.teleop.baseOpModes.BaseRawArmOpMode;
 
-@TeleOp(name = "Raw Arm TeleOp")
-public class OpModeArmRaw extends BaseRawArmOpMode {
+@TeleOp(name = "PC Arm TeleOp")
+public class OpModeArmPC extends BasePCArmOpMode {
     // image of gamepad: https://gm0.org/en/latest/_images/logitech-f310.png
 
     private GamepadEx driverOp1;
@@ -21,11 +27,10 @@ public class OpModeArmRaw extends BaseRawArmOpMode {
 
     private GrabCone grabCone;
 
-
     //slides
-    private RawLift rawLift;
+    private PCLift PCLift;
 
-    private RawJunc moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
+    private PCJunc moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
 
 
     //buttons
@@ -52,21 +57,16 @@ public class OpModeArmRaw extends BaseRawArmOpMode {
 
         driverOp1 = new GamepadEx(gamepad1);
 
-        //toggles claw between open and close
-        grabCone = new GrabCone(oldarm);
-        dropCone = new DropCone(oldarm);
-        clawManip = (new GamepadButton(driverOp1, GamepadKeys.Button.A)).toggleWhenPressed(grabCone, dropCone);
-
         //slides manual
-        rawLift = new RawLift(arm, () -> driverOp1.getRightY());
+        PCLift = new PCLift(arm, () -> driverOp1.getRightY());
         telemetry.addData("Right Stick Y:", driverOp1.getRightY());
 
         // automatic junction code
-        moveToDefault = new RawJunc(arm, RawArmSubsystem.Junction.DEFAULT);
-        moveToGround = new RawJunc(arm, RawArmSubsystem.Junction.GROUND);
-        moveToLow = new RawJunc(arm, RawArmSubsystem.Junction.LOW);
-        moveToMedium = new RawJunc(arm, RawArmSubsystem.Junction.MEDIUM);
-        moveToHigh = new RawJunc(arm, RawArmSubsystem.Junction.HIGH);
+        moveToDefault = new PCJunc(arm, PCArmSubsystem.Junction.DEFAULT);
+        moveToGround = new PCJunc(arm, PCArmSubsystem.Junction.GROUND);
+        moveToLow = new PCJunc(arm, PCArmSubsystem.Junction.LOW);
+        moveToMedium = new PCJunc(arm, PCArmSubsystem.Junction.MEDIUM);
+        moveToHigh = new PCJunc(arm, PCArmSubsystem.Junction.HIGH);
 
         moveDefault = (new GamepadButton(driverOp1, GamepadKeys.Button.RIGHT_BUMPER))
                 .whenPressed(moveToDefault);
@@ -83,7 +83,7 @@ public class OpModeArmRaw extends BaseRawArmOpMode {
         moveHigh = (new GamepadButton(driverOp1, GamepadKeys.Button.DPAD_UP))
                 .whenPressed(moveToHigh);
 
-        register(arm, oldarm);
-        arm.setDefaultCommand(rawLift);
+        register(arm);
+        arm.setDefaultCommand(PCLift);
     }
 }

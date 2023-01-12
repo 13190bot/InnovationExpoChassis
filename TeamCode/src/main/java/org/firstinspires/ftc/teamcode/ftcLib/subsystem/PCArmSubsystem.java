@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.ftcLib.subsystem;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 
+public class PCArmSubsystem extends SubsystemBase {
 
-public class RawArmSubsystem extends SubsystemBase{
-
-    private final MotorEx slideL, slideR;
+    private final Motor slideL, slideR;
 
 
     //TODO tune height values
@@ -17,13 +15,10 @@ public class RawArmSubsystem extends SubsystemBase{
     public static int MEDIUM = 770;
     public static int HIGH = 970;
 
-    public static int SlidePosMax = 1000; //need to define max height
+    public static int SlidePosMax = 10000; //need to define max height
+    public static int SlidePosMin = -100; //need to define min height
 
-    public static int SlidePosMin = 0; //need to define min height
-
-    private double calc;
-
-    public static Junction currentGoal = Junction.DEFAULT;
+    public static PCArmSubsystem.Junction currentGoal = PCArmSubsystem.Junction.DEFAULT;
 
     private final double clawOpen = 1;//servo position for open
 
@@ -31,6 +26,9 @@ public class RawArmSubsystem extends SubsystemBase{
 
     private final double manualSlideSpeed = 0.5; //higher is faster
 
+    //TODO tune
+    private final double PositionCoefficient = 0.05;
+    private final double PositionTolerance = 10;
 
 
     public enum Junction{
@@ -42,15 +40,21 @@ public class RawArmSubsystem extends SubsystemBase{
     }
 
     //constructor
-
-    public RawArmSubsystem(MotorEx slideL, MotorEx slideR){
+    public PCArmSubsystem(Motor slideL, Motor slideR){
         this.slideL = slideL;
         this.slideR = slideR;
-        //todo make sure this works right (on start should just stay at the bottom)
+
+        Motor slides[] = {this.slideL, this.slideR};
+        for(Motor slide : slides){
+            slide.setRunMode(Motor.RunMode.PositionControl);
+            slide.setPositionCoefficient(PositionCoefficient);
+            slide.setPositionTolerance(PositionTolerance);
+        }
+
     }
 
     //slide stuff
-    public void moveToJunction(Junction junction){
+    public void moveToJunction(PCArmSubsystem.Junction junction){
         currentGoal = junction;
         switch(junction){
             case DEFAULT:
@@ -69,24 +73,29 @@ public class RawArmSubsystem extends SubsystemBase{
                 slidesTargetPos(HIGH);
                 break;
         }
-        slidesSetPower(manualSlideSpeed);
+
+        while(!slideL.atTargetPosition()){
+            slidesSetPower(manualSlideSpeed);
+        }
+        slidesSetPower(0);
+
     }
 
     public void manualSlide(double input){
-        calc = slideL.getCurrentPosition()+input*manualSlideSpeed;
-        if(calc > SlidePosMax){
-            slidesTargetPos(SlidePosMax);
+        double calc = slideL.getCurrentPosition() + input * manualSlideSpeed;
 
+        if(calc > SlidePosMax){
+            slidesSetPower(0);
         }
         else if(calc < SlidePosMin){
-            slidesTargetPos(SlidePosMin);
+            slidesSetPower(0);
+        } else if (input == 0) {
+            //might be able to tune this value to reduce lift falling
+            slidesSetPower(0);
+        } else{
+            slidesSetPower(input*manualSlideSpeed);
         }
-        else{
-            slidesTargetPos((int) calc);
-        }
-      slidesSetPower(input*manualSlideSpeed);
     }
-
 
     //helper methods
     public void slidesTargetPos(int targetPos){
@@ -106,13 +115,5 @@ public class RawArmSubsystem extends SubsystemBase{
     public int getSlideREncoder(){
         return slideR.getCurrentPosition();
     }
-
-    public double getSlideLVelocity(){
-        return slideL.getVelocity();
-    }
-    public double getSlideRVelocity(){
-        return slideR.getVelocity();
-    }
-
 
 }
