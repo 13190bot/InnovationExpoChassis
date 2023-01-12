@@ -113,7 +113,7 @@ public class ManualOpMode extends OpMode {
 
         sleep(long_timer);
         telemetry.addData("Parking", 0);
-        stopMotors(); // stops motors (no way1!/1?!)
+        stopMotors(); // stops motors
 
     }
 
