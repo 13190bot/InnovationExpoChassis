@@ -5,8 +5,6 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.ftcLib.command.claw.DropCone;
-import org.firstinspires.ftc.teamcode.ftcLib.command.claw.GrabCone;
 import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCJunc;
 import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCLift;
 import org.firstinspires.ftc.teamcode.ftcLib.subsystem.PCArmSubsystem;
@@ -18,19 +16,13 @@ public class OpModeArmPC extends BasePCArmOpMode {
 
     private GamepadEx driverOp1;
 
-    //claw
-    private DropCone dropCone;
-
-    private GrabCone grabCone;
-
     //slides
     private PCLift PCLift;
 
     private PCJunc moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
 
-
     //buttons
-    private Button clawManip, slideMovement;
+    private Button slideMovement;
 
     private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
 
@@ -56,6 +48,7 @@ public class OpModeArmPC extends BasePCArmOpMode {
         //slides manual
         PCLift = new PCLift(arm, () -> driverOp1.getRightY());
         telemetry.addData("Right Stick Y:", driverOp1.getRightY());
+        telemetry.update();
 
         // automatic junction code
         moveToDefault = new PCJunc(arm, PCArmSubsystem.Junction.DEFAULT);

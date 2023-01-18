@@ -18,7 +18,7 @@ public class PCArmSubsystem extends SubsystemBase {
     public static int SlidePosMax = 10000; //need to define max height
     public static int SlidePosMin = -100; //need to define min height
 
-    public static PCArmSubsystem.Junction currentGoal = PCArmSubsystem.Junction.DEFAULT;
+    public static Junction currentGoal = Junction.DEFAULT;
 
     private final double clawOpen = 1;//servo position for open
 
@@ -109,5 +109,6 @@ public class PCArmSubsystem extends SubsystemBase {
     public int getSlideREncoder(){
         return slideR.getCurrentPosition();
     }
+    public Junction getCurrentGoal() {return currentGoal;}
 
 }
