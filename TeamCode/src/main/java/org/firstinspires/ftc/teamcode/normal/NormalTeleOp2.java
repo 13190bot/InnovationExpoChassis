@@ -26,7 +26,6 @@ public class NormalTeleOp2 extends OpMode {
     boolean slowTime = false;
     boolean slowSlide = false; //Slowmode Lift
     double turnSpeed = 0.5;
-    double slideSpeed = 0.2;
     
     /*
         Slowmode
@@ -40,12 +39,6 @@ public class NormalTeleOp2 extends OpMode {
     */
     boolean lastSlowmodeButton = false;
     boolean lastSlowmodeLiftButton = false;
-//
-//    // junctions
-//    double target = 0;
-//    boolean goingUp = false;
-//    boolean liftMoving = false;
-
 
     int groundJunct = ArmSubsystem.GROUND; // Change these values
     int smallJunct = ArmSubsystem.LOW;
@@ -111,16 +104,9 @@ b : ground junction
 
 
         //claw manipulation
-        if(gamepad2.right_bumper){claw.setPosition(1);}
-        if(gamepad2.left_bumper){claw.setPosition(0);}
+        if(gamepad2.right_bumper)claw.setPosition(1);
+        if(gamepad2.left_bumper)claw.setPosition(0);
 
-//        if(gamepad2.back){
-//            if(!slowSlide){
-//                slowSlide = true;
-//            } else {
-//                slowSlide = false;
-//            }
-//        }
 
         if (gamepad2.back) {
             if (!lastSlowmodeLiftButton) {
