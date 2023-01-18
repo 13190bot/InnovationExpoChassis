@@ -42,7 +42,8 @@ public class ArmSubsystem extends SubsystemBase{
     public void manualSlide(double input){
         double calc = slideR.getCurrentPosition()+input*manualSlideSpeed;
         if(calc > SlidePosMax || calc < SlidePosMin){
-            slidesSetPower(0);
+            //TODO test this out bruh
+            slidesSetPower(-1*input/0.1);
         }
         else{
             slidesSetPower(input*manualSlideSpeed);
