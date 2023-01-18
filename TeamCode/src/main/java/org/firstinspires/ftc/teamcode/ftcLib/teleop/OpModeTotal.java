@@ -22,22 +22,16 @@ public class OpModeTotal extends BaseTotalOpMode {
     private GamepadEx driverOp2;
 
     private DefaultRobotCentricDrive robotCentricDrive;
-
     private SlowMode slowMode;
 
-
     private DropCone dropCone;
-
     private GrabCone grabCone;
 
     //slides
     private ManualLift manualLift;
 
-    private MoveToJunction moveToDefault, moveToGround, moveToLow, moveToMedium, moveToHigh;
+    private Button driveManip, clawManip, slideMovement;
 
-    private Button slowtime, clawManip, slideMovement;
-
-    private Button moveDefault, moveGround, moveLow, moveMedium, moveHigh;
 
     @Override
     public void initialize() {
@@ -70,16 +64,11 @@ public class OpModeTotal extends BaseTotalOpMode {
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> driverOp1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
-        slowtime = (new GamepadButton(driverOp1,
+        driveManip = (new GamepadButton(driverOp1,
                 GamepadKeys.Button.LEFT_BUMPER)).toggleWhenPressed(robotCentricDrive,slowMode);
 
        /*
         Player2
-            right_bumper -> resets slides to ground
-            dpad_down -> moveGround (Ground junction)
-            dpad_left -> moveLow (Low junction)
-            dpad_right -> moveMedium (Medium junction)
-            dpad_up -> moveHigh (High junction)
 
             a -> alternates between claw open and close
 
@@ -96,30 +85,7 @@ public class OpModeTotal extends BaseTotalOpMode {
         //slides manual
         manualLift = new ManualLift(arm, () -> driverOp2.getRightY());
 
-        // automatic junction code
-        moveToDefault = new MoveToJunction(arm, ArmSubsystem.Junction.DEFAULT);
-        moveToGround = new MoveToJunction(arm, ArmSubsystem.Junction.GROUND);
-        moveToLow = new MoveToJunction(arm, ArmSubsystem.Junction.LOW);
-        moveToMedium = new MoveToJunction(arm, ArmSubsystem.Junction.MEDIUM);
-        moveToHigh = new MoveToJunction(arm, ArmSubsystem.Junction.HIGH);
-
-        moveDefault = (new GamepadButton(driverOp2, GamepadKeys.Button.RIGHT_BUMPER))
-                .whenPressed(moveToDefault);
-
-        moveGround = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_DOWN))
-                .whenPressed(moveToGround);
-
-        moveLow = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_LEFT))
-                .whenPressed(moveToLow);
-
-        moveMedium= (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_RIGHT))
-                .whenPressed(moveToMedium);
-
-        moveHigh = (new GamepadButton(driverOp2, GamepadKeys.Button.DPAD_UP))
-                .whenPressed(moveToHigh);
-
         register(drive, arm);
-
         drive.setDefaultCommand(robotCentricDrive);
         arm.setDefaultCommand(manualLift);
     }

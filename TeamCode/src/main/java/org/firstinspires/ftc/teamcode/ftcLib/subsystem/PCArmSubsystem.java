@@ -74,7 +74,7 @@ public class PCArmSubsystem extends SubsystemBase {
                 break;
         }
 
-        while(!slideL.atTargetPosition()){
+        while(!slideR.atTargetPosition()){
             slidesSetPower(manualSlideSpeed);
         }
         slidesSetPower(0);
@@ -82,17 +82,11 @@ public class PCArmSubsystem extends SubsystemBase {
     }
 
     public void manualSlide(double input){
-        double calc = slideL.getCurrentPosition() + input * manualSlideSpeed;
-
-        if(calc > SlidePosMax){
+        double calc = slideR.getCurrentPosition()+input*manualSlideSpeed;
+        if(calc > SlidePosMax || calc < SlidePosMin){
             slidesSetPower(0);
         }
-        else if(calc < SlidePosMin){
-            slidesSetPower(0);
-        } else if (input == 0) {
-            //might be able to tune this value to reduce lift falling
-            slidesSetPower(0);
-        } else{
+        else{
             slidesSetPower(input*manualSlideSpeed);
         }
     }

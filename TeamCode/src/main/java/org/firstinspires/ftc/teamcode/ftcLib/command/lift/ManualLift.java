@@ -17,12 +17,7 @@ public class ManualLift extends CommandBase {
 
     @Override
     public void execute() {
-        if(input.getAsDouble() != 0) {
-            arm.changeSetPoint(input.getAsDouble());
-            arm.loopPID();
-        } else {
-            arm.loopPID();
-        }
+        arm.manualSlide(input.getAsDouble());
     }
 
     public boolean isFinished() {

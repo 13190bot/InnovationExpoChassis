@@ -9,12 +9,8 @@ import org.firstinspires.ftc.teamcode.ftcLib.command.claw.DropCone;
 import org.firstinspires.ftc.teamcode.ftcLib.command.claw.GrabCone;
 import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCJunc;
 import org.firstinspires.ftc.teamcode.ftcLib.command.lift.PCLift;
-import org.firstinspires.ftc.teamcode.ftcLib.command.lift.RawJunc;
-import org.firstinspires.ftc.teamcode.ftcLib.command.lift.RawLift;
 import org.firstinspires.ftc.teamcode.ftcLib.subsystem.PCArmSubsystem;
-import org.firstinspires.ftc.teamcode.ftcLib.subsystem.RawArmSubsystem;
 import org.firstinspires.ftc.teamcode.ftcLib.teleop.baseOpModes.BasePCArmOpMode;
-import org.firstinspires.ftc.teamcode.ftcLib.teleop.baseOpModes.BaseRawArmOpMode;
 
 @TeleOp(name = "PC Arm TeleOp")
 public class OpModeArmPC extends BasePCArmOpMode {

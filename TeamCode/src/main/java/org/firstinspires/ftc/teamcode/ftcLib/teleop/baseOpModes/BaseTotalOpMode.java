@@ -27,7 +27,7 @@ public class BaseTotalOpMode extends CommandOpMode {
         setUpHardwareDevices();
 
         drive = new DriveSubsystem(fL, fR, bL, bR);
-        arm = new ArmSubsystem(claw, slideLeft, slideRight);
+        arm = new ArmSubsystem(slideLeft, slideRight, claw);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
@@ -81,13 +81,10 @@ public class BaseTotalOpMode extends CommandOpMode {
         telemetry.addData("rightBack Power", round(bR.motor.getPower()));
 
         telemetry.addData("Right Slide Encoder", round(arm.getSlideREncoder()));
-        telemetry.addData("Left Slide Encoder", round(arm.getSlideLEncoder()));
-        telemetry.addData("Left Slide Power", round(arm.getSlideLPower()));
-        telemetry.addData("Right Slide Power", round(arm.getSlideRPower()));
-        telemetry.addData("Left Slide Error", round(arm.getSlideLError()));
-        telemetry.addData("Right Slide Error", round(arm.getSlideRError()));
-        telemetry.addData("Claw Position", round(arm.getClawPos()));
+        telemetry.addData("Right Slide Power", round(arm.getSLideRPower()));
 
+        telemetry.addData("Left Slide Encoder", round(arm.getSlideLEncoder()));
+        telemetry.addData("Right Slide Power", round(arm.getSLideLPower()));
 
         telemetry.update();
     }
