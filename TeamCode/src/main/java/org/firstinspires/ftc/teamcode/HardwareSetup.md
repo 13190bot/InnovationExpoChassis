@@ -20,9 +20,11 @@ Port 3: backRight
 
 
 ## Slides
+Control Hub
 
-slideL
-, slideR
+Port 2: slideL
+
+Port 3: slideR
 
 ## Claw
 
