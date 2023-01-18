@@ -13,7 +13,7 @@ import static android.os.SystemClock.sleep;
 
 //TODO: Test in VirtualBot
 @Autonomous(name = "Manual_ParkAuto")
-public class ManualOpMode extends OpMode {
+public class FinalParkAuto extends OpMode {
 
     DcMotor lf, lb, rf, rb;
     SleeveDetection sleeveDetection;
@@ -43,6 +43,7 @@ public class ManualOpMode extends OpMode {
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
         telemetry.addData("init", "done");
@@ -63,7 +64,9 @@ public class ManualOpMode extends OpMode {
             }
         });
 
-        telemetry.addData("Position: ", sleeveDetection.getPosition());
+        lol = sleeveDetection.getPosition();
+
+        telemetry.addData("Position: ", lol);
         telemetry.update();
 
     }
@@ -90,9 +93,8 @@ public class ManualOpMode extends OpMode {
         rb.setPower(drive_power);
         sleep(long_timer);
 
-        lol = sleeveDetection.getPosition();
         //strafe to face park pos
-        switch (sleeveDetection.getPosition()) {
+        switch (lol) {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
