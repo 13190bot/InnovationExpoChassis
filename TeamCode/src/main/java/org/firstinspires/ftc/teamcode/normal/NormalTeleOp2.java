@@ -57,7 +57,7 @@ public class NormalTeleOp2 extends OpMode {
 
         for(DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            // motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         //TODO correct motors reversed?
@@ -218,8 +218,21 @@ b : ground junction
     }
 
     private static void slideTarget(int pos) {
+        /*
         slideL.setTargetPosition(pos);
         slideR.setTargetPosition(pos);
+        */
+
+
+        /*
+        L   R
+        10  15
+        100 105
+    dif 90  90
+         */
+        int dif = pos - slideL.getCurrentPosition();
+        slideL.setTargetPosition(pos);
+        slideR.setTargetPosition(dif + slideR.getCurrentPosition());
     }
 
 }
