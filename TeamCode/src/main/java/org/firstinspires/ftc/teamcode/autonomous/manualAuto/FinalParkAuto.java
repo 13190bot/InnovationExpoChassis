@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import static android.os.SystemClock.sleep;
 
 
-//TODO: Test in VirtualBot
+//TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Autonomous(name = "Manual_ParkAuto")
 public class FinalParkAuto extends OpMode {
 
