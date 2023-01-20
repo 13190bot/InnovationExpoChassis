@@ -20,11 +20,11 @@ public class FinalParkAuto extends OpMode {
     OpenCvCamera camera;
 
     // defining constants for ez editing
-    private static final int long_timer = 3000; // 3 sec
+    private static final int LONG_TIMER = 3000; // 3 sec
     // 1000 = 1 second, can add more constants if necessary
 
-    private static final double drive_power = 0.1;
-    private static final double strafe_power = 0.1;
+    private static final double DRIVE_POWER = 0.1;
+    private static final double STRAFE_POWER = 0.1;
 
     String webcamName = "Webcam 1";
 
@@ -86,19 +86,19 @@ public class FinalParkAuto extends OpMode {
 
     @Override
     public void start() {
-// changed to use the constant drive_power
-        lf.setPower(drive_power);
-        rf.setPower(drive_power);
-        lb.setPower(drive_power);
-        rb.setPower(drive_power);
-        sleep(long_timer);
+// changed to use the constant DRIVE_POWER
+        lf.setPower(DRIVE_POWER);
+        rf.setPower(DRIVE_POWER);
+        lb.setPower(DRIVE_POWER);
+        rb.setPower(DRIVE_POWER);
+        sleep(LONG_TIMER);
 
         //strafe to face park pos
         switch (lol) {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
-                strafeLeft(strafe_power);
+                strafeLeft(STRAFE_POWER);
                 break;
             case CENTER: //if the middle parkpos
 
@@ -106,14 +106,14 @@ public class FinalParkAuto extends OpMode {
                 break;
             case RIGHT: //right
                 telemetry.addData("Detected right", 3);
-                strafeRight(strafe_power);
+                strafeRight(STRAFE_POWER);
                 break;
             default: // error for if no parking pos detected
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
                 break;
         }
 
-        sleep(long_timer);
+        sleep(LONG_TIMER);
         telemetry.addData("Parking", 0);
         stopMotors(); // stops motors
 
