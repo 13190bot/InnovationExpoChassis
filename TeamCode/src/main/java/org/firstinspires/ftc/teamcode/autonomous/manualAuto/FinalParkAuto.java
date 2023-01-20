@@ -98,18 +98,22 @@ public class FinalParkAuto extends OpMode {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
+                telemetry.update();
                 strafeLeft(STRAFE_POWER);
                 break;
             case CENTER: //if the middle parkpos
 
                 telemetry.addData("Detected center", 2);
+                telemetry.update();
                 break;
             case RIGHT: //right
                 telemetry.addData("Detected right", 3);
+                telemetry.update();
                 strafeRight(STRAFE_POWER);
                 break;
             default: // error for if no parking pos detected
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
+                telemetry.update();
                 break;
         }
 
