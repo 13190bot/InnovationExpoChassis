@@ -43,7 +43,7 @@ public class MainOpMode extends BaseOpMode {
                         new Release(claw).andThen(new SetJunction(lift, Junction.NONE)));
 
 
-        gb2(GamepadKeys.Button.A)
+                gb2(GamepadKeys.Button.A)
                 .whenPressed(new SetJunction(lift, Junction.GROUND));
         gb2(GamepadKeys.Button.X)
                 .whenPressed(new SetJunction(lift, Junction.LOW));

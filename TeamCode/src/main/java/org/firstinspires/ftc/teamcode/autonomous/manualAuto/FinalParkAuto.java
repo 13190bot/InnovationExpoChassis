@@ -21,11 +21,11 @@ public class FinalParkAuto extends OpMode {
     OpenCvCamera camera;
 
     // defining constants for ez editing
-    private static final int LONG_TIMER = 3000; // 3 sec
+    private static final int LONG_TIMER = 1000; // 3 sec
     // 1000 = 1 second, can add more constants if necessary
 
-    private static final double DRIVE_POWER = 0.1;
-    private static final double STRAFE_POWER = 0.1;
+    private static final double DRIVE_POWER = 0.5;
+    private static final double STRAFE_POWER = 0.5;
 
     String webcamName = "Webcam 1";
 
@@ -43,7 +43,7 @@ public class FinalParkAuto extends OpMode {
 
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
