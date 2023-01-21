@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.ftcLib.command.drive.DefaultRobotCentricDrive;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
@@ -20,11 +22,11 @@ public class FinalParkAuto extends OpMode {
     OpenCvCamera camera;
 
     // defining constants for ez editing
-    private static final int long_timer = 3000; // 3 sec
+    private static final int LONG_TIMER = 3000; // 3 sec
     // 1000 = 1 second, can add more constants if necessary
 
-    private static final double drive_power = 0.1;
-    private static final double strafe_power = 0.1;
+    private static final double DRIVE_POWER = 0.3;
+    private static final double STRAFE_POWER = 0.3;
 
     String webcamName = "Webcam 1";
 
@@ -45,6 +47,10 @@ public class FinalParkAuto extends OpMode {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("init", "done");
 
@@ -80,41 +86,47 @@ public class FinalParkAuto extends OpMode {
             telemetry.addData("lb", lb::getPower);
             telemetry.addData("rf", rf::getPower);
             telemetry.addData("rb", rb::getPower);
+            telemetry.update();
         }
 
     }
 
     @Override
     public void start() {
-// changed to use the constant drive_power
-        lf.setPower(drive_power);
-        rf.setPower(drive_power);
-        lb.setPower(drive_power);
-        rb.setPower(drive_power);
-        sleep(long_timer);
+// changed to use the constant DRIVE_POWER
+        lf.setPower(DRIVE_POWER);
+        rf.setPower(DRIVE_POWER);
+        lb.setPower(DRIVE_POWER);
+        rb.setPower(DRIVE_POWER);
+        sleep(LONG_TIMER);
 
         //strafe to face park pos
         switch (lol) {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
-                strafeLeft(strafe_power);
+                telemetry.update();
+                strafeLeft(STRAFE_POWER);
                 break;
             case CENTER: //if the middle parkpos
 
                 telemetry.addData("Detected center", 2);
+                telemetry.update();
                 break;
             case RIGHT: //right
                 telemetry.addData("Detected right", 3);
-                strafeRight(strafe_power);
+                telemetry.update();
+                strafeRight(STRAFE_POWER);
                 break;
             default: // error for if no parking pos detected
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
+                telemetry.update();
                 break;
         }
 
-        sleep(long_timer);
+        sleep(LONG_TIMER);
         telemetry.addData("Parking", 0);
+        telemetry.update();
         stopMotors(); // stops motors
 
     }
@@ -137,18 +149,18 @@ public class FinalParkAuto extends OpMode {
         rb.setPower(0);
     }
 
-    private void strafeRight(double motorPower) {
-        lf.setPower(-motorPower);
-        rf.setPower(motorPower);
-        lb.setPower(motorPower);
-        rb.setPower(-motorPower);
+    private void strafeRight(double MOTOR_POWER) {
+        lf.setPower(-MOTOR_POWER);
+        rf.setPower(MOTOR_POWER);
+        lb.setPower(MOTOR_POWER);
+        rb.setPower(-MOTOR_POWER);
     }
 
-    private void strafeLeft(double motorPower) {
-        lf.setPower(motorPower);
-        rf.setPower(-motorPower);
-        lb.setPower(-motorPower);
-        rb.setPower(motorPower);
+    private void strafeLeft(double MOTOR_POWER) {
+        lf.setPower(MOTOR_POWER);
+        rf.setPower(-MOTOR_POWER);
+        lb.setPower(-MOTOR_POWER);
+        rb.setPower(MOTOR_POWER);
     }
 
 
