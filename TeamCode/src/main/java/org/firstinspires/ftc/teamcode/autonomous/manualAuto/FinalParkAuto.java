@@ -3,10 +3,8 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
-import org.firstinspires.ftc.teamcode.ftcLib.command.drive.DefaultRobotCentricDrive;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
@@ -25,8 +23,8 @@ public class FinalParkAuto extends OpMode {
     private static final int LONG_TIMER = 3000; // 3 sec
     // 1000 = 1 second, can add more constants if necessary
 
-    private static final double DRIVE_POWER = 0.3;
-    private static final double STRAFE_POWER = 0.3;
+    private static final double DRIVE_POWER = 0.1;
+    private static final double STRAFE_POWER = 0.1;
 
     String webcamName = "Webcam 1";
 
@@ -47,10 +45,6 @@ public class FinalParkAuto extends OpMode {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
-
-        rf.setDirection(DcMotorSimple.Direction.REVERSE);
-        lb.setDirection(DcMotorSimple.Direction.REVERSE);
-        lf.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addData("init", "done");
 
@@ -86,7 +80,6 @@ public class FinalParkAuto extends OpMode {
             telemetry.addData("lb", lb::getPower);
             telemetry.addData("rf", rf::getPower);
             telemetry.addData("rb", rb::getPower);
-            telemetry.update();
         }
 
     }
@@ -126,7 +119,6 @@ public class FinalParkAuto extends OpMode {
 
         sleep(LONG_TIMER);
         telemetry.addData("Parking", 0);
-        telemetry.update();
         stopMotors(); // stops motors
 
     }
@@ -149,18 +141,18 @@ public class FinalParkAuto extends OpMode {
         rb.setPower(0);
     }
 
-    private void strafeRight(double MOTOR_POWER) {
-        lf.setPower(-MOTOR_POWER);
-        rf.setPower(MOTOR_POWER);
-        lb.setPower(MOTOR_POWER);
-        rb.setPower(-MOTOR_POWER);
+    private void strafeRight(double motorPower) {
+        lf.setPower(-motorPower);
+        rf.setPower(motorPower);
+        lb.setPower(motorPower);
+        rb.setPower(-motorPower);
     }
 
-    private void strafeLeft(double MOTOR_POWER) {
-        lf.setPower(MOTOR_POWER);
-        rf.setPower(-MOTOR_POWER);
-        lb.setPower(-MOTOR_POWER);
-        rb.setPower(MOTOR_POWER);
+    private void strafeLeft(double motorPower) {
+        lf.setPower(motorPower);
+        rf.setPower(-motorPower);
+        lb.setPower(-motorPower);
+        rb.setPower(motorPower);
     }
 
 
