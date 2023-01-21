@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.teleOp.opmode;
 
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.command.claw.Grab;
-import org.firstinspires.ftc.teamcode.command.claw.Release;
-import org.firstinspires.ftc.teamcode.command.drive.DriveRobotCentric;
-import org.firstinspires.ftc.teamcode.command.drive.DriveSlowMode;
-import org.firstinspires.ftc.teamcode.command.lift.SetJunction;
+import org.firstinspires.ftc.teamcode.teleOp.command.claw.Grab;
+import org.firstinspires.ftc.teamcode.teleOp.command.claw.Release;
+import org.firstinspires.ftc.teamcode.teleOp.command.drive.DriveRobotCentric;
+import org.firstinspires.ftc.teamcode.teleOp.command.drive.DriveSlowMode;
+import org.firstinspires.ftc.teamcode.teleOp.command.lift.SetJunction;
 import org.firstinspires.ftc.teamcode.util.Junction;
 
 @TeleOp
@@ -33,11 +33,11 @@ public class MainOpMode extends BaseOpMode {
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
 
 
-        //change to toggle
+
         gb1(GamepadKeys.Button.LEFT_BUMPER)
                 .whileHeld(slowMode);
 
-        //change to A
+
         gb2(GamepadKeys.Button.LEFT_BUMPER)
                 .toggleWhenPressed(new Grab(claw).andThen(new SetJunction(lift, Junction.GROUND)),
                         new Release(claw).andThen(new SetJunction(lift, Junction.NONE)));

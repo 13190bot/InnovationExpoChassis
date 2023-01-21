@@ -1,12 +1,12 @@
-package org.firstinspires.ftc.teamcode.command.claw;
+package org.firstinspires.ftc.teamcode.teleOp.command.claw;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.subsystem.ClawSubsystem;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 
-public class Release extends CommandBase {
+public class Grab extends CommandBase {
     private final ClawSubsystem claw;
 
-    public Release(ClawSubsystem claw){
+    public Grab(ClawSubsystem claw){
         this.claw = claw;
 
         addRequirements(claw);
@@ -14,7 +14,7 @@ public class Release extends CommandBase {
 
     @Override
     public void initialize() {
-        claw.release();
+        claw.grab();
     }
 
     @Override

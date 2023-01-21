@@ -1,13 +1,9 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.teleOp.subsystem;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-
-import java.util.function.DoubleSupplier;
 
 
 @Config
@@ -32,15 +28,5 @@ public class DriveSubsystem extends SubsystemBase {
                 turnSpeedT / slowModeFactor);
     }
 
-//    public Command runRobotCentricCommand(DoubleSupplier strafeSpeed, DoubleSupplier forwardSpeed, DoubleSupplier turnSpeed) {
-//        return new RunCommand(() -> drive.driveRobotCentric(
-//                strafeSpeed.getAsDouble(), forwardSpeed.getAsDouble(), turnSpeed.getAsDouble()), this);
-//    }
-//
-//    public Command runSlowMode(DoubleSupplier strafeSpeed, DoubleSupplier forwardSpeed, DoubleSupplier turnSpeed) {
-//        return new RunCommand(() -> driveRobotCentric(strafeSpeed.getAsDouble() / slowModeFactor,
-//                forwardSpeed.getAsDouble() / slowModeFactor,
-//                turnSpeed.getAsDouble() / slowModeFactor)); // balls pp big balls
-//
-//    }
+
 }

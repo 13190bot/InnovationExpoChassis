@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.command.drive;
+package org.firstinspires.ftc.teamcode.teleOp.command.drive;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import com.arcrobotics.ftclib.drivebase.MecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.DriveSubsystem;
 
 import java.util.function.DoubleSupplier;
 

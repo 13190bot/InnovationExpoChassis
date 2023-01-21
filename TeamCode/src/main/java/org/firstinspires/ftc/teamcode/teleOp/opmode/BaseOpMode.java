@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.teleOp.opmode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -10,9 +10,8 @@ import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
-import org.firstinspires.ftc.teamcode.subsystem.ClawSubsystem;
-import org.firstinspires.ftc.teamcode.subsystem.DriveSubsystem;
-import org.firstinspires.ftc.teamcode.subsystem.LiftSubsystem;
+
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.*;
 import org.firstinspires.ftc.teamcode.util.Junction;
 
 public class BaseOpMode extends CommandOpMode {

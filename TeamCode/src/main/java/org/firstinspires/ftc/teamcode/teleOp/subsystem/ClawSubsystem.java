@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.subsystem;
+package org.firstinspires.ftc.teamcode.teleOp.subsystem;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.command.Command;
-import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 
@@ -26,11 +24,4 @@ public class ClawSubsystem extends SubsystemBase {
         claw.setPosition(releasePosition);
     }
 
-    public Command runGrabCommand() {
-        return new InstantCommand(this::grab, this);
-    }
-
-    public Command runReleaseCommand() {
-        return new InstantCommand(this::release, this);
-    }
 }

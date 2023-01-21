@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.command.lift;
+package org.firstinspires.ftc.teamcode.teleOp.command.lift;
 
 import com.arcrobotics.ftclib.command.CommandBase;
-import org.firstinspires.ftc.teamcode.subsystem.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
 
 public class SetJunction extends CommandBase {
