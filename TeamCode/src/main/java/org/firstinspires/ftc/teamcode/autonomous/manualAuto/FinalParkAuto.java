@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -45,6 +46,11 @@ public class FinalParkAuto extends OpMode {
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         telemetry.addData("init", "done");
 
@@ -91,8 +97,11 @@ public class FinalParkAuto extends OpMode {
         rf.setPower(DRIVE_POWER);
         lb.setPower(DRIVE_POWER);
         rb.setPower(DRIVE_POWER);
+
+        telemetry.addData("setPower", 1);
         sleep(LONG_TIMER);
 
+        telemetry.addData("setPower", 2);
         //strafe to face park pos
         switch (lol) {
             case LEFT: //left
