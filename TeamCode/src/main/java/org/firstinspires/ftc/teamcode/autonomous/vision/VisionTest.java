@@ -51,6 +51,19 @@ public class VisionTest extends LinearOpMode {
             telemetry.addData("Position: ", sleeveDetection.getPosition());
             telemetry.addData("time", SystemClock.uptimeMillis());
             telemetry.update();
+
+//            switch (sleeveDetection.getPosition()) {
+//                case LEFT:
+//                    telemetry.addData("Position: ", "LEFT");
+//                    break;
+//                case CENTER:
+//                    telemetry.addData("Position: ", "CENTER");
+//                    break;
+//                case RIGHT:
+//                    telemetry.addData("Position: ", "RIGHT");
+//                    break;
+//            }
+//            telemetry.update();
         }
 
         waitForStart();

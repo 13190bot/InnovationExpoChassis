@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
@@ -11,20 +12,20 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import static android.os.SystemClock.sleep;
 
 
-//TODO: Test in VirtualBot
+//TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Autonomous(name = "Manual_ParkAuto")
-public class ManualOpMode extends OpMode {
+public class FinalParkAuto extends OpMode {
 
     DcMotor lf, lb, rf, rb;
     SleeveDetection sleeveDetection;
     OpenCvCamera camera;
 
     // defining constants for ez editing
-    private static final int long_timer = 3000; // 3 sec
+    private static final int LONG_TIMER = 1000; // 3 sec
     // 1000 = 1 second, can add more constants if necessary
 
-    private static final double drive_power = 0.1;
-    private static final double strafe_power = 0.1;
+    private static final double DRIVE_POWER = 0.5;
+    private static final double STRAFE_POWER = 0.5;
 
     String webcamName = "Webcam 1";
 
@@ -42,8 +43,14 @@ public class ManualOpMode extends OpMode {
 
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         telemetry.addData("init", "done");
 
@@ -63,7 +70,9 @@ public class ManualOpMode extends OpMode {
             }
         });
 
-        telemetry.addData("Position: ", sleeveDetection.getPosition());
+        lol = sleeveDetection.getPosition();
+
+        telemetry.addData("Position: ", lol);
         telemetry.update();
 
     }
@@ -83,35 +92,41 @@ public class ManualOpMode extends OpMode {
 
     @Override
     public void start() {
-// changed to use the constant drive_power
-        lf.setPower(drive_power);
-        rf.setPower(drive_power);
-        lb.setPower(drive_power);
-        rb.setPower(drive_power);
-        sleep(long_timer);
+// changed to use the constant DRIVE_POWER
+        lf.setPower(DRIVE_POWER);
+        rf.setPower(DRIVE_POWER);
+        lb.setPower(DRIVE_POWER);
+        rb.setPower(DRIVE_POWER);
 
-        lol = sleeveDetection.getPosition();
+        telemetry.addData("setPower", 1);
+        sleep(LONG_TIMER);
+
+        telemetry.addData("setPower", 2);
         //strafe to face park pos
-        switch (sleeveDetection.getPosition()) {
+        switch (lol) {
             case LEFT: //left
 
                 telemetry.addData("Detected left", 1);
-                strafeLeft(strafe_power);
+                telemetry.update();
+                strafeLeft(STRAFE_POWER);
                 break;
             case CENTER: //if the middle parkpos
 
                 telemetry.addData("Detected center", 2);
+                telemetry.update();
                 break;
             case RIGHT: //right
                 telemetry.addData("Detected right", 3);
-                strafeRight(strafe_power);
+                telemetry.update();
+                strafeRight(STRAFE_POWER);
                 break;
             default: // error for if no parking pos detected
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
+                telemetry.update();
                 break;
         }
 
-        sleep(long_timer);
+        sleep(LONG_TIMER);
         telemetry.addData("Parking", 0);
         stopMotors(); // stops motors
 

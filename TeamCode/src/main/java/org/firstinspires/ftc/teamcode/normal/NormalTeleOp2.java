@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.ServoImpl;
-import org.firstinspires.ftc.teamcode.ftcLib.subsystem.ArmSubsystem;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 
 @TeleOp (name = "Normie TeleOp v2")
 public class NormalTeleOp2 extends OpMode {
@@ -26,12 +26,12 @@ public class NormalTeleOp2 extends OpMode {
     boolean slowTime = false;
     boolean slowSlide = false; //Slowmode Lift
     double turnSpeed = 0.5;
-    
+
     /*
         Slowmode
         Lift -> Hold
         Drive -> Toggle
-        
+
         How toggle works:
         First, what is pressing? It is when a button was previously (on last check) not held down and is now being held down.
         This is all so that it doesn't repeatedly switch on and off.
@@ -40,10 +40,10 @@ public class NormalTeleOp2 extends OpMode {
     boolean lastSlowmodeButton = false;
     boolean lastSlowmodeLiftButton = false;
 
-    int groundJunct = ArmSubsystem.GROUND; // Change these values
-    int smallJunct = ArmSubsystem.LOW;
-    int mediumJunct = ArmSubsystem.MEDIUM;
-    int highJunct = ArmSubsystem.HIGH;
+    int groundJunct = LiftSubsystem.ground; // Change these values
+    int smallJunct = LiftSubsystem.low;
+    int mediumJunct = LiftSubsystem.medium;
+    int highJunct = LiftSubsystem.high;
 
 
     public void init () {
