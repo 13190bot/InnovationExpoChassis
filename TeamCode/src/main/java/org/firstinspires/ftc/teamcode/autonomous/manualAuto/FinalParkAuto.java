@@ -12,6 +12,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import static android.os.SystemClock.sleep;
 
 
+
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Autonomous(name = "Manual_ParkAuto")
 public class FinalParkAuto extends OpMode {
@@ -21,8 +22,7 @@ public class FinalParkAuto extends OpMode {
     OpenCvCamera camera;
 
     // defining constants for ez editing
-    private static final int LONG_TIMER = 1000; // 3 sec
-    // 1000 = 1 second, can add more constants if necessary
+    private static final int LONG_TIMER = 1000; // 1 sec
 
     private static final double DRIVE_POWER = 0.5;
     private static final double STRAFE_POWER = 0.5;
