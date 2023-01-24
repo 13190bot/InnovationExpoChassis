@@ -23,7 +23,11 @@ public class KoseiAuto {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
-
+                                /*
+                                1 tile is 18 inches
+                                 */
+                                .forward(44)
+                                .turn(Math.toRadians(-90))
                                 .build()
                 );
 
