@@ -41,6 +41,9 @@ public class preloadAuto extends OpMode{
 
     @Override
     public void start() {
+        // Move forward certain distance (use roadrunner for this)
+        // Lift claw (preloaded with cone)
+        // get cone on pole and then release claw
 
     }
 
