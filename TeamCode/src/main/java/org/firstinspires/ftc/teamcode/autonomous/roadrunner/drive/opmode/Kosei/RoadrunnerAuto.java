@@ -22,7 +22,12 @@ public class RoadrunnerAuto extends LinearOpMode {
         waitForStart();
 
         drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-
+                /*
+                1 tile is 18 inches
+                 */
+                .forward(46.5)
+                .turn(Math.toRadians(-90))
+                .forward(27)
                 .build()
         );
     }
