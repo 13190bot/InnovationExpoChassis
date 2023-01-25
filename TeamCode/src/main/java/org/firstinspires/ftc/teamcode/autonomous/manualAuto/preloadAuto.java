@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.autonomous.manualAuto.FinalParkAuto;
 
 import static android.os.SystemClock.sleep;
 
+// 517 ticks per rotation, 316 RPM
+
 @Autonomous(name = "preloadAuto_WIP")
 public class preloadAuto extends OpMode{
     DcMotor lf, lb, rf, rb;
@@ -34,6 +36,20 @@ public class preloadAuto extends OpMode{
         rb = hardwareMap.dcMotor.get("backRight");
 
         DcMotor[] motors = {lf, lb, rf, rb};
+
+        for (DcMotor motor : motors) {
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        telemetry.addData("init", "done");
+
 
 
 
