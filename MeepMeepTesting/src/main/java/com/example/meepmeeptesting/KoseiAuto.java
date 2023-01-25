@@ -26,8 +26,9 @@ public class KoseiAuto {
                                 /*
                                 1 tile is 18 inches
                                  */
-                                .forward(44)
+                                .forward(46.5)
                                 .turn(Math.toRadians(-90))
+                                .forward(27)
                                 .build()
                 );
 
