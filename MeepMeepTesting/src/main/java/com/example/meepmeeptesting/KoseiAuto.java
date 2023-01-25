@@ -26,9 +26,96 @@ public class KoseiAuto {
                                 /*
                                 1 tile is 18 inches
                                  */
+
+
+                                // INIT
+
+
+
+                                // go to cone stack
                                 .forward(46.5)
                                 .turn(Math.toRadians(-90))
                                 .forward(27)
+
+
+
+
+
+
+
+
+
+
+
+
+                                // LOOP
+
+
+
+                                // grab cone
+
+
+
+                                // go to high junction
+                                .back(27 + 11.5)
+                                .turn(Math.toRadians(90))
+                                .forward(5)
+
+                                // set lift height to high
+
+
+
+                                // drop cone
+
+
+
+                                // go back a bit so we don't put claw on junction
+                                .back(5)
+
+                                // set lift height to ground
+
+
+
+                                // go back to cone stack
+                                .turn(Math.toRadians(-90))
+                                .forward(27 + 11.5)
+
+
+
+
+                                // LOOP
+
+
+
+                                // grab cone
+
+
+
+                                // go to high junction
+                                .back(27 + 11.5)
+                                .turn(Math.toRadians(90))
+                                .forward(5)
+
+                                // set lift height to high
+
+
+
+                                // drop cone
+
+
+
+                                // go back a bit so we don't put claw on junction
+                                .back(5)
+
+                                // set lift height to ground
+
+
+
+                                // go back to cone stack
+                                .turn(Math.toRadians(-90))
+                                .forward(27 + 11.5)
+
+
                                 .build()
                 );
 
