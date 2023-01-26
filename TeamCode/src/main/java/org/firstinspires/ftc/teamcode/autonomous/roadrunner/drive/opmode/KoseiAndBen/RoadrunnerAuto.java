@@ -1,24 +1,43 @@
-package org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.opmode.Kosei;
+package org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.opmode.KoseiAndBen;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import com.qualcomm.robotcore.hardware.ServoImpl;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
+import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
+import org.firstinspires.ftc.teamcode.util.Junction;
 
 @Autonomous(name = "RR-Auto")
 
 public class RoadrunnerAuto extends LinearOpMode {
 
     Pose2d startingPos = new Pose2d(0,0,Math.toRadians(180)); //figure out correct to rad.
-    ServoImpl claw;
+    //ServoImpl claw;
     private SampleMecanumDrive drive;
+    protected LiftSubsystem lift;
+    protected ClawSubsystem claw;
+    protected SimpleServo clawServo;
+
+    protected MotorEx liftR, liftL;
 
     @Override
     public void runOpMode() throws InterruptedException {
         //drive setup
         drive = new SampleMecanumDrive(hardwareMap);
 
+
+        liftL= new MotorEx(hardwareMap, "slideL");
+        liftR = new MotorEx(hardwareMap, "slideR");
+
+        clawServo = new SimpleServo(hardwareMap, "claw", 0, 120);
+
+
+        lift = new LiftSubsystem(liftL, liftR, () -> 1);
+        claw = new ClawSubsystem(clawServo);
 
         waitForStart();
 
@@ -60,7 +79,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                 // grab cone
                         .addDisplacementMarker(() -> {
-                            claw.setPosition(1);
+                            claw.grab();
                         })
 
 
@@ -70,17 +89,19 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .turn(Math.toRadians(90))
                 .forward(5)
                  */
-//        .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
 //                        .forward(5)
 
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
+                            lift.setJunction(Junction.HIGH);
                         })
 
+                .forward(5)
 
                 // drop cone
                         .addDisplacementMarker(() -> {
-                            claw.setPosition(0);
+                            claw.release();
                         })
 
 
@@ -93,6 +114,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .addDisplacementMarker(() -> {
                             //set height to ground
+                            lift.setJunction(Junction.NONE);
                         })
 
 

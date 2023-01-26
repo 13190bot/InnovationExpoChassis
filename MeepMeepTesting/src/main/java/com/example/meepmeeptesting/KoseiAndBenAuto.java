@@ -6,7 +6,7 @@ import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
-public class KoseiAuto {
+public class KoseiAndBenAuto {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(900);
 

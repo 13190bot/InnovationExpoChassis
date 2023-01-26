@@ -33,13 +33,13 @@ public class MainOpMode extends BaseOpMode {
                 gamepadEx1::getLeftY,
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
-
         gb1(GamepadKeys.Button.LEFT_BUMPER)
                 .whileHeld(slowMode);
 
         //claw
         gb2(GamepadKeys.Button.LEFT_BUMPER)
-                .toggleWhenPressed(new Grab(claw));
+                .toggleWhenPressed(new Grab(claw).andThen(new SetJunction(lift, Junction.GROUND)),
+                        new Release(claw).andThen(new SetJunction(lift, Junction.NONE)));
 
         //junctions
         gb2(GamepadKeys.Button.A)
