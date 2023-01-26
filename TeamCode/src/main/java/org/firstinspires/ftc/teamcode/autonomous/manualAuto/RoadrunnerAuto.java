@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.ServoImpl;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
+import org.firstinspires.ftc.teamcode.autonomous.vision.AprilTagDetectionPipeline;
 
 @Autonomous(name = "RR-Auto")
 
