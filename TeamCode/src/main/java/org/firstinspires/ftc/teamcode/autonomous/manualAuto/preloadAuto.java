@@ -10,7 +10,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import com.acmerobotics.roadrunner.drive.DriveConstraints;
+//import com.acmerobotics.roadrunner.drive.DriveConstraints;
 
 
 import static android.os.SystemClock.sleep;

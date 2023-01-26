@@ -24,8 +24,8 @@ public class KoseiAndBenAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
                                 /*
-                                1 tile is 18 inches
-                                 */
+                               1 tile is 18 inches
+                                */
 
 
                                 // INIT
@@ -59,7 +59,9 @@ public class KoseiAndBenAuto {
 
 
                                 // grab cone
-
+                                .addDisplacementMarker(() -> {
+                                    //claw.grab();
+                                })
 
 
                                 // go to high junction
@@ -69,14 +71,19 @@ public class KoseiAndBenAuto {
                                 .forward(5)
                                  */
                                 .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+//                        .forward(5)
+
+                                .addDisplacementMarker(() -> {
+                                    // set lift height to high junction
+                                    //lift.setJunction(Junction.HIGH);
+                                })
+
                                 .forward(5)
 
-                                // set lift height to high
-
-
-
                                 // drop cone
-
+                                .addDisplacementMarker(() -> {
+                                    //claw.release();
+                                })
 
 
                                 // go back a bit so we don't put claw on junction
@@ -85,16 +92,16 @@ public class KoseiAndBenAuto {
                                 */
                                 .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
 
-                                // set lift height to ground
 
+                                .addDisplacementMarker(() -> {
+                                    //set height to ground
+                                    //lift.setJunction(Junction.NONE);
+                                })
 
 
                                 // go back to cone stack
                                 //.turn(Math.toRadians(-90))
                                 .forward(27 + 11.5)
-
-
-
 
 
                                 .build()
