@@ -8,7 +8,10 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.firstinspires.ftc.teamcode.autonomous.manualAuto.FinalParkAuto;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
+import com.acmerobotics.roadrunner.drive.DriveConstraints;
+
 
 import static android.os.SystemClock.sleep;
 
@@ -19,6 +22,8 @@ public class preloadAuto extends OpMode{
     DcMotor lf, lb, rf, rb;
     SleeveDetection sleeveDetection;
     OpenCvCamera camera;
+
+    int forwardDistance = 12; // inches (thru roadrunner)
 
     private static final int long_timer = 3000;
 
