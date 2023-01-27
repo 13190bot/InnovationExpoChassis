@@ -38,7 +38,9 @@ public class MainOpMode1PTEST extends BaseOpMode {
         //claw
         gb1(GamepadKeys.Button.LEFT_BUMPER)
                 .toggleWhenPressed(new Grab(claw).andThen(new SetJunction(lift, Junction.GROUND)),
-                        new Release(claw).andThen(new SetJunction(lift, Junction.NONE)));
+                        new Release(claw)
+                                //.andThen(new SetJunction(lift, Junction.NONE))
+                );
 
         //junctions
         gb1(GamepadKeys.Button.A)
