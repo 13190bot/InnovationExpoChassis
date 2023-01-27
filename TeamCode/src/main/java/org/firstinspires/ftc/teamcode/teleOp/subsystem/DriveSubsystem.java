@@ -12,7 +12,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     public static double slowModeFactor = 3;
 
-    public static double defualtSpeed = 0.5;
+    public static double defualtSpeed = 1;
 
     public DriveSubsystem(MotorEx leftBack, MotorEx leftFront, MotorEx rightBack, MotorEx rightFront){
         drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
