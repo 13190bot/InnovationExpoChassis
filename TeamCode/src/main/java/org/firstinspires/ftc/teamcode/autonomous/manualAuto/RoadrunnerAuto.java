@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.opmode.KoseiAndBen;
+package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
