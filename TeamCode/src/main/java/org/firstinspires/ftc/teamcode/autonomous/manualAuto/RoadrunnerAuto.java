@@ -81,6 +81,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                         .addDisplacementMarker(() -> {
                             claw.grab();
                         })
+                .waitSeconds(1)
 
 
                 // go to high junction
@@ -96,14 +97,18 @@ public class RoadrunnerAuto extends LinearOpMode {
                             // set lift height to high junction
                             lift.setJunction(Junction.HIGH);
                         })
+                .waitSeconds(2)
 
                 .forward(5)
+
+                .waitSeconds(1)
 
                 // drop cone
                         .addDisplacementMarker(() -> {
                             claw.release();
                         })
 
+                .waitSeconds(1)
 
                 // go back a bit so we don't put claw on junction
                 /*
