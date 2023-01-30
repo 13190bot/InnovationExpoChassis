@@ -4,21 +4,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 //import com.acmerobotics.roadrunner.drive.DriveConstraints;
 
-
-import static android.os.SystemClock.sleep;
 
 // 517 ticks per rotation, 316 RPM
 
 @Autonomous(name = "preloadAuto_WIP")
-public class preloadAuto extends OpMode{
+public class OLDpreloadAuto extends OpMode{
     DcMotor lf, lb, rf, rb;
     SleeveDetection sleeveDetection;
     OpenCvCamera camera;

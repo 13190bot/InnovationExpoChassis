@@ -23,45 +23,12 @@ public class RoadrunnerAuto {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
-                                /*
-                               1 tile is 18 inches
-                                */
+
+                                // PRELOAD HIGH
 
 
-                                // INIT
-
-
-
-                                // go to cone stack
-                                /*
-                                .forward(46.5)
-                                .turn(Math.toRadians(-90))
-                                .forward(27)
-                                 */
-
-                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
-                                .forward(27)
-
-                                //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
-
-
-
-
-
-
-
-
-
-
-
-                                // LOOP
-
-
-
-                                // grab cone
-                                .addDisplacementMarker(() -> {
-                                    //claw.grab();
-                                })
+                                // go to before cone stack
+                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
 
 
                                 // go to high junction
@@ -77,14 +44,126 @@ public class RoadrunnerAuto {
                                     // set lift height to high junction
                                     //lift.setJunction(Junction.HIGH);
                                 })
+                                .waitSeconds(2)
 
                                 .forward(5)
+
+                                .waitSeconds(1)
 
                                 // drop cone
                                 .addDisplacementMarker(() -> {
                                     //claw.release();
                                 })
 
+                                .waitSeconds(1)
+
+                                // drop cone
+                                .addDisplacementMarker(() -> {
+                                    //claw.release();
+                                })
+
+                                .waitSeconds(1)
+
+                                // go back a bit so we don't put claw on junction
+                                /*
+                                .back(5)
+                                */
+                                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
+
+
+                                .addDisplacementMarker(() -> {
+                                    //set height to ground
+                                    //lift.setJunction(Junction.NONE);
+                                })
+
+
+                                // go back to cone stack
+                                //.turn(Math.toRadians(-90))
+                                .forward(27 + 11.5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                // CYCLE HIGH
+
+                                /*
+                                1 tile is 18 inches
+                                 */
+
+
+                                // INIT
+
+
+
+                                // go to cone stack
+                                /*
+                                .forward(46.5)
+                                .turn(Math.toRadians(-90))
+                                .forward(27)
+                                 */
+
+                                /*
+                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
+                                .forward(27)
+
+
+                                 */
+                                //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
+
+
+
+
+
+
+                                // LOOP
+
+
+                                .waitSeconds(0.5)
+                                // grab cone
+                                .addDisplacementMarker(() -> {
+                                    //claw.grab();
+                                })
+                                .waitSeconds(1)
+
+
+                                // go to high junction
+                                /*
+                                .back(27 + 11.5)
+                                .turn(Math.toRadians(90))
+                                .forward(5)
+                                 */
+                                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+//                        .forward(5)
+
+                                .addDisplacementMarker(() -> {
+                                    // set lift height to high junction
+                                    //lift.setJunction(Junction.HIGH);
+                                })
+                                .waitSeconds(2)
+
+                                .forward(5)
+
+                                .waitSeconds(1)
+
+                                // drop cone
+                                .addDisplacementMarker(() -> {
+                                    //claw.release();
+                                })
+
+                                .waitSeconds(1)
 
                                 // go back a bit so we don't put claw on junction
                                 /*

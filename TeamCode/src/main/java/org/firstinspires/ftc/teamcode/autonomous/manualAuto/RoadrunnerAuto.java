@@ -11,6 +11,32 @@ import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
 import org.firstinspires.ftc.teamcode.autonomous.vision.AprilTagDetectionPipeline;
 
+/*
+README:
+
+!!!: If you are using preload then
+
+UNCOMMENT
+starts with //PRELOADSTART
+ends with //PRELOADEND
+
+COMMENT
+starts with //CYCLEHIGHSTART
+ends with //CYCLEHIGHEND
+
+!!!: If you are not using preload then
+
+COMMENT
+starts with //PRELOADSTART
+ends with //PRELOADEND
+
+UNCOMMENT
+starts with //CYCLEHIGHSTART
+ends with //CYCLEHIGHEND
+
+
+ */
+
 @Autonomous(name = "RR-Auto")
 
 public class RoadrunnerAuto extends LinearOpMode {
@@ -42,6 +68,82 @@ public class RoadrunnerAuto extends LinearOpMode {
         waitForStart();
 
         drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+
+                //PRELOADSTART PRELOAD HIGH
+
+
+                // go to before cone stack
+                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+
+
+                // go to high junction
+                /*
+                .back(27 + 11.5)
+                .turn(Math.toRadians(90))
+                .forward(5)
+                 */
+                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+//                        .forward(5)
+
+                .addDisplacementMarker(() -> {
+                    // set lift height to high junction
+                    lift.setJunction(Junction.HIGH);
+                })
+                .waitSeconds(2)
+
+                .forward(5)
+
+                .waitSeconds(1)
+
+                // drop cone
+                .addDisplacementMarker(() -> {
+                    claw.release();
+                })
+
+                .waitSeconds(1)
+
+                // drop cone
+                .addDisplacementMarker(() -> {
+                    claw.release();
+                })
+
+                .waitSeconds(1)
+
+                // go back a bit so we don't put claw on junction
+                /*
+                .back(5)
+                */
+                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
+
+
+                .addDisplacementMarker(() -> {
+                    //set height to ground
+                    lift.setJunction(Junction.NONE);
+                })
+
+
+                // go back to cone stack
+                //.turn(Math.toRadians(-90))
+                .forward(27 + 11.5)
+
+
+                //PRELOADEND
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // CYCLE HIGH
+
                 /*
                 1 tile is 18 inches
                  */
@@ -58,15 +160,14 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .forward(27)
                  */
 
+                //CYCLEHIGHSTART
+
                 .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
                 .forward(27)
 
+                //CYCLEHIGHEND
+
                 //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
-
-
-
-
-
 
 
 
@@ -76,7 +177,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                 // LOOP
 
 
-
+                .waitSeconds(0.5)
                 // grab cone
                         .addDisplacementMarker(() -> {
                             claw.grab();
