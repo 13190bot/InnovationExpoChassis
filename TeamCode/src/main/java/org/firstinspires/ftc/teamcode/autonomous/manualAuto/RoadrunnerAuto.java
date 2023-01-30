@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumD
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
-import org.firstinspires.ftc.teamcode.autonomous.vision.AprilTagDetectionPipeline;
+import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 
 /*
 README:
@@ -49,6 +49,9 @@ public class RoadrunnerAuto extends LinearOpMode {
     protected SimpleServo clawServo;
 
     protected MotorEx liftR, liftL;
+
+    SleeveDetection.ParkingPosition VisionPos;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -227,6 +230,21 @@ public class RoadrunnerAuto extends LinearOpMode {
                 // go back to cone stack
                 //.turn(Math.toRadians(-90))
                 .forward(27 + 11.5)
+
+                /*
+                Vision :
+                 */
+                .addDisplacementMarker(() -> {
+                    switch (VisionPos){
+                        case LEFT:
+
+                        case RIGHT:
+
+                        case CENTER:
+
+                        default:
+                    }
+                })
 
 
                 .build()
