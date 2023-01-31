@@ -250,7 +250,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                 /*
                 Vision :
                  */
-                .splineToLinearHeading(ParkingPos)
+                .splineToLinearHeading(ParkingPos, Math.toRadians(0))
 
 
                 .build()
