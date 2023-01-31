@@ -68,6 +68,22 @@ public class RoadrunnerAuto extends LinearOpMode {
         lift = new LiftSubsystem(liftL, liftR, () -> 1);
         claw = new ClawSubsystem(clawServo);
 
+
+        // VISION
+
+        Pose2d ParkingPos = new Pose2d(0, 0, Math.toRadians(0));
+        switch (VisionPos){
+            case LEFT:
+
+            case RIGHT:
+
+            case CENTER:
+
+            default:
+
+        }
+
+
         waitForStart();
 
         drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
@@ -234,17 +250,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                 /*
                 Vision :
                  */
-                .addDisplacementMarker(() -> {
-                    switch (VisionPos){
-                        case LEFT:
-
-                        case RIGHT:
-
-                        case CENTER:
-
-                        default:
-                    }
-                })
+                .splineToLinearHeading(Pose2d)
 
 
                 .build()
