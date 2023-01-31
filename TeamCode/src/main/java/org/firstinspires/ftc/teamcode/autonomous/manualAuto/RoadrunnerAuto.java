@@ -1,15 +1,21 @@
 package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+
+import java.util.Vector;
 
 /*
 README:
@@ -50,7 +56,11 @@ public class RoadrunnerAuto extends LinearOpMode {
 
     protected MotorEx liftR, liftL;
 
-    SleeveDetection.ParkingPosition VisionPos;
+    String webcamName = "Webcam 1";
+
+    SleeveDetection sleeveDetection;
+    OpenCvCamera camera;
+    SleeveDetection.ParkingPosition parkingPosition;
 
 
     @Override
@@ -67,6 +77,45 @@ public class RoadrunnerAuto extends LinearOpMode {
 
         lift = new LiftSubsystem(liftL, liftR, () -> 1);
         claw = new ClawSubsystem(clawServo);
+
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
+        sleeveDetection = new SleeveDetection();
+        camera.setPipeline(sleeveDetection);
+        camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
+            @Override
+            public void onOpened() {
+                camera.startStreaming(1280, 720);
+            }
+
+            @Override
+            public void onError(int errorCode) {
+            }
+        });
+
+        parkingPosition = sleeveDetection.getPosition();
+
+        Pose2d ParkingPos;
+        Vector2d relative;
+        /*
+        relative is from signal cone position
+         */
+        double tileSize = 24;
+        switch(parkingPosition) {
+            case NOPOS:
+                // bruh
+                relative = new Vector2d(0, 0);
+            case LEFT:
+                relative = new Vector2d(-tileSize, tileSize / 2);
+            case RIGHT:
+                relative = new Vector2d(tileSize, tileSize / 2);
+            case CENTER:
+                relative = new Vector2d(0, tileSize / 2);
+            default:
+                relative = new Vector2d(0, 0);
+        }
+        ParkingPos = new Pose2d();
 
         waitForStart();
 
@@ -231,20 +280,28 @@ public class RoadrunnerAuto extends LinearOpMode {
                 //.turn(Math.toRadians(-90))
                 .forward(27 + 11.5)
 
-                /*
-                Vision :
-                 */
-                .addDisplacementMarker(() -> {
-                    switch (VisionPos){
-                        case LEFT:
 
-                        case RIGHT:
 
-                        case CENTER:
 
-                        default:
-                    }
-                })
+
+
+
+
+                // VISION
+
+                // go back to before cone stack
+                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+
+
+                // sleeve detection position
+                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(90)))
+
+
+
+                // finally go to parkingpos
+                .strafeRight(relative.getX())
+
+                .forward(relative.getY())
 
 
                 .build()
