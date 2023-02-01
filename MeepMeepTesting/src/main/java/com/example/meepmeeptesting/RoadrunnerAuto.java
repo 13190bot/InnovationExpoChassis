@@ -6,6 +6,8 @@ import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
 
+import java.util.Vector;
+
 public class RoadrunnerAuto {
     public static void main(String[] args) {
         MeepMeep meepMeep = new MeepMeep(900);
@@ -18,18 +20,24 @@ public class RoadrunnerAuto {
         Vector2d rightPos = new Vector2d(56.5,-11.6666666);
 
 
+        double tileSize = 24;
+        Vector2d relative = new Vector2d(1, 1);
+
+
+
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // TODO Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width that match our actual bot
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
 
-                                // PRELOAD HIGH
+                                //PRELOADSTART PRELOAD HIGH
+
 
 
                                 // go to before cone stack
                                 .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
-
+                                //.forward(46.5)
 
                                 // go to high junction
                                 /*
@@ -38,7 +46,8 @@ public class RoadrunnerAuto {
                                 .forward(5)
                                  */
                                 .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-//                        .forward(5)
+                                //.lineToLinearHeading(myBot.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
+                                //.forward(5)
 
                                 .addDisplacementMarker(() -> {
                                     // set lift height to high junction
@@ -82,7 +91,7 @@ public class RoadrunnerAuto {
                                 .forward(27 + 11.5)
 
 
-
+                                //PRELOADEND
 
 
 
@@ -116,11 +125,14 @@ public class RoadrunnerAuto {
                                  */
 
                                 /*
+                                //CYCLEHIGHSTART
+
                                 .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
                                 .forward(27)
 
-
+                                //CYCLEHIGHEND
                                  */
+
                                 //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
 
 
@@ -181,6 +193,29 @@ public class RoadrunnerAuto {
                                 // go back to cone stack
                                 //.turn(Math.toRadians(-90))
                                 .forward(27 + 11.5)
+
+
+
+
+
+
+
+
+                                // VISION
+
+                                // go back to before cone stack
+                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+
+
+                                // sleeve detection position
+                                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(90)))
+
+
+
+                                // finally go to parkingpos
+                                .strafeRight(relative.getX())
+
+                                .forward(relative.getY())
 
 
                                 .build()

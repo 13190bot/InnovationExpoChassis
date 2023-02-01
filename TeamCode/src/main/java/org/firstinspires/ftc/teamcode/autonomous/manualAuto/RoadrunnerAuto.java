@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
@@ -47,7 +48,7 @@ ends with //CYCLEHIGHEND
 
 public class RoadrunnerAuto extends LinearOpMode {
 
-    Pose2d startingPos = new Pose2d(0,0,Math.toRadians(180)); //figure out correct to rad.
+    Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
     //ServoImpl claw;
     private SampleMecanumDrive drive;
     protected LiftSubsystem lift;
@@ -79,6 +80,9 @@ public class RoadrunnerAuto extends LinearOpMode {
         claw = new ClawSubsystem(clawServo);
 
 
+        StandardTrackingWheelLocalizer localizer = new StandardTrackingWheelLocalizer(hardwareMap);
+
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
         sleeveDetection = new SleeveDetection();
@@ -97,7 +101,7 @@ public class RoadrunnerAuto extends LinearOpMode {
         parkingPosition = sleeveDetection.getPosition();
 
         Pose2d ParkingPos;
-        Vector2d relative;
+        Vector2d relative; //MAKE SURE RELATIVE ISNT EMPTY OR ITLL ERROR
         /*
         relative is from signal cone position
          */
@@ -125,8 +129,8 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                 // go to before cone stack
-                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
-
+                //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+                .forward(46.5)
 
                 // go to high junction
                 /*
@@ -134,8 +138,9 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .turn(Math.toRadians(90))
                 .forward(5)
                  */
-                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-//                        .forward(5)
+                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
+                //.forward(5)
 
                 .addDisplacementMarker(() -> {
                     // set lift height to high junction
@@ -212,10 +217,12 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .forward(27)
                  */
 
+                /*
                 //CYCLEHIGHSTART
 
                 .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
                 .forward(27)
+                 */
 
                 //CYCLEHIGHEND
 
