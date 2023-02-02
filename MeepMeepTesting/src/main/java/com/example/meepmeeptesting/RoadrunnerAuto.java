@@ -37,7 +37,6 @@ public class RoadrunnerAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
 
-
                                 //PRELOADSTART PRELOAD HIGH
 
 
@@ -51,7 +50,9 @@ public class RoadrunnerAuto {
                                 .turn(Math.toRadians(90))
                                 .forward(5)
                                  */
-                                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                                .strafeLeft(11.5)
+
                                 //        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
                                 //.forward(5)
 
@@ -206,7 +207,6 @@ public class RoadrunnerAuto {
 
                                 // go back to before cone stack
                                 //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
-
                                 .forward(11.5)
 
                                 // sleeve detection position
