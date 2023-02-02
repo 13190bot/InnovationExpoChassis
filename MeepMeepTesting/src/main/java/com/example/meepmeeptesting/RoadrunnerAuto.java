@@ -5,6 +5,9 @@ import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
 import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
+import com.example.meepmeeptesting.Junction;
+
+import com.example.meepmeeptesting.LiftSubsystem;
 
 import java.util.Vector;
 
@@ -19,6 +22,9 @@ public class RoadrunnerAuto {
         Vector2d centerPos = new Vector2d(35,-11.6666666);
         Vector2d rightPos = new Vector2d(56.5,-11.6666666);
 
+        LiftSubsystem lift = new LiftSubsystem();
+
+        ClawSubsystem claw = new ClawSubsystem();
 
         double tileSize = 24;
         Vector2d relative = new Vector2d(1, 1);
@@ -31,13 +37,13 @@ public class RoadrunnerAuto {
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
 
+
                                 //PRELOADSTART PRELOAD HIGH
 
 
-
                                 // go to before cone stack
-                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
-                                //.forward(46.5)
+                                //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+                                .forward(46.5)
 
                                 // go to high junction
                                 /*
@@ -46,32 +52,25 @@ public class RoadrunnerAuto {
                                 .forward(5)
                                  */
                                 .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-                                //.lineToLinearHeading(myBot.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
+                                //        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
                                 //.forward(5)
 
                                 .addDisplacementMarker(() -> {
                                     // set lift height to high junction
-                                    //lift.setJunction(Junction.HIGH);
+                                    lift.setJunction(Junction.HIGH);
                                 })
-                                .waitSeconds(2)
+                                .waitSeconds(1)
 
                                 .forward(5)
 
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
                                 // drop cone
                                 .addDisplacementMarker(() -> {
-                                    //claw.release();
+                                    claw.release();
                                 })
 
-                                .waitSeconds(1)
-
-                                // drop cone
-                                .addDisplacementMarker(() -> {
-                                    //claw.release();
-                                })
-
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
                                 // go back a bit so we don't put claw on junction
                                 /*
@@ -82,13 +81,13 @@ public class RoadrunnerAuto {
 
                                 .addDisplacementMarker(() -> {
                                     //set height to ground
-                                    //lift.setJunction(Junction.NONE);
+                                    lift.setJunction(Junction.NONE);
                                 })
 
 
                                 // go back to cone stack
                                 //.turn(Math.toRadians(-90))
-                                .forward(27 + 11.5)
+                                //.forward(27 + 11.5)
 
 
                                 //PRELOADEND
@@ -129,9 +128,9 @@ public class RoadrunnerAuto {
 
                                 .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
                                 .forward(27)
+                                 */
 
                                 //CYCLEHIGHEND
-                                 */
 
                                 //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
 
@@ -141,41 +140,40 @@ public class RoadrunnerAuto {
 
 
                                 // LOOP
-
+                                .forward(27 + 11.5)
 
                                 .waitSeconds(0.5)
                                 // grab cone
                                 .addDisplacementMarker(() -> {
-                                    //claw.grab();
+                                    claw.grab();
                                 })
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
 
                                 // go to high junction
-                                /*
+                                // /*
                                 .back(27 + 11.5)
                                 .turn(Math.toRadians(90))
-                                .forward(5)
-                                 */
-                                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                                // */
+                                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
 //                        .forward(5)
 
                                 .addDisplacementMarker(() -> {
                                     // set lift height to high junction
-                                    //lift.setJunction(Junction.HIGH);
+                                    lift.setJunction(Junction.HIGH);
                                 })
-                                .waitSeconds(2)
+                                .waitSeconds(1)
 
                                 .forward(5)
 
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
                                 // drop cone
                                 .addDisplacementMarker(() -> {
-                                    //claw.release();
+                                    claw.release();
                                 })
 
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
 
                                 // go back a bit so we don't put claw on junction
                                 /*
@@ -186,13 +184,16 @@ public class RoadrunnerAuto {
 
                                 .addDisplacementMarker(() -> {
                                     //set height to ground
-                                    //lift.setJunction(Junction.NONE);
+                                    lift.setJunction(Junction.NONE);
                                 })
 
 
                                 // go back to cone stack
                                 //.turn(Math.toRadians(-90))
-                                .forward(27 + 11.5)
+                                //.forward(27 + 11.5)
+
+
+                                // LOOPEND
 
 
 
@@ -204,11 +205,12 @@ public class RoadrunnerAuto {
                                 // VISION
 
                                 // go back to before cone stack
-                                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
+                                //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
 
+                                .forward(11.5)
 
                                 // sleeve detection position
-                                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(90)))
+                                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(0)))
 
 
 

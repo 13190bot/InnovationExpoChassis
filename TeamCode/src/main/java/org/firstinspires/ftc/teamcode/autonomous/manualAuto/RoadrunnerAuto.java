@@ -138,8 +138,8 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .turn(Math.toRadians(90))
                 .forward(5)
                  */
-                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-                        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
+                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                //        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
                 //.forward(5)
 
                 .addDisplacementMarker(() -> {
@@ -149,13 +149,6 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .waitSeconds(1)
 
                 .forward(5)
-
-                .waitSeconds(0.5)
-
-                // drop cone
-                .addDisplacementMarker(() -> {
-                    claw.release();
-                })
 
                 .waitSeconds(0.5)
 
@@ -181,7 +174,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                 // go back to cone stack
                 //.turn(Math.toRadians(-90))
-                .forward(27 + 11.5)
+                //.forward(27 + 11.5)
 
 
                 //PRELOADEND
@@ -234,9 +227,9 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                 // LOOP
+                .forward(27 + 11.5)
 
-
-                .waitSeconds(0.4)
+                .waitSeconds(0.5)
                 // grab cone
                         .addDisplacementMarker(() -> {
                             claw.grab();
@@ -245,12 +238,11 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                 // go to high junction
-                /*
+                // /*
                 .back(27 + 11.5)
                 .turn(Math.toRadians(90))
-                .forward(5)
-                 */
-                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
+                // */
+                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
 //                        .forward(5)
 
                         .addDisplacementMarker(() -> {
@@ -285,7 +277,10 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                 // go back to cone stack
                 //.turn(Math.toRadians(-90))
-                .forward(27 + 11.5)
+                //.forward(27 + 11.5)
+
+
+                // LOOPEND
 
 
 
@@ -297,11 +292,11 @@ public class RoadrunnerAuto extends LinearOpMode {
                 // VISION
 
                 // go back to before cone stack
-                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
-
+                //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
+                                .forward(11.5)
 
                 // sleeve detection position
-                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(0)))
 
 
 
