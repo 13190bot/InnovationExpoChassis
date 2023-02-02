@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.autonomous.roadrunner.trajectorysequence.T
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "UrMomDotCom")
+@Autonomous(name = "Road Runner Tuner")
 public class RRTuner extends OpMode {
     private SampleMecanumDrive drive;
     Pose2d startingPos = new Pose2d(0,0,Math.toRadians(180)); //figure out correct to rad.
