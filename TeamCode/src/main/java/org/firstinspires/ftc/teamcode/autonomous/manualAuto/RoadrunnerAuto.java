@@ -129,20 +129,91 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                 // go to before cone stack
-                //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(180)))
                 .forward(46.5)
 
                 // go to high junction
+                .strafeLeft(11.5)
+
+                .addDisplacementMarker(() -> {
+                    // set lift height to high junction
+                    lift.setJunction(Junction.HIGH);
+                })
+
+                .waitSeconds(1)
+
+                // go right on high junction
+                .forward(5)
+
+                .waitSeconds(0.5)
+
+                // drop cone
+                .addDisplacementMarker(() -> {
+                    claw.release();
+                })
+
+                .waitSeconds(0.5)
+
+                // go back a bit so we don't put claw on junction
+                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
+
+                .addDisplacementMarker(() -> {
+                    // set height to ground
+                    lift.setJunction(Junction.NONE);
+                })
+
+                //PRELOADEND
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // CYCLE HIGH
+
+
+                // INIT
+
+
+
+                // go to cone stack
+
                 /*
+                //CYCLEHIGHSTART
+
+                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
+                .forward(27)
+                 */
+
+                //CYCLEHIGHEND
+
+
+
+
+
+
+                // LOOP
+                .forward(27 + 11.5)
+
+                .waitSeconds(0.5)
+                // grab cone
+                .addDisplacementMarker(() -> {
+                    claw.grab();
+                })
+                .waitSeconds(0.5)
+
+
+                // go to high junction
+                // /*
                 .back(27 + 11.5)
                 .turn(Math.toRadians(90))
-                .forward(5)
-                 */
-                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-                                .strafeLeft(11.5)
-
-                //        .lineToLinearHeading(localizer.getPoseEstimate().plus(new Pose2d(0, 0, Math.toRadians(-90))))
-                //.forward(5)
 
                 .addDisplacementMarker(() -> {
                     // set lift height to high junction
@@ -162,9 +233,6 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .waitSeconds(0.5)
 
                 // go back a bit so we don't put claw on junction
-                /*
-                .back(5)
-                */
                 .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
 
 
@@ -173,113 +241,6 @@ public class RoadrunnerAuto extends LinearOpMode {
                     lift.setJunction(Junction.NONE);
                 })
 
-
-                // go back to cone stack
-                //.turn(Math.toRadians(-90))
-                //.forward(27 + 11.5)
-
-
-                //PRELOADEND
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                // CYCLE HIGH
-
-                /*
-                1 tile is 18 inches
-                 */
-
-
-                // INIT
-
-
-
-                // go to cone stack
-                /*
-                .forward(46.5)
-                .turn(Math.toRadians(-90))
-                .forward(27)
-                 */
-
-                /*
-                //CYCLEHIGHSTART
-
-                .lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
-                .forward(27)
-                 */
-
-                //CYCLEHIGHEND
-
-                //.splineToLinearHeading(new Pose2d(35 + 27, -58.333333 + 46.5, Math.toRadians(0)), Math.toRadians(-180))
-
-
-
-
-
-
-                // LOOP
-                .forward(27 + 11.5)
-
-                .waitSeconds(0.5)
-                // grab cone
-                        .addDisplacementMarker(() -> {
-                            claw.grab();
-                        })
-                .waitSeconds(0.5)
-
-
-                // go to high junction
-                // /*
-                .back(27 + 11.5)
-                .turn(Math.toRadians(90))
-                // */
-                //.lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(90)))
-//                        .forward(5)
-
-                        .addDisplacementMarker(() -> {
-                            // set lift height to high junction
-                            lift.setJunction(Junction.HIGH);
-                        })
-                .waitSeconds(1)
-
-                .forward(5)
-
-                .waitSeconds(0.5)
-
-                // drop cone
-                        .addDisplacementMarker(() -> {
-                            claw.release();
-                        })
-
-                .waitSeconds(0.5)
-
-                // go back a bit so we don't put claw on junction
-                /*
-                .back(5)
-                */
-                .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
-
-
-                        .addDisplacementMarker(() -> {
-                            //set height to ground
-                            lift.setJunction(Junction.NONE);
-                        })
-
-
-                // go back to cone stack
-                //.turn(Math.toRadians(-90))
-                //.forward(27 + 11.5)
 
 
                 // LOOPEND
