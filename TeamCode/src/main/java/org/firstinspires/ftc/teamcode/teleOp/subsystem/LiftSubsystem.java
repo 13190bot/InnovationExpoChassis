@@ -25,10 +25,11 @@ public class LiftSubsystem extends SubsystemBase {
     public static int high = 1600;
 
     // TODO cone stack (first is the cone at the very top) tune in ftc dashboard
-    public static int first = 0;
-    public static int second = 0;
-    public static int third = 0;
-    public static int fourth = 0;
+    public static int first = 327;
+    public static int second = 288;
+    public static int third = 241;
+    public static int fourth = 193;
+    public static int fifth = 141;
 
 
     public static double kP = 0.01;

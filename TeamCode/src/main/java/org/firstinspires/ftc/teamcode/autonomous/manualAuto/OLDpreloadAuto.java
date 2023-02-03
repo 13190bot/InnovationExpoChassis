@@ -4,19 +4,20 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.firstinspires.ftc.teamcode.autonomous.manualAuto.FinalParkAuto;
+//import com.acmerobotics.roadrunner.drive.DriveConstraints;
 
-import static android.os.SystemClock.sleep;
+
+// 517 ticks per rotation, 316 RPM
 
 @Autonomous(name = "preloadAuto_WIP")
-public class preloadAuto extends OpMode{
+public class OLDpreloadAuto extends OpMode{
     DcMotor lf, lb, rf, rb;
     SleeveDetection sleeveDetection;
     OpenCvCamera camera;
+
+    int forwardDistance = 12; // inches (thru roadrunner)
 
     private static final int long_timer = 3000;
 
@@ -34,6 +35,20 @@ public class preloadAuto extends OpMode{
         rb = hardwareMap.dcMotor.get("backRight");
 
         DcMotor[] motors = {lf, lb, rf, rb};
+
+        for (DcMotor motor : motors) {
+            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+
+        rf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lf.setDirection(DcMotorSimple.Direction.REVERSE);
+        lb.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        telemetry.addData("init", "done");
+
 
 
 
