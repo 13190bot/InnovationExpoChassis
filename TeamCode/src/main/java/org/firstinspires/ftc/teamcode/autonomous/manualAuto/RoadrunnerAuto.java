@@ -101,12 +101,14 @@ public class RoadrunnerAuto extends LinearOpMode {
 
         parkingPosition = sleeveDetection.getPosition();
 
+
         Pose2d ParkingPos;
         Vector2d relative; //MAKE SURE RELATIVE ISNT EMPTY OR ITLL ERROR
         /*
         relative is from signal cone position
          */
         double tileSize = 24;
+
         switch(parkingPosition) {
             case NOPOS:
                 // bruh

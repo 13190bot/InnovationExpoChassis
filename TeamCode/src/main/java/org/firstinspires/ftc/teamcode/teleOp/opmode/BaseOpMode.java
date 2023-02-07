@@ -64,8 +64,11 @@ public class BaseOpMode extends CommandOpMode {
 
     protected void setUp(){
         rightFront.setInverted(true);
+        rightBack.setInverted(true);
         leftBack.setInverted(true);
         leftFront.setInverted(true);
+
+
         liftR.setInverted(true);
 
         leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
