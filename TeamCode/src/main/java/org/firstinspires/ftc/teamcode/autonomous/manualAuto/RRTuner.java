@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -15,16 +16,16 @@ public class RRTuner extends OpMode {
     Pose2d startingPos = new Pose2d(0,0,Math.toRadians(180)); //figure out correct to rad.
 
     double forwardMod = 1,
-            turnMod = 1;
-
+            turnMod = 7;
     @Override
     public void init() {
         drive = new SampleMecanumDrive(hardwareMap);
-        telemetry.addData("ur mom", "dot mom");
+        telemetry = new MultipleTelemetry(telemetry);
+        telemetry.addData("init", "done");
     }
 
     @Override
-    public void loop() {
+    public void start() {
         telemetry.addData("hello", "world");
 
         TrajectorySequence trajectory = drive.trajectorySequenceBuilder(startingPos)
@@ -32,9 +33,12 @@ public class RRTuner extends OpMode {
                 .turn(Math.toRadians(180 * turnMod)) //deg
                 .build();
 
+
         drive.followTrajectorySequence(trajectory);
 
-        telemetry.addData("ur mom", "dot com");
-        sleep(1000);
+        telemetry.addData("done", "");
     }
+
+    @Override
+    public void loop () {}
 }

@@ -50,7 +50,7 @@ public class MainOpMode1PTEST extends BaseOpMode {
         gb1(GamepadKeys.Button.B)
                 .whenPressed(new SetJunction(lift, Junction.MEDIUM));
         gb1(GamepadKeys.Button.Y)
-                .whenPressed(new SetJunction(lift, Junction.HIGH));
+                .whenPressed(new SetJunction(lift, Junction.HIGH).andThen());
 
 
         //cone stack
