@@ -5,12 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp (name = "Independent Motor Control", group = "Testing")
+@TeleOp (name = "Drive Encoder Testing", group = "Testing")
 public class indepententMotorControl extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
 
     double motorSpeed = 1.0;
+
+    DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
     public void init() {
 
@@ -19,7 +21,7 @@ public class indepententMotorControl extends OpMode {
         motorFrontRight = hardwareMap.dcMotor.get("frontRight");
         motorBackRight = hardwareMap.dcMotor.get("backRight");
 
-        DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
+
 
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -47,12 +49,12 @@ public class indepententMotorControl extends OpMode {
         if (gamepad1.dpad_left) motorBackLeft.setPower(motorSpeed);
         else motorBackLeft.setPower(0);
 
-
         telemetry.addData("FL", motorFrontLeft.getCurrentPosition());
         telemetry.addData("FR", motorFrontRight.getCurrentPosition());
         telemetry.addData("BL", motorBackLeft.getCurrentPosition());
         telemetry.addData("BR", motorBackRight.getCurrentPosition());
         telemetry.update();
+
 
     }
 
