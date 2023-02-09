@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import static android.os.SystemClock.sleep;
 
-@TeleOp(name = "W ENCODER TESTING", group = "Testing")
+@TeleOp(name = "ENCODER TESTING MANUAL AND AUTOMATIC", group = "Testing")
 public class TestingEncodersDrive extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
