@@ -11,6 +11,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 
 // 517 ticks per rotation, 316 RPM
 
+@Deprecated
 @Autonomous(name = "preloadAuto_WIP")
 public class OLDpreloadAuto extends OpMode{
     DcMotor lf, lb, rf, rb;

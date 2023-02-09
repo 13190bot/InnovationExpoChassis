@@ -12,8 +12,9 @@ import static android.os.SystemClock.sleep;
 
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Config
+@Deprecated
 @Autonomous(name = "Manual_ParkAuto")
-public class FinalParkAuto extends OpMode {
+public class OLDFinalParkAuto extends OpMode {
 
     DcMotor lf, lb, rf, rb;
 //    SleeveDetection sleeveDetection;
@@ -90,7 +91,6 @@ public class FinalParkAuto extends OpMode {
 
     @Override
     public void start() {
-
 
         lf.setPower(DRIVE_POWER);
         rf.setPower(DRIVE_POWER);

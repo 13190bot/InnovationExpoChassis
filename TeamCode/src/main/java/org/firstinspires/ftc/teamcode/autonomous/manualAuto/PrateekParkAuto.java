@@ -2,16 +2,19 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 
+import static android.os.SystemClock.sleep;
+
 
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Config
 @Autonomous(name = "prateekpartauto")
-public class PrateekParkAuto extends OpMode {
+public class PrateekParkAuto extends LinearOpMode {
 
     DcMotor lf, lb, rf, rb;
 //    SleeveDetection sleeveDetection;
@@ -19,7 +22,7 @@ public class PrateekParkAuto extends OpMode {
 
     // defining constants for ez editing
 
-    private static final double DRIVE_POWER = 0.5;
+    private static final double DRIVE_POWER = 0.25;
     public static int forwardEdit = 0;
 
 
@@ -28,7 +31,7 @@ public class PrateekParkAuto extends OpMode {
     SleeveDetection.ParkingPosition lol;
 
     @Override
-    public void init() {
+    public void runOpMode() {
 
         lf = hardwareMap.dcMotor.get("frontLeft");
         lb = hardwareMap.dcMotor.get("backLeft");
@@ -38,9 +41,7 @@ public class PrateekParkAuto extends OpMode {
         DcMotor[] motors = {lf, lb, rf, rb};
 
         for (DcMotor motor : motors) {
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//            motor.setTargetPosition(0);
-//            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
@@ -73,80 +74,49 @@ public class PrateekParkAuto extends OpMode {
         telemetry.addData("Position: ", lol);
         telemetry.update();
 
-    }
-
-    @Override
-    public void init_loop() {
-        super.init_loop();
-
-        if (lf != null || lb != null || rf != null || rb != null) {
-            telemetry.addData("lf", lf::getPower);
-            telemetry.addData("lb", lb::getPower);
-            telemetry.addData("rf", rf::getPower);
-            telemetry.addData("rb", rb::getPower);
-        }
-
-    }
-
-    @Override
-    public void start() {
-// changed to use the constant DRIVE_POWER
-
+        waitForStart();
 
         lf.setPower(DRIVE_POWER);
         rf.setPower(DRIVE_POWER);
         lb.setPower(DRIVE_POWER);
         rb.setPower(DRIVE_POWER);
 
-        //encodervalue:
-//        sleep(1500);
-//        lf.setTargetPosition(1170 + forwardEdit);
-//        lb.setTargetPosition(1070 + forwardEdit);
-//        rf.setTargetPosition(-1170 - forwardEdit);
-//        rb.setTargetPosition(-1170 - forwardEdit);
-
+        sleep(10000);
 
 
         //strafe to face park pos
         switch (SleeveDetection.ParkingPosition.RIGHT) {
             case LEFT: //left
 
+                lf.setPower(-DRIVE_POWER);
+                rf.setPower(DRIVE_POWER);
+                lb.setPower(DRIVE_POWER);
+                rb.setPower(-DRIVE_POWER);
                 telemetry.addData("Detected left", 1);
                 telemetry.update();
-                lf.setTargetPosition(-60);
-                lb.setTargetPosition(2410);
-                rf.setTargetPosition(-107);
-                rb.setTargetPosition(-241);
                 break;
-            case CENTER: //if the middle parkpos
 
+            case CENTER: //if the middle parkpos
                 telemetry.addData("Detected center", 2);
                 telemetry.update();
                 break;
+
             case RIGHT: //right
+                lf.setPower(DRIVE_POWER);
+                rf.setPower(-DRIVE_POWER);
+                lb.setPower(-DRIVE_POWER);
+                rb.setPower(DRIVE_POWER);
                 telemetry.addData("Detected right", 3);
                 telemetry.update();
-                lf.setTargetPosition(2400);
-                lb.setTargetPosition(-170);
-                rf.setTargetPosition(107);
-                rb.setTargetPosition(2581);
                 break;
+
             default: // error for if no parking pos detected
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
                 telemetry.update();
                 break;
         }
 
-
         telemetry.addData("Parking", 0);
-
-    }
-
-    @Override
-    public void stop() {
-    }
-
-    @Override
-    public void loop() {
+        sleep(3000);
     }
 }
