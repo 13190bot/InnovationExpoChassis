@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Config
-@Autonomous(name = "prateekpartauto")
+@Autonomous(name = "FINAL_parkauto")
 public class KoseiParkAuto extends LinearOpMode {
 
     DcMotor lf, lb, rf, rb;
