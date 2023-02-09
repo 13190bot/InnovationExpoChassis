@@ -23,8 +23,9 @@ public class Learning {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .followTrajectorySequence(drive ->
                         drive.trajectorySequenceBuilder(startingPos)
-                                .forward(59)
-                                .turn(Math.toRadians(-90))
+                                .forward(50)
+                                .turn(Math.toRadians(90))
+                                .forward(50)
                                 .build()
                 );
 

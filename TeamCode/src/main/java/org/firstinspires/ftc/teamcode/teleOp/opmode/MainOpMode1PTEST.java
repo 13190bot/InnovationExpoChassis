@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleOp.opmode;
 
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.teleOp.command.claw.Grab;
@@ -37,7 +38,8 @@ public class MainOpMode1PTEST extends BaseOpMode {
 
         //claw
         gb1(GamepadKeys.Button.LEFT_BUMPER)
-                .toggleWhenPressed(new Grab(claw).andThen(new SetJunction(lift, Junction.GROUND)),
+                //.toggleWhenPressed(new Grab(claw).andThen(new SetJunction(lift, Junction.GROUND)),
+                .toggleWhenPressed(new Grab(claw).andThen(new InstantCommand(() -> {sleep(250);new SetJunction(lift, Junction.GROUND).schedule();})),
                         new Release(claw)
                                 .andThen(new SetJunction(lift, Junction.NONE))
                 );
@@ -50,7 +52,7 @@ public class MainOpMode1PTEST extends BaseOpMode {
         gb1(GamepadKeys.Button.B)
                 .whenPressed(new SetJunction(lift, Junction.MEDIUM));
         gb1(GamepadKeys.Button.Y)
-                .whenPressed(new SetJunction(lift, Junction.HIGH));
+                .whenPressed(new SetJunction(lift, Junction.HIGH).andThen());
 
 
         //cone stack
