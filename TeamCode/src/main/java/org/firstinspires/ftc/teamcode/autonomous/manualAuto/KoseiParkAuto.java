@@ -3,18 +3,16 @@ package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
-
-import static android.os.SystemClock.sleep;
+import org.openftc.easyopencv.OpenCvCameraFactory;
 
 
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Config
 @Autonomous(name = "prateekpartauto")
-public class PrateekParkAuto extends LinearOpMode {
+public class KoseiParkAuto extends LinearOpMode {
 
     DcMotor lf, lb, rf, rb;
 //    SleeveDetection sleeveDetection;
@@ -68,8 +66,13 @@ public class PrateekParkAuto extends LinearOpMode {
             }
         });
 
+
         lol = sleeveDetection.getPosition();
-        */
+
+ */
+
+
+        lol = SleeveDetection.ParkingPosition.RIGHT;
 
         telemetry.addData("Position: ", lol);
         telemetry.update();
@@ -81,11 +84,8 @@ public class PrateekParkAuto extends LinearOpMode {
         lb.setPower(DRIVE_POWER);
         rb.setPower(DRIVE_POWER);
 
-        sleep(10000);
-
-
-        //strafe to face park pos
-        switch (SleeveDetection.ParkingPosition.RIGHT) {
+        sleep(2500);
+        switch (lol) {
             case LEFT: //left
 
                 lf.setPower(-DRIVE_POWER);
@@ -116,7 +116,14 @@ public class PrateekParkAuto extends LinearOpMode {
                 break;
         }
 
-        telemetry.addData("Parking", 0);
+
+
+
         sleep(3000);
+        telemetry.addData("Parking", 0);
+        lf.setPower(0);
+        rf.setPower(0);
+        lb.setPower(0);
+        rb.setPower(0);
     }
 }
