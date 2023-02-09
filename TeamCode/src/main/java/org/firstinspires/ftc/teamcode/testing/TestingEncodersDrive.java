@@ -11,7 +11,8 @@ public class TestingEncodersDrive extends OpMode {
 
     DcMotor motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight;
 
-    double motorSpeed = 1.0;
+    double motorSpeed = 0.5;
+    boolean Test_Automatically = false;
 
     public void init() {
 
@@ -28,28 +29,25 @@ public class TestingEncodersDrive extends OpMode {
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motor.setPower(0.5);
         }
 
 
         telemetry.addData("init", "done");
 
 
-        /*
-        sleep(10000);
+        if (Test_Automatically == true){
+            for (DcMotor motor : motors) {
+                motor.setPower(motorSpeed);
+            }
+            sleep(10000);
 
-        for (DcMotor motor : motors) {
-            motor.setPower(0);
+            for (DcMotor motor : motors) {
+                motor.setPower(0);
+            }
+
+
         }
-
-        telemetry.addData("FL", motorFrontLeft.getCurrentPosition());
-        telemetry.addData("FR", motorFrontRight.getCurrentPosition());
-        telemetry.addData("BL", motorBackLeft.getCurrentPosition());
-        telemetry.addData("BR", motorBackRight.getCurrentPosition());
-        telemetry.update();
-
-         */
-
+        telemetry.addData("init", "done");
     }
 
     public void loop() {
@@ -58,23 +56,20 @@ public class TestingEncodersDrive extends OpMode {
 
 
 
+        telemetry.addData("FL", motorFrontLeft.getCurrentPosition());
+        telemetry.addData("FR", motorFrontRight.getCurrentPosition());
+        telemetry.addData("BL", motorBackLeft.getCurrentPosition());
+        telemetry.addData("BR", motorBackRight.getCurrentPosition());
+
+
+
 
 
 
         if(gamepad1.a){
-            DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
-            for (DcMotor motor : motors) {
-                motor.setPower(0);
-            }
 
-            telemetry.addData("FL", motorFrontLeft.getCurrentPosition());
-            telemetry.addData("FR", motorFrontRight.getCurrentPosition());
-            telemetry.addData("BL", motorBackLeft.getCurrentPosition());
-            telemetry.addData("BR", motorBackRight.getCurrentPosition());
-            telemetry.update();
 
-            /*
             DcMotor[] motors = {motorFrontLeft, motorFrontRight, motorBackLeft, motorBackRight};
 
             for (DcMotor motor : motors) {
@@ -83,7 +78,6 @@ public class TestingEncodersDrive extends OpMode {
             }
 
 
-             */
         }
     }
 }
