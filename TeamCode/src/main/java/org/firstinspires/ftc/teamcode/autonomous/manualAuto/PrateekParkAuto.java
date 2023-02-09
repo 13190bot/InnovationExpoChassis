@@ -7,13 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 
-import static android.os.SystemClock.sleep;
-
 
 //TODO: Test on ACTUAL BOT (virtualbot seems to work for now)
 @Config
-@Autonomous(name = "Manual_ParkAuto")
-public class FinalParkAuto extends OpMode {
+@Autonomous(name = "prateekpartauto")
+public class PrateekParkAuto extends OpMode {
 
     DcMotor lf, lb, rf, rb;
 //    SleeveDetection sleeveDetection;
@@ -21,14 +19,14 @@ public class FinalParkAuto extends OpMode {
 
     // defining constants for ez editing
 
-    private static final double DRIVE_POWER = 0.2;
-
+    private static final double DRIVE_POWER = 0.5;
+    public static int forwardEdit = 0;
 
 
     String webcamName = "Webcam 1";
 
     SleeveDetection.ParkingPosition lol;
-    Boolean Prateek_Is_Dumb = true;
+
     @Override
     public void init() {
 
@@ -41,8 +39,8 @@ public class FinalParkAuto extends OpMode {
 
         for (DcMotor motor : motors) {
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setTargetPosition(0);
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            motor.setTargetPosition(0);
+//            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
 
@@ -63,10 +61,12 @@ public class FinalParkAuto extends OpMode {
             public void onOpened() {
                 camera.startStreaming(1280, 720);
             }
+
             @Override
             public void onError(int errorCode) {
             }
         });
+
         lol = sleeveDetection.getPosition();
         */
 
@@ -90,6 +90,7 @@ public class FinalParkAuto extends OpMode {
 
     @Override
     public void start() {
+// changed to use the constant DRIVE_POWER
 
 
         lf.setPower(DRIVE_POWER);
@@ -98,14 +99,13 @@ public class FinalParkAuto extends OpMode {
         rb.setPower(DRIVE_POWER);
 
         //encodervalue:
-        lf.setTargetPosition(1170);
-        lb.setTargetPosition(1170);
-        rf.setTargetPosition(1170);
-        rb.setTargetPosition(1170);
+//        sleep(1500);
+//        lf.setTargetPosition(1170 + forwardEdit);
+//        lb.setTargetPosition(1070 + forwardEdit);
+//        rf.setTargetPosition(-1170 - forwardEdit);
+//        rb.setTargetPosition(-1170 - forwardEdit);
 
-        sleep(10000);
-        requestOpModeStop();
-//        sleep(10000);
+
 
         //strafe to face park pos
         switch (SleeveDetection.ParkingPosition.RIGHT) {
@@ -132,12 +132,11 @@ public class FinalParkAuto extends OpMode {
                 rb.setTargetPosition(2581);
                 break;
             default: // error for if no parking pos detected
-                boolean PrateekisDumb = true;
-
                 telemetry.addData("Error: No Parking Position", "No parkpos detected.");
                 telemetry.update();
                 break;
         }
+
 
         telemetry.addData("Parking", 0);
 
