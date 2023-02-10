@@ -84,7 +84,8 @@ public class FINALParkAuto extends LinearOpMode {
         lb.setPower(DRIVE_POWER);
         rb.setPower(DRIVE_POWER);
 
-        sleep(2500);
+        //sleep(2500); //just barely behind pole (fails >13V)
+        sleep(2300);
         switch (lol) {
             case LEFT: //left
 

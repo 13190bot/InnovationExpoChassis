@@ -44,7 +44,7 @@ ends with //CYCLEHIGHEND
 
  */
 
-@Autonomous(name = "RR-Auto")
+@Autonomous(name = "RoadrunnerAutov2")
 
 public class RoadrunnerAuto extends LinearOpMode {
 
@@ -80,8 +80,8 @@ public class RoadrunnerAuto extends LinearOpMode {
         claw = new ClawSubsystem(clawServo);
 
 
-
-        StandardTrackingWheelLocalizer localizer = new StandardTrackingWheelLocalizer(hardwareMap);
+        /*
+        //StandardTrackingWheelLocalizer localizer = new StandardTrackingWheelLocalizer(hardwareMap);
 
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -100,7 +100,8 @@ public class RoadrunnerAuto extends LinearOpMode {
         });
 
         parkingPosition = sleeveDetection.getPosition();
-
+        */
+        parkingPosition = SleeveDetection.ParkingPosition.RIGHT;
 
         Pose2d ParkingPos;
         Vector2d relative; //MAKE SURE RELATIVE ISNT EMPTY OR ITLL ERROR
@@ -126,7 +127,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
         waitForStart();
 
-        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
 
                 //PRELOADSTART PRELOAD HIGH
 
@@ -135,14 +136,15 @@ public class RoadrunnerAuto extends LinearOpMode {
                 .forward(46.5)
 
                 // go to high junction
-                .strafeLeft(11.5)
+                //.strafeLeft(11.5)
+                .turn(Math.toRadians(90)).forward(11.5).turn(Math.toRadians(-90))
 
                 .addDisplacementMarker(() -> {
                     // set lift height to high junction
                     lift.setJunction(Junction.HIGH);
                 })
 
-                .waitSeconds(1)
+                .waitSeconds(100000)
 
                 // go right on high junction
                 .forward(5)
@@ -167,7 +169,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                 //PRELOADEND
 
 
-
+.waitSeconds(69420420)
 
 
 
@@ -259,7 +261,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                 // go back to before cone stack
                 //.lineToLinearHeading(new Pose2d(35, -58.333333 + 46.5, Math.toRadians(0)))
-                                .forward(11.5)
+                .forward(11.5)
 
                 // sleeve detection position
                 .lineToLinearHeading(new Pose2d(35, -tileSize * 1.5, Math.toRadians(0)))
@@ -267,9 +269,9 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                 // finally go to parkingpos
-                .strafeRight(relative.getX())
-
-                .forward(relative.getY())
+//                .strafeRight(relative.getX())
+//
+//                .forward(relative.getY())
 
 
                 .build()
