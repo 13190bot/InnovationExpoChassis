@@ -200,7 +200,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                     case MINOR_BACKWARD:
                         if(drop.seconds()>dropTime) {
                             drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                    .forward(12)
+                                    .forward(9.5 * forwardmul)
                                     .build()
                             );
                             action = AutoPhase.RESET_ROTATION;
@@ -209,7 +209,7 @@ public class Final_OnePlusZero extends LinearOpMode {
 
                     case RESET_ROTATION:
                         drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                .turn(Math.toRadians(-1*rotAngle))
+                                .turn(Math.toRadians(45 * leftturnmul))
                                 .build()
                         );
                         action = AutoPhase.SLIDE_DOWN;
@@ -226,29 +226,29 @@ public class Final_OnePlusZero extends LinearOpMode {
                     case PARK:
                         if(slideDown.seconds() > slideDownTime) {
 
-                            switch (pos) {
-                                case RIGHT:
-                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                            .turn(Math.toRadians(-2*rotAngle))
-                                            .forward(40)
-                                            .build()
-                                    );
-                                    break;
-
-                                case CENTER:
-                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                            .forward(40)
-                                            .build()
-                                    );
-                                    break;
-
-                                case LEFT:
-                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
-                                            .forward(20)
-                                            .build()
-                                    );
-                                    break;
-                            }
+//                            switch (pos) {
+//                                case RIGHT:
+//                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+//                                            .turn(Math.toRadians(-2*rotAngle))
+//                                            .forward(40)
+//                                            .build()
+//                                    );
+//                                    break;
+//
+//                                case CENTER:
+//                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+//                                            .forward(40)
+//                                            .build()
+//                                    );
+//                                    break;
+//
+//                                case LEFT:
+//                                    drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+//                                            .forward(20)
+//                                            .build()
+//                                    );
+//                                    break;
+//                            }
                             action = AutoPhase.IDLE;
                         }
                     case IDLE:
