@@ -69,14 +69,15 @@ public class FINALParkAuto extends LinearOpMode {
         });
 
 
-        lol = sleeveDetection.getPosition();
+        while (!isStarted()) {
+            lol = sleeveDetection.getPosition();
 
 
+            //lol = SleeveDetection.ParkingPosition.RIGHT;
 
-        //lol = SleeveDetection.ParkingPosition.RIGHT;
-
-        telemetry.addData("Position: ", lol);
-        telemetry.update();
+            telemetry.addData("Position: ", lol);
+            telemetry.update();
+        }
 
         waitForStart();
 
