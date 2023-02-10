@@ -99,6 +99,10 @@ public class FINALParkAuto extends LinearOpMode {
                 break;
 
             case CENTER: //if the middle parkpos
+                lf.setPower(0);
+                rf.setPower(0);
+                lb.setPower(0);
+                rb.setPower(0);
                 telemetry.addData("Detected center", 2);
                 telemetry.update();
                 break;
