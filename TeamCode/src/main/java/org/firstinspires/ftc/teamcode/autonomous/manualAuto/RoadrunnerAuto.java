@@ -114,7 +114,7 @@ public class RoadrunnerAuto extends LinearOpMode {
         ParkingPos = new Pose2d();
 
         double mul = 1.3; // multiplier for forward
-        double turnmul = 1.34; // multiplier for forward
+        double turnmul = 1.37; // multiplier for turn
 
         waitForStart();
 
@@ -123,18 +123,22 @@ public class RoadrunnerAuto extends LinearOpMode {
                         //PRELOADSTART PRELOAD HIGH
 
 
-                        .forward(47.5 * mul)
+                        .forward(47 * mul)
 
                         // go to high junction
                         //.strafeLeft(11.5)
                         //.turn(Math.toRadians(90 * turnmul)).forward(11.5 * mul).turn(Math.toRadians(-90 * turnmul))
-                        .turn(Math.toRadians(45))
-                        .forward(8)
+                        .turn(Math.toRadians(45 * turnmul))
 
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
                             lift.setJunction(Junction.HIGH);
+                            while (!lift.atTarget()) {
+                                lift.periodic();
+                            }
                         })
+
+                        .forward(4 * mul)
 
                         .waitSeconds(100000)
 
