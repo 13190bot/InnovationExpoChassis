@@ -5,7 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
 
@@ -15,8 +17,8 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 public class FINALParkAuto extends LinearOpMode {
 
     DcMotor lf, lb, rf, rb;
-//    SleeveDetection sleeveDetection;
-//    OpenCvCamera camera;
+    SleeveDetection sleeveDetection;
+    OpenCvCamera camera;
 
     // defining constants for ez editing
 
@@ -50,7 +52,7 @@ public class FINALParkAuto extends LinearOpMode {
 
         telemetry.addData("init", "done");
 
-/*
+
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, webcamName), cameraMonitorViewId);
         sleeveDetection = new SleeveDetection();
@@ -69,10 +71,9 @@ public class FINALParkAuto extends LinearOpMode {
 
         lol = sleeveDetection.getPosition();
 
- */
 
 
-        lol = SleeveDetection.ParkingPosition.RIGHT;
+        //lol = SleeveDetection.ParkingPosition.RIGHT;
 
         telemetry.addData("Position: ", lol);
         telemetry.update();

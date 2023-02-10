@@ -93,8 +93,8 @@ public class HighJunc_Park extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //drive setup and arm setup
-        slideLeft = new MotorEx(hardwareMap, "slideLeft");
-        slideRight = new MotorEx(hardwareMap, "slideRight");
+        slideLeft = new MotorEx(hardwareMap, "slideL");
+        slideRight = new MotorEx(hardwareMap, "slideR");
 
         Claw = new SimpleServo(hardwareMap, "claw", 0, 180); //TODO figure out max degree
 
