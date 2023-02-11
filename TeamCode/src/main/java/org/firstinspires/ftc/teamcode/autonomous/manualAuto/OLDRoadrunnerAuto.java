@@ -6,17 +6,12 @@ import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.StandardTrackingWheelLocalizer;
+import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
-import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-
-import java.util.Vector;
 
 /*
 README:
@@ -38,7 +33,7 @@ ends with //CYCLEHIGHEND
 
 @Autonomous(name = "RoadrunnerAutov2")
 
-public class RoadrunnerAuto extends LinearOpMode {
+public class OLDRoadrunnerAuto extends LinearOpMode {
 
     Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
     //ServoImpl claw;
@@ -113,8 +108,6 @@ public class RoadrunnerAuto extends LinearOpMode {
         }
         ParkingPos = new Pose2d();
 
-        double mul = 1.3; // multiplier for forward
-        double turnmul = 1.34; // multiplier for forward
 
         waitForStart();
 
@@ -123,12 +116,13 @@ public class RoadrunnerAuto extends LinearOpMode {
                         //PRELOADSTART PRELOAD HIGH
 
 
-                        .forward(47.5 * mul)
+                        // go to before cone stack
+                        .forward(47.5)
 
                         // go to high junction
                         //.strafeLeft(11.5)
-                        //.turn(Math.toRadians(90 * turnmul)).forward(11.5 * mul).turn(Math.toRadians(-90 * turnmul))
-                        .turn(Math.toRadians(45))
+                        .turn(Math.toRadians(90)).forward(11.5).turn(Math.toRadians(-90))
+                        //.turn(Math.toRadians(45))
                         .forward(8)
 
                         .addDisplacementMarker(() -> {
