@@ -36,7 +36,7 @@ starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
 @Deprecated
-@Autonomous(name = "RoadrunnerAutoFTCLIB")
+@Autonomous(name = "RoadrunnerAutoFTCLIB2")
 
 public class RoadrunnerAutoFTCLIBv2 extends LinearOpMode {
 
