@@ -8,18 +8,13 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.StandardTrackingWheelLocalizer;
+import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.teleOp.opmode.BaseOpMode;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
-import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-
-import java.util.Vector;
 
 /*
 README:
@@ -39,18 +34,13 @@ starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
 
-@Autonomous(name = "RoadrunnerAutov2")
+@Autonomous(name = "RoadrunnerAutov3")
 
-public class RoadrunnerAuto extends LinearOpMode {
+public class RoadrunnerAutoFTCLIB extends BaseOpMode {
 
     Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
     //ServoImpl claw;
     private SampleMecanumDrive drive;
-    protected LiftSubsystem lift;
-    protected ClawSubsystem claw;
-    protected SimpleServo clawServo;
-
-    protected MotorEx liftR, liftL;
 
     String webcamName = "Webcam 1";
 
@@ -58,12 +48,11 @@ public class RoadrunnerAuto extends LinearOpMode {
     OpenCvCamera camera;
     SleeveDetection.ParkingPosition parkingPosition;
 
-
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void initialize() {
         //drive setup
+        super.initialize();
         telemetry = new MultipleTelemetry(telemetry);
-        drive = new SampleMecanumDrive(hardwareMap);
 
 
         liftL= new MotorEx(hardwareMap, "slideL");
@@ -242,17 +231,10 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .build()
         );
+    }
 
-        waitForStart();
-
-
-
-        while (opModeIsActive()) {
-            drive.update();
-
-            while (!lift.atTarget()) {
-                lift.periodic();
-            }
-        }
+    @Override
+    public void run() {
+        drive.update();
     }
 }
