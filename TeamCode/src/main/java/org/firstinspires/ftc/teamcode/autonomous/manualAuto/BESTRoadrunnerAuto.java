@@ -104,7 +104,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         // parkingPosition = SleeveDetection.ParkingPosition.RIGHT;
 
         Pose2d ParkingPos;
-        Vector2d relative; //MAKE SURE RELATIVE ISNT EMPTY OR ITLL ERROR
+        //Vector2d relative; //MAKE SURE RELATIVE ISNT EMPTY OR ITLL ERROR
+        double relative;
         /*
         relative is from signal cone position
          */
@@ -113,15 +114,20 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         switch(parkingPosition) {
             case NOPOS:
                 // bruh
-                relative = new Vector2d(0, 0);
+                //relative = new Vector2d(1, 1);
+                relative = 1;
             case LEFT:
-                relative = new Vector2d(-tileSize, tileSize / 2);
+                //relative = new Vector2d(-tileSize, tileSize / 2);
+                relative = -tileSize;
             case RIGHT:
-                relative = new Vector2d(tileSize, tileSize / 2);
+                //relative = new Vector2d(tileSize, tileSize / 2);
+                relative = tileSize;
             case CENTER:
-                relative = new Vector2d(0, tileSize / 2);
+                //relative = new Vector2d(1, tileSize / 2);
+                relative = 1;
             default:
-                relative = new Vector2d(0, 0);
+                //relative = new Vector2d(0, 0);
+                relative = 1;
         }
         ParkingPos = new Pose2d();
 
@@ -151,7 +157,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         }
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-                .forward(10 * forwardmul)
+                .forward(9.7 * forwardmul)
                 .waitSeconds(0.5)
                 .build()
         );
@@ -159,7 +165,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         claw.release();
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-            .back(10 * forwardmul)
+            .back(9.7 * forwardmul)
             .build()
         );
 
@@ -174,8 +180,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                 .turn(Math.toRadians(-45 * rightturnmul))
-                .back(12 * forwardmul)
-                .strafeRight(relative.getX())
+                .back(18 * forwardmul)
+                .strafeRight(relative)
                 //.forward(relative.getY())
                 .build()
         );
