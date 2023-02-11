@@ -144,15 +144,19 @@ public class Final_OnePlusZero extends LinearOpMode {
             while (opModeIsActive() && !isStopRequested()) {
                 switch(action){
                     case GRAB:
+                            telemetry.addData("GRAB", 2);
 
                             grab.reset();
                             claw.grab();
                             action = AutoPhase.FORWARD;
 
+
                         break;
 
                     case FORWARD:
+                        telemetry.addData("FORWARD", 2);
                         if(grab.seconds() > grabTime) {
+
                             drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .forward(47 * forwardmul)
                                     .build()
@@ -163,7 +167,9 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case SLIDE_UP:
+                        telemetry.addData("slide up", 2);
                         if(!drive.isBusy()){
+                            ;
                             slideUp.reset();
                             lift.setJunction(Junction.HIGH);
                             action = AutoPhase.FACE_POLE;
@@ -171,6 +177,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case FACE_POLE:
+                        telemetry.addData("face pole", 2);
                         if(slideUp.seconds()>slideUpTime) {
                             drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .turn(Math.toRadians(45 * leftturnmul))
@@ -181,6 +188,8 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case MINOR_FORWARD:
+
+                        telemetry.addData("mionorforwared", 2);
                         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                 .forward(9.5 * forwardmul)
                                 .build()
@@ -190,6 +199,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case DROP_CONE:
+                        telemetry.addData("drop one", 2);
                         if(!drive.isBusy()){
                             drop.reset();
                             claw.release();
@@ -198,6 +208,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case MINOR_BACKWARD:
+                        telemetry.addData("minorbackward", 2);
                         if(drop.seconds()>dropTime) {
                             drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .forward(9.5 * forwardmul)
@@ -208,6 +219,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case RESET_ROTATION:
+                        telemetry.addData("resetrot", 2);
                         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                 .turn(Math.toRadians(45 * leftturnmul))
                                 .build()
@@ -216,6 +228,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case SLIDE_DOWN:
+                        telemetry.addData("slidedowb", 2);
                         if(!drive.isBusy()){
                             slideDown.reset();
                             lift.setJunction(Junction.NONE);

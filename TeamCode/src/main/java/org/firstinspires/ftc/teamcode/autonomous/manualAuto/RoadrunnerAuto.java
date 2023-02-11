@@ -165,11 +165,11 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .turn(Math.toRadians(-45 * rightturnmul))
 
-                        .back(47 * forwardmul)
+                        .back(18 * forwardmul)
 
                         //PRELOADEND
 
-
+                                .waitSeconds(69420420)
 
 
 
