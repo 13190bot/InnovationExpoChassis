@@ -132,10 +132,13 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
+                            /*
                             lift.setJunction(Junction.HIGH);
                             while (!lift.atTarget()) {
                                 lift.periodic();
                             }
+
+                             */
                         })
 
                         .forward(4 * mul)
