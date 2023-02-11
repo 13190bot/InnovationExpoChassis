@@ -137,7 +137,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         ParkingPos = new Pose2d();
 
         double forwardmul = 1.4; // multiplier for forward
-        double leftturnmul = 1.38; // 1.4; // 1.37; // multiplier for left turn
+        double leftturnmul = 1.41; // 1.4; // 1.37; // multiplier for left turn
         double rightturnmul = 1.41; // multiplier for right turn
 
 
@@ -167,12 +167,12 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
                 .build()
         );
 
-        claw.release();
-
-        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-            .back(10 * forwardmul)
-            .build()
-        );
+//        claw.release();
+//
+//        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
+//            .back(10 * forwardmul)
+//            .build()
+//        );
 
         timer.reset();
         lift.setJunction(Junction.NONE);
@@ -180,13 +180,21 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         while (timer.seconds() < 2) {
             lift.periodic();
         }
+
+
+        claw.release();
+
+        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
+                .back(10 * forwardmul)
+                .build()
+        );
 //        telemetry.addData("this ran", "this ran");
 //        lift = null;
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                 .turn(Math.toRadians(-45 * rightturnmul))
-                .back(19 * forwardmul)
-                .strafeRight(relative)
+                .back(20 * forwardmul)
+                .strafeRight(relative * forwardmul)
                 //.forward(relative.getY())
                 .build()
         );
