@@ -144,11 +144,6 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .forward(9.5 * forwardmul)
 
-                        .waitSeconds(100000)
-
-                        // go right on high junction
-                        .forward(5)
-
                         .waitSeconds(0.5)
 
                         // drop cone
