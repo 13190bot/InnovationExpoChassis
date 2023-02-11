@@ -122,11 +122,11 @@ public class RoadrunnerAuto extends LinearOpMode {
         double rightturnmul = 1.41; // multiplier for right turn
 
 
-        liftL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-        liftR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+//        liftL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+//        liftR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
 
-        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
+        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
 
                         //PRELOADSTART PRELOAD HIGH
 
@@ -144,13 +144,8 @@ public class RoadrunnerAuto extends LinearOpMode {
                         // Marker callbacks should never block for extended periods.
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
-                            /*
-                            lift.setJunction(Junction.HIGH);
-                            while (!lift.atTarget()) {
-                                lift.periodic();
-                            }
-
-                             */
+//                            telemetry.addData("WORKS", "WORKS");
+//                            telemetry.update();
 
                             lift.setJunction(Junction.HIGH);
                         })
@@ -253,9 +248,7 @@ public class RoadrunnerAuto extends LinearOpMode {
             telemetry.addData("RUN", "RUN");
             telemetry.update();
 
-            if (!lift.atTarget()) {
-                lift.periodic();
-            }
+            lift.periodic();
         }
     }
 }
