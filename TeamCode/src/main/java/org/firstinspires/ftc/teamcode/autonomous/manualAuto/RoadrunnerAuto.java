@@ -142,7 +142,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                              */
                         })
 
-                        .forward(9 * forwardmul)
+                        .forward(9.5 * forwardmul)
 
                         .waitSeconds(100000)
 
