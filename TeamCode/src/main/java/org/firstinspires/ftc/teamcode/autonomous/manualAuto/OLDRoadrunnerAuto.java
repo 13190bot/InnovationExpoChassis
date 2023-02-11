@@ -30,8 +30,8 @@ UNCOMMENT
 starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
-
-@Autonomous(name = "RoadrunnerAutov2")
+@Deprecated
+@Autonomous(name = "OLD_RoadrunnerAutov2")
 
 public class OLDRoadrunnerAuto extends LinearOpMode {
 
