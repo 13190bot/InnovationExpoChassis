@@ -84,15 +84,15 @@ public class LiftSubsystem extends SubsystemBase {
     public boolean atTarget(){
         switch(currentGoal){
             case NONE:
-                return left.getCurrentPosition()<none+ threshold && left.getCurrentPosition()>none- threshold;
+                return right.getCurrentPosition()<none+ threshold && right.getCurrentPosition()>none- threshold;
             case GROUND:
-                return left.getCurrentPosition()<ground+ threshold && left.getCurrentPosition()>ground- threshold;
+                return right.getCurrentPosition()<ground+ threshold && right.getCurrentPosition()>ground- threshold;
             case LOW:
-                return left.getCurrentPosition()<low+ threshold && left.getCurrentPosition()>low- threshold;
+                return right.getCurrentPosition()<low+ threshold && right.getCurrentPosition()>low- threshold;
             case MEDIUM:
-                return left.getCurrentPosition()<medium+ threshold && left.getCurrentPosition()>medium- threshold;
+                return right.getCurrentPosition()<medium+ threshold && right.getCurrentPosition()>medium- threshold;
             case HIGH:
-                return left.getCurrentPosition()<high+ threshold && left.getCurrentPosition()>high- threshold;
+                return right.getCurrentPosition()<high+ threshold && right.getCurrentPosition()>high- threshold;
         }
         return false;
     }

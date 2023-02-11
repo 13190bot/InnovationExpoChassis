@@ -56,7 +56,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
 
     SleeveDetection sleeveDetection;
     OpenCvCamera camera;
-    SleeveDetection.ParkingPosition parkingPosition;
+    SleeveDetection.ParkingPosition     parkingPosition;
 
 
     @Override
@@ -154,7 +154,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
             .build()
         );
 
-        lift.setJunction(Junction.LOW);
+        lift.setJunction(Junction.NONE);
         while (!lift.atTarget()) {
             lift.periodic();
         }
