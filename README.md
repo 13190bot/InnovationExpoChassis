@@ -12,7 +12,13 @@
 
 
 
-Our Official Code for the PowerPlay Competition
+Our Official Code for the PowerPlay Competition  
+  
+![GitHub last commit](https://img.shields.io/github/last-commit/13190-2022-23/13190PowerPlay)  
+
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/13190-2022-23/13190PowerPlay)  
+
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/13190-2022-23/13190PowerPlay/gradle.yml)  
 
 ## Credits
 
