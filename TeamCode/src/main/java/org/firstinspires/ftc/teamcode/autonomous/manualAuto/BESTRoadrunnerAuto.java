@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.StandardTrackingWheelLocalizer;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
+import java.util.Timer;
 import java.util.Vector;
 
 /*
@@ -140,7 +142,11 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         );
 
         lift.setJunction(Junction.HIGH);
-        while (!lift.atTarget()) {
+        ElapsedTime timer = new ElapsedTime();
+        //while (!lift.atTarget()) {
+        while (timer.seconds() < 2) {
+            telemetry.addData("rpos", liftR.getCurrentPosition());
+            telemetry.update();
             lift.periodic();
         }
 
@@ -157,8 +163,10 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
             .build()
         );
 
+        timer.reset();
         lift.setJunction(Junction.NONE);
-        while (!lift.atTarget()) {
+        //while (!lift.atTarget()) {
+        while (timer.seconds() < 2) {
             lift.periodic();
         }
 //        telemetry.addData("this ran", "this ran");
