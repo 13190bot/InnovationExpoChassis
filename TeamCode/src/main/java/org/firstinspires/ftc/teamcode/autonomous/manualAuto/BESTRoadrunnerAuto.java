@@ -154,7 +154,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
             .build()
         );
 
-        lift.setJunction(Junction.NONE);
+        lift.setJunction(Junction.LOW);
         while (!lift.atTarget()) {
             lift.periodic();
         }
@@ -163,7 +163,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
                 .turn(Math.toRadians(-45 * rightturnmul))
                 .back(12 * forwardmul)
                 .strafeRight(relative.getX())
-                .forward(relative.getY())
+                //.forward(relative.getY())
                 .build()
         );
 
