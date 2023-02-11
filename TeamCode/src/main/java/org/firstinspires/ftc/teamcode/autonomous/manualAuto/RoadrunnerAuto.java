@@ -1,11 +1,14 @@
 package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
 
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.StandardTrackingWheelLocalizer;
@@ -59,6 +62,7 @@ public class RoadrunnerAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         //drive setup
+        telemetry = new MultipleTelemetry(telemetry);
         drive = new SampleMecanumDrive(hardwareMap);
 
 
@@ -117,12 +121,17 @@ public class RoadrunnerAuto extends LinearOpMode {
         double leftturnmul = 1.37; // multiplier for left turn
         double rightturnmul = 1.41; // multiplier for right turn
 
-        waitForStart();
 
-        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
+        liftL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        liftR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
 
                         //PRELOADSTART PRELOAD HIGH
 
+                        .addDisplacementMarker(() -> {
+                            claw.grab();
+                        })
 
                         .forward(47 * forwardmul)
 
@@ -131,6 +140,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                         //.turn(Math.toRadians(90 * turnmul)).forward(11.5 * mul).turn(Math.toRadians(-90 * turnmul))
                         .turn(Math.toRadians(45 * leftturnmul))
 
+                        // Marker callbacks should never block for extended periods.
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
                             /*
@@ -140,6 +150,8 @@ public class RoadrunnerAuto extends LinearOpMode {
                             }
 
                              */
+
+                            lift.setJunction(Junction.HIGH);
                         })
 
                         .forward(9.5 * forwardmul)
@@ -165,11 +177,11 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .turn(Math.toRadians(-45 * rightturnmul))
 
-                        .back(18 * forwardmul)
+                        .back(12 * forwardmul)
 
                         //PRELOADEND
 
-                                .waitSeconds(69420420)
+                        .waitSeconds(69420420)
 
 
 
@@ -230,5 +242,17 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .build()
         );
+
+        waitForStart();
+
+
+
+        while (! isStopRequested()) {
+            drive.update();
+
+            while (!lift.atTarget()) {
+                lift.periodic();
+            }
+        }
     }
 }
