@@ -130,7 +130,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         //PRELOADSTART PRELOAD HIGH
 
-                        .addDisplacementMarker(() -> {
+                        .addTemporalMarker(0, () -> {
                             claw.grab();
                         })
 
@@ -142,7 +142,7 @@ public class RoadrunnerAuto extends LinearOpMode {
                         .turn(Math.toRadians(45 * leftturnmul))
 
                         // Marker callbacks should never block for extended periods.
-                        .addDisplacementMarker(() -> {
+                        .addTemporalMarker(3, () -> {
                             // set lift height to high junction
 //                            telemetry.addData("WORKS", "WORKS");
 //                            telemetry.update();
