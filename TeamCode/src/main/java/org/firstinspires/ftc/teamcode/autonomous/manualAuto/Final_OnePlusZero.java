@@ -83,7 +83,10 @@ public class Final_OnePlusZero extends LinearOpMode {
 
         //path positions
         public int rotAngle = 45;
-        @Override
+    double forwardmul = 1.3; // multiplier for forward
+    double leftturnmul = 1.37; // multiplier for left turn
+    double rightturnmul = 1.37;
+    @Override
         public void runOpMode() throws InterruptedException {
 
             //drive setup and arm setup
