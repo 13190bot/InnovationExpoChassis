@@ -72,7 +72,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         clawServo = new SimpleServo(hardwareMap, "claw", 0, 120);
 
 
-        lift = new LiftSubsystem(liftL, liftR, () -> 1);
+        //lift = new LiftSubsystem(liftL, liftR, () -> 1);
+        lift = new LiftSubsystem(liftL, liftR, () -> 0);
         claw = new ClawSubsystem(clawServo);
 
 
@@ -94,6 +95,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
 
         while (!isStarted()) {
             parkingPosition = sleeveDetection.getPosition();
+            telemetry.addData("position", parkingPosition);
+            telemetry.update();
         }
 
         // parkingPosition = SleeveDetection.ParkingPosition.RIGHT;
@@ -120,8 +123,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         }
         ParkingPos = new Pose2d();
 
-        double forwardmul = 1.3; // multiplier for forward
-        double leftturnmul = 1.37; // multiplier for left turn
+        double forwardmul = 1.4; // multiplier for forward
+        double leftturnmul = 1.4; // 1.37; // multiplier for left turn
         double rightturnmul = 1.41; // multiplier for right turn
 
 
@@ -142,7 +145,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         }
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-                .forward(9.5 * forwardmul)
+                .forward(10 * forwardmul)
                 .waitSeconds(0.5)
                 .build()
         );
@@ -150,7 +153,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         claw.release();
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-            .back(9.5 * forwardmul)
+            .back(10 * forwardmul)
             .build()
         );
 
@@ -158,6 +161,8 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         while (!lift.atTarget()) {
             lift.periodic();
         }
+//        telemetry.addData("this ran", "this ran");
+//        lift = null;
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                 .turn(Math.toRadians(-45 * rightturnmul))
