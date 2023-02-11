@@ -116,23 +116,28 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
                 // bruh
                 //relative = new Vector2d(1, 1);
                 relative = 1;
+                break;
             case LEFT:
                 //relative = new Vector2d(-tileSize, tileSize / 2);
                 relative = -tileSize;
+                break;
             case RIGHT:
                 //relative = new Vector2d(tileSize, tileSize / 2);
                 relative = tileSize;
+                break;
             case CENTER:
                 //relative = new Vector2d(1, tileSize / 2);
                 relative = 1;
+                break;
             default:
                 //relative = new Vector2d(0, 0);
                 relative = 1;
+                break;
         }
         ParkingPos = new Pose2d();
 
         double forwardmul = 1.4; // multiplier for forward
-        double leftturnmul = 1.4; // 1.37; // multiplier for left turn
+        double leftturnmul = 1.38; // 1.4; // 1.37; // multiplier for left turn
         double rightturnmul = 1.41; // multiplier for right turn
 
 
@@ -157,7 +162,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         }
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-                .forward(9.7 * forwardmul)
+                .forward(10 * forwardmul)
                 .waitSeconds(0.5)
                 .build()
         );
@@ -165,7 +170,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         claw.release();
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-            .back(9.7 * forwardmul)
+            .back(10 * forwardmul)
             .build()
         );
 
@@ -180,7 +185,7 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                 .turn(Math.toRadians(-45 * rightturnmul))
-                .back(18 * forwardmul)
+                .back(19 * forwardmul)
                 .strafeRight(relative)
                 //.forward(relative.getY())
                 .build()
