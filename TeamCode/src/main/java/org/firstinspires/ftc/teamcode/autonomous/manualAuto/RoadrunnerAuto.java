@@ -125,7 +125,8 @@ public class RoadrunnerAuto extends LinearOpMode {
         liftL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         liftR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+
+        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
 
                         //PRELOADSTART PRELOAD HIGH
 
@@ -249,8 +250,10 @@ public class RoadrunnerAuto extends LinearOpMode {
 
         while (opModeIsActive()) {
             drive.update();
+            telemetry.addData("RUN", "RUN");
+            telemetry.update();
 
-            while (!lift.atTarget()) {
+            if (!lift.atTarget()) {
                 lift.periodic();
             }
         }
