@@ -144,16 +144,16 @@ public class Final_OnePlusZero extends LinearOpMode {
             while (opModeIsActive() && !isStopRequested()) {
                 switch(action){
                     case GRAB:
-                        if(!drive.isBusy()){
+
                             grab.reset();
                             claw.grab();
                             action = AutoPhase.FORWARD;
-                        }
+
                         break;
 
                     case FORWARD:
                         if(grab.seconds() > grabTime) {
-                            drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .forward(47 * forwardmul)
                                     .build()
                             );
@@ -172,7 +172,7 @@ public class Final_OnePlusZero extends LinearOpMode {
 
                     case FACE_POLE:
                         if(slideUp.seconds()>slideUpTime) {
-                            drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .turn(Math.toRadians(45 * leftturnmul))
                                     .build()
                             );
@@ -181,7 +181,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case MINOR_FORWARD:
-                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                 .forward(9.5 * forwardmul)
                                 .build()
 
@@ -199,7 +199,7 @@ public class Final_OnePlusZero extends LinearOpMode {
 
                     case MINOR_BACKWARD:
                         if(drop.seconds()>dropTime) {
-                            drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                            drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                     .forward(9.5 * forwardmul)
                                     .build()
                             );
@@ -208,7 +208,7 @@ public class Final_OnePlusZero extends LinearOpMode {
                         break;
 
                     case RESET_ROTATION:
-                        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
+                        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
                                 .turn(Math.toRadians(45 * leftturnmul))
                                 .build()
                         );

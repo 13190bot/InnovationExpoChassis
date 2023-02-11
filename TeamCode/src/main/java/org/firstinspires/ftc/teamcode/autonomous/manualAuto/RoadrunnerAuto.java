@@ -115,7 +115,7 @@ public class RoadrunnerAuto extends LinearOpMode {
 
         double forwardmul = 1.3; // multiplier for forward
         double leftturnmul = 1.37; // multiplier for left turn
-        double rightturnmul = 1.37; // multiplier for right turn
+        double rightturnmul = 1.41; // multiplier for right turn
 
         waitForStart();
 
@@ -153,19 +153,21 @@ public class RoadrunnerAuto extends LinearOpMode {
 
                         .waitSeconds(0.5)
 
-                        // go back a bit so we don't put claw on junction
-                        .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
+                        .back(9.5 * forwardmul)
+                        // go back a bit so we don't put
+
+
 
                         .addDisplacementMarker(() -> {
                             // set height to ground
                             lift.setJunction(Junction.NONE);
                         })
 
+                        .turn(Math.toRadians(-45 * rightturnmul))
+
+                        .back(47 * forwardmul)
+
                         //PRELOADEND
-
-
-                        .waitSeconds(69420420)
-
 
 
 
@@ -199,48 +201,6 @@ public class RoadrunnerAuto extends LinearOpMode {
 
 
                         // LOOP
-                        .forward(27 + 11.5)
-
-                        .waitSeconds(0.5)
-                        // grab cone
-                        .addDisplacementMarker(() -> {
-                            claw.grab();
-                        })
-                        .waitSeconds(0.5)
-
-
-                        // go to high junction
-                        // /*
-                        .back(27 + 11.5)
-                        .turn(Math.toRadians(90))
-
-                        .addDisplacementMarker(() -> {
-                            // set lift height to high junction
-                            lift.setJunction(Junction.HIGH);
-                        })
-                        .waitSeconds(1)
-
-                        .forward(5)
-
-                        .waitSeconds(0.5)
-
-                        // drop cone
-                        .addDisplacementMarker(() -> {
-                            claw.release();
-                        })
-
-                        .waitSeconds(0.5)
-
-                        // go back a bit so we don't put claw on junction
-                        .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
-
-
-                        .addDisplacementMarker(() -> {
-                            //set height to ground
-                            lift.setJunction(Junction.NONE);
-                        })
-
-
 
                         // LOOPEND
 
