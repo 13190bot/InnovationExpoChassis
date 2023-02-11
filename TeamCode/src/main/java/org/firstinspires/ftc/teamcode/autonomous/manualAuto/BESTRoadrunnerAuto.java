@@ -119,11 +119,11 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
                 break;
             case LEFT:
                 //relative = new Vector2d(-tileSize, tileSize / 2);
-                relative = -tileSize;
+                relative = -tileSize * 1.3;
                 break;
             case RIGHT:
                 //relative = new Vector2d(tileSize, tileSize / 2);
-                relative = tileSize;
+                relative = tileSize * 1.3;
                 break;
             case CENTER:
                 //relative = new Vector2d(1, tileSize / 2);
@@ -156,8 +156,6 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         ElapsedTime timer = new ElapsedTime();
         //while (!lift.atTarget()) {
         while (timer.seconds() < 2) {
-            telemetry.addData("rpos", liftR.getCurrentPosition());
-            telemetry.update();
             lift.periodic();
         }
 
