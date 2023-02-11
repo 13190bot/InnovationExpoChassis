@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
+package org.firstinspires.ftc.teamcode.autonomous.manualAuto.Deprecated;
 
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.arcrobotics.ftclib.hardware.SimpleServo;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.autonomous.roadrunner.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.autonomous.vision.SleeveDetection;
+import org.firstinspires.ftc.teamcode.teleOp.opmode.BaseOpMode;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.ClawSubsystem;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.LiftSubsystem;
 import org.firstinspires.ftc.teamcode.util.Junction;
@@ -31,18 +34,13 @@ starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
 @Deprecated
-@Autonomous(name = "OLD_RoadrunnerAutov2")
+@Autonomous(name = "RoadrunnerAutov3")
 
-public class OLDRoadrunnerAuto extends LinearOpMode {
+public class RoadrunnerAutoFTCLIB extends BaseOpMode {
 
     Pose2d startingPos = new Pose2d(35,-58.333333,Math.toRadians(90));
     //ServoImpl claw;
     private SampleMecanumDrive drive;
-    protected LiftSubsystem lift;
-    protected ClawSubsystem claw;
-    protected SimpleServo clawServo;
-
-    protected MotorEx liftR, liftL;
 
     String webcamName = "Webcam 1";
 
@@ -50,11 +48,11 @@ public class OLDRoadrunnerAuto extends LinearOpMode {
     OpenCvCamera camera;
     SleeveDetection.ParkingPosition parkingPosition;
 
-
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void initialize() {
         //drive setup
-        drive = new SampleMecanumDrive(hardwareMap);
+        super.initialize();
+        telemetry = new MultipleTelemetry(telemetry);
 
 
         liftL= new MotorEx(hardwareMap, "slideL");
@@ -108,32 +106,44 @@ public class OLDRoadrunnerAuto extends LinearOpMode {
         }
         ParkingPos = new Pose2d();
 
+        double forwardmul = 1.3; // multiplier for forward
+        double leftturnmul = 1.37; // multiplier for left turn
+        double rightturnmul = 1.41; // multiplier for right turn
 
-        waitForStart();
 
-        drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
+        liftL.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+        liftR.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
+
+        drive.followTrajectorySequenceAsync(drive.trajectorySequenceBuilder(startingPos)
 
                         //PRELOADSTART PRELOAD HIGH
 
+                        .addDisplacementMarker(() -> {
+                            claw.grab();
+                        })
 
-                        // go to before cone stack
-                        .forward(47.5)
+                        .forward(47 * forwardmul)
 
                         // go to high junction
                         //.strafeLeft(11.5)
-                        .turn(Math.toRadians(90)).forward(11.5).turn(Math.toRadians(-90))
-                        //.turn(Math.toRadians(45))
-                        .forward(8)
+                        //.turn(Math.toRadians(90 * turnmul)).forward(11.5 * mul).turn(Math.toRadians(-90 * turnmul))
+                        .turn(Math.toRadians(45 * leftturnmul))
 
+                        // Marker callbacks should never block for extended periods.
                         .addDisplacementMarker(() -> {
                             // set lift height to high junction
+                            /*
+                            lift.setJunction(Junction.HIGH);
+                            while (!lift.atTarget()) {
+                                lift.periodic();
+                            }
+
+                             */
+
                             lift.setJunction(Junction.HIGH);
                         })
 
-                        .waitSeconds(100000)
-
-                        // go right on high junction
-                        .forward(5)
+                        .forward(9.5 * forwardmul)
 
                         .waitSeconds(0.5)
 
@@ -144,21 +154,23 @@ public class OLDRoadrunnerAuto extends LinearOpMode {
 
                         .waitSeconds(0.5)
 
-                        // go back a bit so we don't put claw on junction
-                        .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
+                        .back(9.5 * forwardmul)
+                        // go back a bit so we don't put
+
+
 
                         .addDisplacementMarker(() -> {
                             // set height to ground
                             lift.setJunction(Junction.NONE);
                         })
 
+                        .turn(Math.toRadians(-45 * rightturnmul))
+
+                        .back(12 * forwardmul)
+
                         //PRELOADEND
 
-
                         .waitSeconds(69420420)
-
-
-
 
 
 
@@ -190,48 +202,6 @@ public class OLDRoadrunnerAuto extends LinearOpMode {
 
 
                         // LOOP
-                        .forward(27 + 11.5)
-
-                        .waitSeconds(0.5)
-                        // grab cone
-                        .addDisplacementMarker(() -> {
-                            claw.grab();
-                        })
-                        .waitSeconds(0.5)
-
-
-                        // go to high junction
-                        // /*
-                        .back(27 + 11.5)
-                        .turn(Math.toRadians(90))
-
-                        .addDisplacementMarker(() -> {
-                            // set lift height to high junction
-                            lift.setJunction(Junction.HIGH);
-                        })
-                        .waitSeconds(1)
-
-                        .forward(5)
-
-                        .waitSeconds(0.5)
-
-                        // drop cone
-                        .addDisplacementMarker(() -> {
-                            claw.release();
-                        })
-
-                        .waitSeconds(0.5)
-
-                        // go back a bit so we don't put claw on junction
-                        .lineToLinearHeading(new Pose2d(35 + 27 - (27 + 11.5), -58.333333 + 46.5, Math.toRadians(0)))
-
-
-                        .addDisplacementMarker(() -> {
-                            //set height to ground
-                            lift.setJunction(Junction.NONE);
-                        })
-
-
 
                         // LOOPEND
 
@@ -261,5 +231,10 @@ public class OLDRoadrunnerAuto extends LinearOpMode {
 
                         .build()
         );
+    }
+
+    @Override
+    public void run() {
+        drive.update();
     }
 }

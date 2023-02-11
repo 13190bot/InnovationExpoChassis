@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
+package org.firstinspires.ftc.teamcode.autonomous.manualAuto.Deprecated;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.function.DoubleSupplier;
 
-
+@Deprecated
 @Autonomous(name = "ONEPLUSZERO")
 public class Final_OnePlusZero extends LinearOpMode {
 

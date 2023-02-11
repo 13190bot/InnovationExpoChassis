@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
+package org.firstinspires.ftc.teamcode.autonomous.manualAuto.Deprecated;
 
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -35,7 +35,7 @@ UNCOMMENT
 starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
-
+@Deprecated
 @Autonomous(name = "RoadrunnerAutoFTCLIB")
 
 public class RoadrunnerAutoFTCLIBv2 extends LinearOpMode {

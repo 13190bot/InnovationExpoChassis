@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autonomous.manualAuto;
+package org.firstinspires.ftc.teamcode.autonomous.manualAuto.Deprecated;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
