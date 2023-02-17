@@ -33,7 +33,12 @@ public class MainOpMode1PTEST extends BaseOpMode {
                 gamepadEx1::getLeftY,
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
+        /*
         gb1(GamepadKeys.Button.LEFT_STICK_BUTTON)
+                .whileHeld(slowMode);
+         */
+
+        gb1(GamepadKeys.Button.RIGHT_BUMPER)
                 .whileHeld(slowMode);
 
         //claw
@@ -66,9 +71,11 @@ public class MainOpMode1PTEST extends BaseOpMode {
                 .whenPressed(new SetConeStack(lift, ConeStack.FOURTH));
 
 
+        /*
         //lift down
         gb1(GamepadKeys.Button.RIGHT_BUMPER)
                 .whenPressed(new SetJunction(lift, Junction.NONE));
+         */
 
         register(drive, lift, claw);
         drive.setDefaultCommand(robotCentricDrive);

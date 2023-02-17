@@ -34,7 +34,7 @@ public class MainOpMode extends BaseOpMode {
                 gamepadEx1::getLeftY,
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER),
                 () -> gamepadEx1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER));
-        gb1(GamepadKeys.Button.LEFT_BUMPER)
+        gb1(GamepadKeys.Button.RIGHT_BUMPER)
                 .whileHeld(slowMode);
 
         //claw

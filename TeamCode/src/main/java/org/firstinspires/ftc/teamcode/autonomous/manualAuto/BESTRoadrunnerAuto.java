@@ -41,7 +41,7 @@ starts with //CYCLEHIGHSTART
 ends with //CYCLEHIGHEND
  */
 
-@Autonomous(name = "BestRoadrunnerAuto")
+@Autonomous(name = "BestRoadrunnerAuto__________________________________________________________________________________")
 
 public class BESTRoadrunnerAuto extends LinearOpMode {
 
@@ -160,7 +160,9 @@ public class BESTRoadrunnerAuto extends LinearOpMode {
         }
 
         drive.followTrajectorySequence(drive.trajectorySequenceBuilder(startingPos)
-                .forward(10 * forwardmul)
+                //.forward(10 * forwardmul)
+                .forward(15 * forwardmul)
+                .back(3 * forwardmul)
                 .waitSeconds(0.5)
                 .build()
         );
