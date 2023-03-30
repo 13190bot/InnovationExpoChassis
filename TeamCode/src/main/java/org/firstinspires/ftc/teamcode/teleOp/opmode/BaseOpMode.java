@@ -17,14 +17,10 @@ import org.firstinspires.ftc.teamcode.util.Junction;
 
 public class BaseOpMode extends CommandOpMode {
 
-    protected MotorEx leftBack, leftFront, rightBack, rightFront, liftR, liftL;
+    protected MotorEx leftBack, leftFront, rightBack, rightFront;
 
-    protected SimpleServo clawServo;
 
-    protected ClawSubsystem claw;
     protected DriveSubsystem drive;
-    protected LiftSubsystem lift;
-    protected RevIMU imu;
 
     protected GamepadEx gamepadEx1;
     protected GamepadEx gamepadEx2;
@@ -38,9 +34,6 @@ public class BaseOpMode extends CommandOpMode {
         setUp();
 
         drive = new DriveSubsystem(leftBack, leftFront, rightBack, rightFront);
-        lift = new LiftSubsystem(liftL, liftR, gamepadEx2::getLeftY);
-        claw = new ClawSubsystem(clawServo);
-        lift.setJunction(Junction.NONE);
         //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
         telemetry.update();
@@ -53,24 +46,14 @@ public class BaseOpMode extends CommandOpMode {
         rightBack = new MotorEx(hardwareMap, "backRight");
         rightFront = new MotorEx(hardwareMap, "frontRight");
 
-        liftL= new MotorEx(hardwareMap, "slideL");
-        liftR = new MotorEx(hardwareMap, "slideR");
-
-        clawServo = new SimpleServo(hardwareMap, "claw", 0, 120);
-
-        imu = new RevIMU(hardwareMap);
-        imu.init();
 
     }
 
     protected void setUp(){
-        rightFront.setInverted(true);
+        rightFront.setInverted(false);
         rightBack.setInverted(false);
-        leftBack.setInverted(true);
-        leftFront.setInverted(true);
-
-        liftL.setInverted(true);
-        liftR.setInverted(false);
+        leftBack.setInverted(false);
+        leftFront.setInverted(false);
 
         leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
@@ -89,10 +72,6 @@ public class BaseOpMode extends CommandOpMode {
         rightBack.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
          */
 
-        liftL.setRunMode(Motor.RunMode.RawPower);
-        liftR.setRunMode(Motor.RunMode.RawPower);
-        liftL.resetEncoder();
-        liftR.resetEncoder();
     }
 
     @Override
@@ -108,20 +87,7 @@ public class BaseOpMode extends CommandOpMode {
         tad("rightBack pos", rightBack.motor.getCurrentPosition());
         tad("rightFront pos", rightFront.motor.getCurrentPosition());
 
-        tad("liftL Power", liftL.motor.getPower());
-        tad("liftR Power", liftR.motor.getPower());
-        tad("liftL Position", liftL.getCurrentPosition());
-        tad("liftR Position", liftR.getCurrentPosition());
 
-        tad("Servo Position", clawServo.getPosition());
-
-        tad("Heading", imu.getHeading());
-
-        tad("Current Junction", lift.getCurrentJunction());
-        tad("Current Cone", lift.getCurrentCone());
-
-        tad("output", lift.getOutput());
-        tad("current target", lift.getCurrentTarget());
 
 
         telemetry.update();
