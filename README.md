@@ -12,13 +12,13 @@
 
 
 
-Our Official Code for the PowerPlay Competition  
+Our code for the Inovation Expo 
   
-![GitHub last commit](https://img.shields.io/github/last-commit/13190-2022-23/13190PowerPlay)  
+![GitHub last commit](https://img.shields.io/github/last-commit/13190bot/InnovationExpoChassis)  
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/13190-2022-23/13190PowerPlay)  
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/13190bot/InnovationExpoChassis)  
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/13190-2022-23/13190PowerPlay/gradle.yml)  
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/13190bot/InnovationExpoChassis/gradle.yml)  
 
 ## Credits
 
