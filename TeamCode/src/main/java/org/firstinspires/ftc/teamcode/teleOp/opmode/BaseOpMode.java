@@ -55,21 +55,14 @@ public class BaseOpMode extends CommandOpMode {
     @Override
     public void run() {
         super.run();
-        tad("leftBack Power", leftBack.motor.getPower());
-        tad("leftFront Power", leftFront.motor.getPower());
-        tad("rightBack Power", rightBack.motor.getPower());
-        tad("rightFront Power", rightFront.motor.getPower());
-        tad("leftBack pos", leftBack.motor.getCurrentPosition());
-        tad("leftFront pos", leftFront.motor.getCurrentPosition());
-        tad("rightBack pos", rightBack.motor.getCurrentPosition());
-        tad("rightFront pos", rightFront.motor.getCurrentPosition());
-        telemetry.update();
+
         //speed the refresh rate of a loop from 1000 to 50000
         PhotonCore.CONTROL_HUB.clearBulkCache();
         //write the loop time to the telemetry
         double loop = System.nanoTime();
         tad("Loop Time", 1000000000 / (loop - loopTime));
         loopTime = loop;
+        telemetry.update();
     }
     // gamepad button 1 = gb1
     protected GamepadButton gb1(GamepadKeys.Button button){
