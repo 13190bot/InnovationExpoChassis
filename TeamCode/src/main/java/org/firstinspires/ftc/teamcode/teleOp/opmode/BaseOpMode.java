@@ -1,24 +1,21 @@
 package org.firstinspires.ftc.teamcode.teleOp.opmode;
 
-import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.arcrobotics.ftclib.hardware.RevIMU;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.outoftheboxrobotics.photoncore.PhotonCore;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.teleOp.subsystem.*;
-import org.firstinspires.ftc.teamcode.util.Junction;
 
 public class BaseOpMode extends CommandOpMode {
 
     protected MotorEx leftBack, leftFront, rightBack, rightFront;
 
+    private double loopTime = 0;
 
     protected DriveSubsystem drive;
 
@@ -34,12 +31,13 @@ public class BaseOpMode extends CommandOpMode {
         setUp();
 
         drive = new DriveSubsystem(leftBack, leftFront, rightBack, rightFront);
-        //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addData("Mode", "Done initializing");
         telemetry.update();
+
+        PhotonCore.CONTROL_HUB.setBulkCachingMode(LynxModule.BulkCachingMode.MANUAL);
+        PhotonCore.experimental.setMaximumParallelCommands(4);
+        PhotonCore.enable();
     }
-
-
     protected void initHardware(){
         leftBack = new MotorEx(hardwareMap, "backLeft");
         leftFront = new MotorEx(hardwareMap, "frontLeft");
@@ -48,62 +46,28 @@ public class BaseOpMode extends CommandOpMode {
 
 
     }
-
     protected void setUp(){
-        rightFront.setInverted(false);
-        rightBack.setInverted(false);
-        leftBack.setInverted(false);
-        leftFront.setInverted(false);
-
         leftBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         leftFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
-
-        /*
-        rightFront.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFront.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftBack.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightBack.motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        rightFront.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFront.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftBack.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightBack.motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-         */
-
     }
-
     @Override
     public void run() {
         super.run();
-        tad("leftBack Power", leftBack.motor.getPower());
-        tad("leftFront Power", leftFront.motor.getPower());
-        tad("rightBack Power", rightBack.motor.getPower());
-        tad("rightFront Power", rightFront.motor.getPower());
 
-        tad("leftBack pos", leftBack.motor.getCurrentPosition());
-        tad("leftFront pos", leftFront.motor.getCurrentPosition());
-        tad("rightBack pos", rightBack.motor.getCurrentPosition());
-        tad("rightFront pos", rightFront.motor.getCurrentPosition());
-
-
-
-
+        //speed the refresh rate of a loop from 1000 to 50000
+        PhotonCore.CONTROL_HUB.clearBulkCache();
+        //write the loop time to the telemetry
+        double loop = System.nanoTime();
+        tad("Loop Time", 1000000000 / (loop - loopTime));
+        loopTime = loop;
         telemetry.update();
-
     }
-
     // gamepad button 1 = gb1
     protected GamepadButton gb1(GamepadKeys.Button button){
         return gamepadEx1.getGamepadButton(button);
     }
-
-    // gamepad button 2 = gb2
-    protected GamepadButton gb2(GamepadKeys.Button button){
-        return gamepadEx2.getGamepadButton(button);
-    }
-
     protected void tad(String tag, Object data){
         telemetry.addData(tag, data);
     }
